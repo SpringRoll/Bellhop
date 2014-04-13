@@ -1,0 +1,9 @@
+{
+    "name": "${docs.name}",
+    "description": "${docs.description}",
+    "version": "${version}",
+	"logo":"${docs.logo}",
+	"options" : {
+		"outdir" : "${docs.outdir}"
+	}
+}

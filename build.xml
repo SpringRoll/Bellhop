@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<project name="Bellhop" default="build-all" basedir="./">
+	<property file="${os.name}.build.properties"/>
+	<property file="build/build.properties"/>
+	
+	<macrodef name="uglifyjs">
+		<attribute name="options" default="-m" />
+		<attribute name="debug" default="false" />
+ 		<attribute name="compress" default="" />
+		<attribute name="order" default="${source.order}" />
+		<attribute name="output" />
+		<sequential>
+			<fail unless="source.dir" message="The folder that contains all the source" />
+			<fail unless="compressor" message="Path to the uglify-js program" />
+			<jshint list="@{order}" dir="${source.dir}" />
+			<echo message="+---------------------------------+" />
+			<echo message="| Building the Library JavaScript |" />
+			<echo message="+---------------------------------+" />
+			<resourcelist id="files"> 
+				<file file="@{order}" />
+				<filterchain>
+					<prefixlines prefix="${source.dir}/" /> 
+				</filterchain>
+			</resourcelist>
+		    <pathconvert property="allFiles" refid="files" pathsep=" " />
+			<exec osfamily="mac" executable="${compressor}" failonerror="true">
+				<arg line="${allFiles}" />
+				<arg line="-o @{output}" />
+				<arg line="@{options}" />
+				<arg line="-c @{compress}" />
+				<arg line="--define DEBUG=@{debug},RELEASE=!@{debug}" />
+			</exec>
+			<exec osfamily="windows" executable="cmd.exe" failonerror="true">
+				<arg line="/c" />
+				<arg line="${compressor}" />
+				<arg line="${allFiles}" />
+				<arg line="-o @{output}" />
+				<arg line="@{options}" />
+				<arg line="-c @{compress}" />
+				<arg line="--define DEBUG=@{debug},RELEASE=!@{debug}" />
+			</exec>
+			<replaceregexp file="@{output}" match="\$\{version\}" replace="${version}" flags="g" />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="jshint">
+		<attribute name="list" />
+		<attribute name="dir" />
+		<sequential>
+			<fail unless="js.validator" message="js.validator needs to be specified in the build.properties as the JSHint or similar lint app" />
+			<echo message="+--------------------------+" />
+			<echo message="| Validating the JS Source |" />
+			<echo message="+--------------------------+" />
+			<resourcelist id="files"> 
+				<file file="@{list}" />
+				<filterchain>
+					<prefixlines prefix="@{dir}/" /> 
+				</filterchain>
+			</resourcelist>
+		    <pathconvert property="allFiles" refid="files" pathsep=" " />
+			<exec osfamily="mac" executable="${js.validator}">
+	            <arg line="${allFiles}" />
+	        </exec>
+			<exec osfamily="windows" executable="cmd.exe">
+				<arg line="/c" />
+				<arg line="${js.validator}" />
+	            <arg line="${allFiles}" />
+	        </exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="build-debug" description="Compile JS project in debug mode">
+		<uglifyjs output="${output.debug}" debug="true" options="-b" order="${source.order}" />
+	</target>
+	
+	<target name="build-release" description="Compile JS project in release mode">
+		<uglifyjs output="${output.min}" order="${source.order}" />
+	</target>
+	
+	<target name="build-uncompressed" description="Compile JS project with the docs">
+		<concat-source output="${output.docs}" dir="${source.dir}" order="${source.order}" />
+		<replaceregexp file="${output.docs}" match="\( ?RELEASE ?\)" replace="(false)" flags="g" />
+		<replaceregexp file="${output.docs}" match="\( ?DEBUG ?\)" replace="(true)" flags="g" />
+	</target>
+	
+	<target name="build-all" description="Compile the Minified, Debug and Uncompressed versions of the library">
+		<antcall target="build-debug" />
+		<antcall target="build-release" />
+		<antcall target="build-uncompressed" />
+	</target>
+	
+	<macrodef name="concat-source">
+		<attribute name="output" />
+		<attribute name="dir" />
+		<attribute name="order" />
+		<sequential>
+			<concat destfile="@{output}" encoding="UTF-8" outputencoding="UTF-8" fixlastline="true">
+			     <resourcelist> 
+					<file file="@{order}" />
+					<filterchain>
+						<prefixlines prefix="@{dir}/" /> 
+					</filterchain>
+				</resourcelist>
+			</concat>
+		</sequential>
+	</macrodef>
+	
+	<target name="import-example-libs" description="Copy the files specified in dependencies.txt to examples project">
+		<fail unless="libs" message="libs needs to be specified in build.properties as the bower libs to install" />
+		<exec executable="${bower}" failonerror="true">
+			<arg line="install" />
+			<arg line="${libs}" />
+		</exec>
+	</target>
+	
+	<macrodef name="docs-config">
+		<attribute name="template" default="${docs.config}" />
+		<attribute name="file" default="temp.json" />
+		<sequential>
+			<copy file="@{template}" tofile="@{file}" overwrite="true" />
+			<replaceregexp file="@{file}" match="\$\{docs\.description\}" replace="${docs.description}" flags="g" />
+			<replaceregexp file="@{file}" match="\$\{docs\.name\}" replace="${docs.name}" flags="g" />
+			<replaceregexp file="@{file}" match="\$\{version\}" replace="${version}" flags="g" />
+			<replaceregexp file="@{file}" match="\$\{docs\.outdir\}" replace="${docs.outdir}" flags="g" />
+			<replaceregexp file="@{file}" match="\$\{docs\.logo\}" replace="${docs.logo}" flags="g" />
+		</sequential>
+	</macrodef>
+		
+	<macrodef name="docs-cleanup">
+		<attribute name="file" default="temp.json" />
+		<sequential>
+			<delete file="@{file}" />
+		</sequential>
+	</macrodef>
+	
+	<target name="docs" description="Use YUIDoc to build the documentation for this library.">
+		<docs-config />
+		<exec executable="${docs}">
+			<arg line="${source.dir}" />
+			<arg line="--config temp.json" />
+		</exec>
+		<copy toDir="${docs.outdir}" file="${build.dir}/${docs.logo}" overwrite="true" />
+		<docs-cleanup />
+	</target>
+
+	<target name="docs-server" description="Set up a server to show a real-time preview of the docs page.  Visit http://127.0.0.1:3000/ and refresh to see changes">
+		<docs-config />
+		<exec executable="${docs}">
+			<arg line="--server" />
+			<arg line="--config temp.json" />
+			<arg line="${source.dir}" />
+		</exec>
+		<docs-cleanup />
+	</target>
+
+	<target name="docs-to-git" description="Auto-sync the docs to the Git docs branch">
+		<antcall target="docs" />
+		<delete dir="../${docs.outdir}" />
+		<copy todir="../${docs.outdir}">
+			<fileset dir="${docs.outdir}"/>
+		</copy>
+		<!-- Switch the branch -->
+		<exec executable="${git}" failonerror="true">
+			<arg line="checkout" />
+			<arg line="${git.docs}" />
+		</exec>
+		<delete includeEmptyDirs="true">
+			<fileset dir="." />
+		</delete>
+		<copy todir="./" overwrite="true">
+			<fileset dir="../${docs.outdir}" includes="**/*">
+				<depth max="3" />
+			</fileset>
+		</copy>
+		<delete dir="../${docs.outdir}" />
+		<!-- Add the files -->
+		<exec executable="${git}" failonerror="true">
+			<arg line="add" />
+			<arg line="-A" />
+			<arg line="." />
+		</exec>
+		<!-- Commit the files -->
+		<exec executable="${git}" failonerror="true">
+			<arg line="commit" />
+			<arg line="-m" />
+			<arg line='"Auto updated docs"' />
+		</exec>
+		<!-- Sync the files -->
+		<exec executable="${git}" failonerror="true">
+			<arg line="push" />
+			<arg line="origin" />
+			<arg line="${git.docs}" />
+		</exec>
+		<!-- Switch the branch back -->
+		<exec executable="${git}" failonerror="true">
+			<arg line="checkout" />
+			<arg line="${git.master}" />
+		</exec>
+	</target>
+</project>

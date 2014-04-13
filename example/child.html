@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Parent Window</title>
+		<meta name="description" content="">
+		<style type="text/css">
+			body {
+				background-color:#ccc;
+			}
+		</style>
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<script src="libs/cloudkid-debug/dist/cloudkid-debug.min.js"></script>
+		<script src="libs/cloudkid-namespace/namespace.js"></script>
+		<script src="../dist/bellhop.js"></script>
+	</head>
+	<body>
+		<h1>Game</h1>
+		<script>
+			var body = $('body');
+
+			// Create the bellhop object
+			var bellhop = new Bellhop();
+
+			// Give it a name, easier for debugging purposes
+			bellhop.name = "child";
+
+			// Try to connect to the parent window, assuming we're an iframe
+            bellhop.connect();
+
+            // Not required, but a good way to see if the
+            // communication layer is current supported
+            // must call connect() before this cna be checked
+			if (!bellhop.supported)
+			{
+                body.append("No parent to connect to.");
+			}
+			else
+            {
+            	body.append('Connecting to parent...<br>');
+
+            	// Everytime the highscore event request is sent
+            	// to this page, page will respond with a value of 10000
+            	// this is a more persistent way then using send()
+            	bellhop.respond("highscore", 10000)
+
+            	// Event to check for when we've been connected
+				bellhop.on('connected', function(e){
+					body.append('Connection is ready!');
+				});
+			}
+		</script>
+	</body>
+</html>
