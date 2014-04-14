@@ -1,6 +1,6 @@
 {
     "name": "bellhop",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "main": "dist/bellhop.min.js",
     "ignore": [
         "example",
