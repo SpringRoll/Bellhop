@@ -29,25 +29,25 @@
 			bellhop.name = "child";
 
 			// Try to connect to the parent window, assuming we're an iframe
-            bellhop.connect();
+			bellhop.connect();
 
-            // Not required, but a good way to see if the
-            // communication layer is current supported
-            // must call connect() before this cna be checked
+			// Not required, but a good way to see if the
+			// communication layer is current supported
+			// must call connect() before this cna be checked
 			if (!bellhop.supported)
 			{
-                body.append("No parent to connect to.");
+				body.append("No parent to connect to.");
 			}
 			else
-            {
-            	body.append('Connecting to parent...<br>');
+			{
+				body.append('Connecting to parent...<br>');
 
-            	// Everytime the highscore event request is sent
-            	// to this page, page will respond with a value of 10000
-            	// this is a more persistent way then using send()
-            	bellhop.respond("highscore", 10000)
+				// Everytime the highscore event request is sent
+				// to this page, page will respond with a value of 10000
+				// this is a more persistent way then using send()
+				bellhop.respond("highscore", 10000)
 
-            	// Event to check for when we've been connected
+				// Event to check for when we've been connected
 				bellhop.on('connected', function(e){
 					body.append('Connection is ready!');
 				});
