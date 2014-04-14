@@ -11,12 +11,14 @@
 			}
 		</style>
 		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<script src="libs/cloudkid-debug/dist/cloudkid-debug.min.js"></script>
-		<script src="libs/cloudkid-namespace/namespace.js"></script>
 		<script src="../dist/bellhop.js"></script>
 	</head>
 	<body>
 		<h1>Game</h1>
+		<button data-event="started">Start</button>
+		<button data-event="ended">End</button>
+		<button data-event="paused">Pause</button>
+		<button data-event="resumed">Resume</button><br>
 		<script>
 			var body = $('body');
 
@@ -48,6 +50,11 @@
             	// Event to check for when we've been connected
 				bellhop.on('connected', function(e){
 					body.append('Connection is ready!');
+				});
+
+				// Send an event on button click
+				$("button").click(function(){
+					bellhop.send($(this).data('event'));
 				});
 			}
 		</script>

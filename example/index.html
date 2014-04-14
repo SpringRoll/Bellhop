@@ -6,25 +6,31 @@
 		<title>Parent Window</title>
 		<meta name="description" content="">
 		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<script src="libs/cloudkid-debug/dist/cloudkid-debug.min.js"></script>
-		<script src="libs/cloudkid-namespace/namespace.js"></script>
 		<script src="../dist/bellhop.js"></script>
 	</head>
 	<body>
 		<h1>Main Site</h1>
 		<iframe id="child" src="child.html" width="400" height="300" style="border:none;"></iframe>
+		<div id="output"></div>
 		<script>
 
 			// Create the bellhop and give it a name, for debugging purposes
 			var bellhop = new Bellhop();
 			bellhop.name = "parent";
 
+			var output = $("#output");
+
 			// Connect to the iframe by padding the dom to the connect() method
 			bellhop.connect($("#child").get(0));
 
 			// Request a highscore from the iframe and handle the response
 			bellhop.fetch('highscore', function(e){
-				Debug.log("Received highscore from iframe : " + e.data);
+				output.append("Received highscore from iframe : " + e.data + "<br>");
+			});
+
+			// Handle multiple events at once
+			bellhop.on('started ended paused resumed', function(e){
+				output.append("'"+e.type+"' event called in the iframe<br>");
 			});
 
 		</script>

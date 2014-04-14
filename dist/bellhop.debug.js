@@ -64,8 +64,8 @@
         this._listeners = {}, this._sendLater.length = 0, this.isChild = !0, global.removeEventListener("message", this.onReceive), 
         this.onReceive = null, this;
     }, p.on = function(type, callback) {
-        if ("string" != typeof type) for (var t in type) this.on(t, type[t]); else this._listeners[type] === undefined && (this._listeners[type] = []), 
-        this._listeners[type].push(callback);
+        if ("string" != typeof type) for (var t in type) this.on(t, type[t]); else for (var types = type.split(" "), i = 0, len = types.length; len > i; i++) type = types[i], 
+        this._listeners[type] === undefined && (this._listeners[type] = []), this._listeners[type].push(callback);
         return this;
     }, p.off = function(type, callback) {
         if (this._listeners[type] === undefined) return this;

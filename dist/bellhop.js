@@ -350,7 +350,8 @@
 	/**
 	*  Add an event listener to the listen to an event from either the parent or iframe
 	*  @method on
-	*  @param {String|Object} type The type of event to listen for or a map of events to callbacks
+	*  @param {String|Object} type The type of event to listen for or a map of events to callbacks.
+	*         Multiple events can be added by separating events with spaces.
 	*  @param {Function} callback The handler when an event is triggered
 	*  @return {Bellhop} Return instance of current object
 	*/
@@ -365,11 +366,18 @@
 		}
 		else
 		{
-			if (this._listeners[type] === undefined)
+			var types = type.split(" ");
+
+			for(var i = 0, len = types.length; i < len; i++)
 			{
-				this._listeners[type] = [];
+				type = types[i];
+
+				if (this._listeners[type] === undefined)
+				{
+					this._listeners[type] = [];
+				}
+				this._listeners[type].push(callback);
 			}
-			this._listeners[type].push(callback);
 		}
 		return this;
 	};

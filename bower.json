@@ -2,10 +2,6 @@
     "name": "bellhop",
     "version": "1.0.0",
     "main": "dist/bellhop.min.js",
-    "dependencies": {
-        "cloudkid-debug" : "*",
-        "cloudkid-namespace" : "*"
-    },
     "ignore": [
         "example",
         "css",
