@@ -3,7 +3,7 @@
         "name": "Bellhop API",
         "description": "Bellhop is the communication layer between the DOM and iframe",
         "version": "1.0.0",
-        "logo": "cloudkid.png"
+        "logo": ""
     },
     "files": {
         "src/Bellhop.js": {
