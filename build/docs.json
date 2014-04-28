@@ -4,6 +4,11 @@
     "version": "${version}",
 	"logo":"${docs.logo}",
 	"options" : {
+		"linkNatives": true,
+		"attributesEmit": true,
+		"selleck": true,
+		"helpers": ["${docs.helpers}"],
+		"themedir" : "${docs.themedir}",
 		"outdir" : "${docs.outdir}"
 	}
 }

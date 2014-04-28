@@ -123,6 +123,8 @@
 			<replaceregexp file="@{file}" match="\$\{version\}" replace="${version}" flags="g" />
 			<replaceregexp file="@{file}" match="\$\{docs\.outdir\}" replace="${docs.outdir}" flags="g" />
 			<replaceregexp file="@{file}" match="\$\{docs\.logo\}" replace="${docs.logo}" flags="g" />
+			<replaceregexp file="temp.json" match="\$\{docs\.helpers\}" replace="${docs.helpers}" flags="g" />
+			<replaceregexp file="temp.json" match="\$\{docs\.themedir\}" replace="${docs.themedir}" flags="g" />
 		</sequential>
 	</macrodef>
 		
@@ -139,7 +141,6 @@
 			<arg line="${source.dir}" />
 			<arg line="--config temp.json" />
 		</exec>
-		<copy toDir="${docs.outdir}" file="${build.dir}/${docs.logo}" overwrite="true" />
 		<docs-cleanup />
 	</target>
 
