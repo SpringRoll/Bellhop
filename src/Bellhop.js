@@ -158,6 +158,7 @@
 			// Ignore all other event if we don't have a context
 			if (!this.connected) return;
 
+			data = JSON.parse(data);
 			// Check for event object
 			if (typeof data !== "object")
 			{
@@ -383,7 +384,7 @@
 		}
 		else
 		{
-			this.target.postMessage(event, this.origin);
+			this.target.postMessage(JSON.stringify(event), this.origin);
 		}
 		return this;
 	};

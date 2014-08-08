@@ -19,7 +19,7 @@
         this.connected = !1, this.name = "", this.isChild = !0, this.connecting = !1, this.origin = "*", 
         this._listeners = {}, this._sendLater = [];
     }, p = Bellhop.prototype = {};
-    Bellhop.VERSION = "1.0.0", Bellhop.CONNECTED = "connected", Bellhop.FAILED = "failed", 
+    Bellhop.VERSION = "1.0.1", Bellhop.CONNECTED = "connected", Bellhop.FAILED = "failed", 
     p.receive = function(event) {
         var i, len, data = event.data;
         if (data == this.handshakeId) {
@@ -34,7 +34,7 @@
             }
         } else {
             if (!this.connected) return;
-            if ("object" != typeof data) throw "The event received must be an object";
+            if (data = JSON.parse(data), "object" != typeof data) throw "The event received must be an object";
             if (!data.type) throw "The event received must contain a type";
             this.trigger(data);
         }
@@ -80,7 +80,7 @@
             type: event
         }, data !== undefined && (event.data = data), this.connecting) this._sendLater.push(event); else {
             if (!this.connected) return this;
-            this.target.postMessage(event, this.origin);
+            this.target.postMessage(JSON.stringify(event), this.origin);
         }
         return this;
     }, p.fetch = function(event, callback, data, runOnce) {
