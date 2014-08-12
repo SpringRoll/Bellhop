@@ -10,13 +10,13 @@
 	</head>
 	<body>
 		<h1>Main Site</h1>
-		<iframe id="child" src="child.html" width="400" height="300" style="border:none;"></iframe>
+		<iframe id="child" src="child.html" width="400" height="300" style="border:none;" frameborder="0"></iframe>
 		<div id="output"></div>
 		<script>
 
 			// Create the bellhop and give it a name, for debugging purposes
 			var bellhop = new Bellhop();
-			bellhop.name = "parent";
+			bellhop.name = "[parent]";
 
 			var output = $("#output");
 
@@ -26,7 +26,7 @@
 			// Request a highscore from the iframe and handle the response
 			bellhop.fetch('highscore', function(e){
 				output.append("Received highscore from iframe : " + e.data + "<br>");
-			});
+			});		
 
 			// Handle multiple events at once
 			bellhop.on('started ended paused resumed', function(e){

@@ -87,6 +87,14 @@
 		*  @private
 		*/
 		this._sendLater = [];
+
+		/**
+		*  Do we have something to connect to, should be called after
+		*  attempting to `connect()`
+		*  @property {Boolean} supported
+		*  @readOnly
+		*/
+		this.supported = null;
 	};
 
 	// Reference to the prototype
@@ -126,6 +134,7 @@
 		var data = event.data;
 		var i, len;
 
+		// This is the initial connection event
 		if (data == this.handshakeId)
 		{
 			this.connecting = false;
@@ -224,46 +233,56 @@
 
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
-
-		this.target = isChild ? global.top : (iframe.contentWindow || iframe);
+		var target = this.target = isChild ? global.top : (iframe.contentWindow || iframe);
+		this.supported = isChild ? (!!target && global != target) : !!target;
 		this.origin = origin === undefined ? "*" : origin;
 
-		// Bound receive function to destroy later
-		this.onReceive = this.receive.bind(this);
-
-		// Listen for incoming messages
-		global.addEventListener("message", this.onReceive);
-
-		// The child iframe should initiate the communication
-		// to the parent object, the parent will then respond
-		if (isChild)
+		var connecting = function()
 		{
-			if (window != this.target)
+			this.origin = origin === undefined ? "*" : origin;
+
+			// Bound receive function to destroy later
+			this.onReceive = this.receive.bind(this);
+
+			// Listen for incoming messages
+			if (global.attachEvent)
 			{
-				this.target.postMessage(this.handshakeId, this.origin);
+				global.attachEvent("onmessage", this.onReceive);
 			}
 			else
 			{
-				//this.trigger(Bellhop.FAILED);
-				this.connecting = false;
-				this.connected = false;
+				global.addEventListener("message", this.onReceive);
 			}
+
+			// The child iframe should initiate the communication
+			// to the parent object, the parent will then respond
+			if (isChild)
+			{
+				if (window != this.target)
+				{
+					this.target.postMessage(this.handshakeId, this.origin);
+				}
+				else
+				{
+					//this.trigger(Bellhop.FAILED);
+					this.connecting = false;
+					this.connected = false;
+				}
+			}
+		};
+
+		// If the target isn't finished loading wait until it's done
+		if (target.document.readyState !== "complete")
+		{
+			target.onload = connecting.bind(this);
 		}
+		else
+		{
+			connecting.bind(this)();
+		}
+		
 		return this;
 	};
-
-	/**
-	*  Do we have something to connect to?
-	*  @property {Boolean} supported
-	*  @readOnly
-	*/
-	Object.defineProperty(p, "supported", {
-		get : function()
-		{
-			var target = this.target;
-			return this.isChild ? (!!target && window != target) : !!target;
-		}
-	});
 
 	/**
 	*  Disconnect if there are any open connections
@@ -279,7 +298,15 @@
 		this._sendLater.length = 0;
 		this.isChild = true;
 
-		global.removeEventListener("message", this.onReceive);
+		if (global.detachEvent)
+		{
+			global.detachEvent("onmessage", this.onReceive);
+		}
+		else
+		{
+			global.removeEventListener("message", this.onReceive);
+		}
+		
 		this.onReceive = null;
 
 		return this;
@@ -402,8 +429,14 @@
 	*/
 	p.fetch = function(event, callback, data, runOnce)
 	{
-		runOnce = runOnce === undefined ? false : runOnce;
 		var self = this;
+
+		if (!this.connecting && !this.connected)
+		{
+			throw "No connection, please call connect() first";
+		}
+		
+		runOnce = runOnce === undefined ? false : runOnce;
 		var internalCallback = function(e)
 		{
 			if (runOnce) self.off(e.type, internalCallback);

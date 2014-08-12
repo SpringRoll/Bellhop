@@ -26,7 +26,7 @@
 			var bellhop = new Bellhop();
 
 			// Give it a name, easier for debugging purposes
-			bellhop.name = "child";
+			bellhop.name = "[child]";
 
 			// Try to connect to the parent window, assuming we're an iframe
 			bellhop.connect();
@@ -45,7 +45,7 @@
 				// Everytime the highscore event request is sent
 				// to this page, page will respond with a value of 10000
 				// this is a more persistent way then using send()
-				bellhop.respond("highscore", 10000)
+				bellhop.respond("highscore", 10000);
 
 				// Event to check for when we've been connected
 				bellhop.on('connected', function(e){

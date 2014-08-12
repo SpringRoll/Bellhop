@@ -81,6 +81,7 @@
 		<concat-source output="${output.docs}" dir="${source.dir}" order="${source.order}" />
 		<replaceregexp file="${output.docs}" match="\( ?RELEASE ?\)" replace="(false)" flags="g" />
 		<replaceregexp file="${output.docs}" match="\( ?DEBUG ?\)" replace="(true)" flags="g" />
+		<replaceregexp file="${output.docs}" match="\$\{version\}" replace="${version}" flags="g" />
 	</target>
 	
 	<target name="build-all" description="Compile the Minified, Debug and Uncompressed versions of the library">

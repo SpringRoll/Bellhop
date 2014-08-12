@@ -17,9 +17,9 @@
     var Bellhop = function(handshakeId) {
         this.handshakeId = handshakeId || "Bellhop", this.onReceive = null, this.target = null, 
         this.connected = !1, this.name = "", this.isChild = !0, this.connecting = !1, this.origin = "*", 
-        this._listeners = {}, this._sendLater = [];
+        this._listeners = {}, this._sendLater = [], this.supported = null;
     }, p = Bellhop.prototype = {};
-    Bellhop.VERSION = "1.0.1", Bellhop.CONNECTED = "connected", Bellhop.FAILED = "failed", 
+    Bellhop.VERSION = "1.0.2", Bellhop.CONNECTED = "connected", Bellhop.FAILED = "failed", 
     p.receive = function(event) {
         var i, len, data = event.data;
         if (data == this.handshakeId) {
@@ -49,19 +49,19 @@
     }, p.connect = function(iframe, origin) {
         if (this.connecting) return this;
         this.connecting = !0;
-        var isChild = this.isChild = iframe === undefined;
-        return this.target = isChild ? global.top : iframe.contentWindow || iframe, this.origin = origin === undefined ? "*" : origin, 
-        this.onReceive = this.receive.bind(this), global.addEventListener("message", this.onReceive), 
-        isChild && (window != this.target ? this.target.postMessage(this.handshakeId, this.origin) : (this.connecting = !1, 
-        this.connected = !1)), this;
-    }, Object.defineProperty(p, "supported", {
-        get: function() {
-            var target = this.target;
-            return this.isChild ? !!target && window != target : !!target;
-        }
-    }), p.disconnect = function() {
+        var isChild = this.isChild = iframe === undefined, target = this.target = isChild ? global.top : iframe.contentWindow || iframe;
+        this.supported = isChild ? !!target && global != target : !!target, this.origin = origin === undefined ? "*" : origin;
+        var connecting = function() {
+            this.origin = origin === undefined ? "*" : origin, this.onReceive = this.receive.bind(this), 
+            global.attachEvent ? global.attachEvent("onmessage", this.onReceive) : global.addEventListener("message", this.onReceive), 
+            isChild && (window != this.target ? this.target.postMessage(this.handshakeId, this.origin) : (this.connecting = !1, 
+            this.connected = !1));
+        };
+        return "complete" !== target.document.readyState ? target.onload = connecting.bind(this) : connecting.bind(this)(), 
+        this;
+    }, p.disconnect = function() {
         return this.connected = !1, this.connecting = !1, this.origin = null, this.target = null, 
-        this._listeners = {}, this._sendLater.length = 0, this.isChild = !0, global.removeEventListener("message", this.onReceive), 
+        this._listeners = {}, this._sendLater.length = 0, this.isChild = !0, global.detachEvent ? global.detachEvent("onmessage", this.onReceive) : global.removeEventListener("message", this.onReceive), 
         this.onReceive = null, this;
     }, p.on = function(type, callback) {
         if ("string" != typeof type) for (var t in type) this.on(t, type[t]); else for (var types = type.split(" "), i = 0, len = types.length; len > i; i++) type = types[i], 
@@ -84,8 +84,10 @@
         }
         return this;
     }, p.fetch = function(event, callback, data, runOnce) {
+        var self = this;
+        if (!this.connecting && !this.connected) throw "No connection, please call connect() first";
         runOnce = runOnce === undefined ? !1 : runOnce;
-        var self = this, internalCallback = function(e) {
+        var internalCallback = function(e) {
             runOnce && self.off(e.type, internalCallback), callback(e);
         };
         return this.on(event, internalCallback), this.send(event, data), this;
