@@ -50,15 +50,15 @@
         if (this.connecting) return this;
         this.connecting = !0;
         var isChild = this.isChild = iframe === undefined, target = this.target = isChild ? global.top : iframe.contentWindow || iframe;
-        this.supported = isChild ? !!target && global != target : !!target, this.origin = origin === undefined ? "*" : origin;
-        var connecting = function() {
-            this.origin = origin === undefined ? "*" : origin, this.onReceive = this.receive.bind(this), 
-            global.attachEvent ? global.attachEvent("onmessage", this.onReceive) : global.addEventListener("message", this.onReceive), 
-            isChild && (window != this.target ? this.target.postMessage(this.handshakeId, this.origin) : (this.connecting = !1, 
-            this.connected = !1));
-        };
-        return "complete" !== target.document.readyState ? target.onload = connecting.bind(this) : connecting.bind(this)(), 
-        this;
+        if (this.supported = isChild ? !!target && global != target : !!target, this.origin = origin === undefined ? "*" : origin, 
+        this.onReceive = this.receive.bind(this), global.attachEvent ? global.attachEvent("onmessage", this.onReceive) : global.addEventListener("message", this.onReceive), 
+        isChild) if (window === target) this.connecting = !1, this.connected = !1; else {
+            var self = this;
+            global.onload = function() {
+                target.postMessage(self.handshakeId, self.origin);
+            };
+        }
+        return this;
     }, p.disconnect = function() {
         return this.connected = !1, this.connecting = !1, this.origin = null, this.target = null, 
         this._listeners = {}, this._sendLater.length = 0, this.isChild = !0, global.detachEvent ? global.detachEvent("onmessage", this.onReceive) : global.removeEventListener("message", this.onReceive), 
