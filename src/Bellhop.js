@@ -237,50 +237,39 @@
 		this.supported = isChild ? (!!target && global != target) : !!target;
 		this.origin = origin === undefined ? "*" : origin;
 
-		var connecting = function()
+		// Bound receive function to destroy later
+		this.onReceive = this.receive.bind(this);
+
+		// Listen for incoming messages
+		if (global.attachEvent)
 		{
-			this.origin = origin === undefined ? "*" : origin;
-
-			// Bound receive function to destroy later
-			this.onReceive = this.receive.bind(this);
-
-			// Listen for incoming messages
-			if (global.attachEvent)
-			{
-				global.attachEvent("onmessage", this.onReceive);
-			}
-			else
-			{
-				global.addEventListener("message", this.onReceive);
-			}
-
-			// The child iframe should initiate the communication
-			// to the parent object, the parent will then respond
-			if (isChild)
-			{
-				if (window != this.target)
-				{
-					this.target.postMessage(this.handshakeId, this.origin);
-				}
-				else
-				{
-					//this.trigger(Bellhop.FAILED);
-					this.connecting = false;
-					this.connected = false;
-				}
-			}
-		};
-
-		// If the target isn't finished loading wait until it's done
-		if (target.document.readyState !== "complete")
-		{
-			target.onload = connecting.bind(this);
+			global.attachEvent("onmessage", this.onReceive);
 		}
 		else
 		{
-			connecting.bind(this)();
+			global.addEventListener("message", this.onReceive);
 		}
-		
+
+		if (isChild)
+		{
+			// No parent, can't connect
+			if (window === target)
+			{
+				//this.trigger(Bellhop.FAILED);
+				this.connecting = false;
+				this.connected = false;	
+			}
+			else
+			{
+				// Wait until the window is finished loading
+				// then send the handshake to the parent
+				var self = this;
+				global.onload = function()
+				{
+					target.postMessage(self.handshakeId, self.origin);	
+				};
+			}
+		}
 		return this;
 	};
 
