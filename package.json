@@ -1,0 +1,12 @@
+{
+	"private": true,
+	"version": "1.0.4",
+	"dependencies": {
+		"grunt": "~0.4.5",
+		"grunt-bower-install-simple": "^1.0.3",
+		"library-grunt": "*"
+	},
+	"scripts": {
+		"test": "grunt test --verbose"
+	}
+}

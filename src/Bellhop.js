@@ -101,14 +101,6 @@
 	var p = Bellhop.prototype = {};
 
 	/**
-	*  The current version of the library
-	*  @property {String} VERSION
-	*  @final
-	*  @readOnly
-	*/
-	Bellhop.VERSION = "${version}";
-
-	/**
 	*  Fired when the connection has been established "connected"
 	*  @property {String} CONNECTED
 	*  @final

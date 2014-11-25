@@ -10,7 +10,7 @@
 				background-color:#ccc;
 			}
 		</style>
-		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<script src="../components/jquery/dist/jquery.js"></script>
 		<script src="../dist/bellhop.js"></script>
 	</head>
 	<body>
@@ -33,7 +33,7 @@
 
 			// Not required, but a good way to see if the
 			// communication layer is current supported
-			// must call connect() before this cna be checked
+			// must call connect() before this can be checked
 			if (!bellhop.supported)
 			{
 				body.append("No parent to connect to.");

@@ -1,0 +1,11 @@
+{
+	"name": "Bellhop",
+	"version": "1.0.4",
+	"description": "Javascript event-based communication layer between DOM and iframe.",
+	"url": "https://github.com/CloudKidStudio/Bellhop",
+	"output": "bellhop",
+	"main": [
+		"src/bind.js",
+		"src/Bellhop.js"
+	]
+}

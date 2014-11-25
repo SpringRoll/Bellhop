@@ -1,13 +1,16 @@
 {
-    "name": "bellhop",
-    "version": "1.0.3",
-    "main": "dist/bellhop.min.js",
-    "ignore": [
-        "example",
-        "src",
-        "build.xml",
-        "build",
-        ".gitignore",
-        ".gitattributes"
-    ]
+	"name": "Bellhop",
+	"version": "1.0.4",
+	"main": "dist/bellhop.min.js",
+	"devDependencies": {
+		"jquery": "~1"
+	},
+	"ignore": [
+		"example",
+		"src",
+		"build.xml",
+		"build",
+		".gitignore",
+		".gitattributes"
+	]
 }

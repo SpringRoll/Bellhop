@@ -1,3 +1,4 @@
+/*! Bellhop 1.0.4 */
 /**
 *  @module global 
 */
@@ -162,14 +163,6 @@
 
 	// Reference to the prototype
 	var p = Bellhop.prototype = {};
-
-	/**
-	*  The current version of the library
-	*  @property {String} VERSION
-	*  @final
-	*  @readOnly
-	*/
-	Bellhop.VERSION = "1.0.2";
 
 	/**
 	*  Fired when the connection has been established "connected"
