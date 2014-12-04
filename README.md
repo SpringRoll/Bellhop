@@ -1,4 +1,4 @@
-# Bellhop [![Build Status](https://travis-ci.org/CloudKidStudio/Bellhop.svg?branch=master)](https://travis-ci.org/CloudKidStudio/Bellhop) [![Dependency Status](https://david-dm.org/CloudKidStudio/Bellhop.svg)](https://david-dm.org/CloudKidStudio/Bellhop)
+# Bellhop [![Build Status](https://travis-ci.org/CloudKidStudio/Bellhop.svg?branch=master)](https://travis-ci.org/CloudKidStudio/Bellhop) [![Dependency Status](https://david-dm.org/CloudKidStudio/Bellhop.svg)](https://david-dm.org/CloudKidStudio/Bellhop) [![Bower version](https://badge.fury.io/bo/bellhop.svg)](http://badge.fury.io/bo/bellhop)
 
 Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. The minified version of the library is less than 4K. Super easy to use and setup. 
 
