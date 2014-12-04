@@ -1,9 +1,9 @@
 {
     "project": {
-        "name": "Bellhop API",
-        "description": "Bellhop is the communication layer between the DOM and iframe",
-        "version": "1.0.0",
-        "logo": ""
+        "name": "Bellhop",
+        "description": "Javascript event-based communication layer between DOM and iframe.",
+        "version": "1.0.4",
+        "url": "https://github.com/CloudKidStudio/Bellhop"
     },
     "files": {
         "src/Bellhop.js": {
@@ -220,12 +220,11 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 95,
-            "description": "The current version of the library",
+            "line": 91,
+            "description": "Do we have something to connect to, should be called after\nattempting to `connect()`",
             "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "final": 1,
+            "name": "supported",
+            "type": "Boolean",
             "readonly": "",
             "class": "Bellhop"
         },
@@ -263,7 +262,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 176,
+            "line": 178,
             "description": "Trigger any event handlers for an event type",
             "itemtype": "method",
             "name": "trigger",
@@ -280,7 +279,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 198,
+            "line": 200,
             "description": "And override for the toString built-in method",
             "itemtype": "method",
             "name": "toString",
@@ -292,7 +291,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 208,
+            "line": 210,
             "description": "Setup the connection",
             "itemtype": "method",
             "name": "connect",
@@ -319,17 +318,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 254,
-            "description": "Do we have something to connect to?",
-            "itemtype": "property",
-            "name": "supported",
-            "type": "Boolean",
-            "readonly": "",
-            "class": "Bellhop"
-        },
-        {
-            "file": "src/Bellhop.js",
-            "line": 267,
+            "line": 268,
             "description": "Disconnect if there are any open connections",
             "itemtype": "method",
             "name": "disconnect",
@@ -337,7 +326,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 287,
+            "line": 296,
             "description": "Add an event listener to the listen to an event from either the parent or iframe",
             "itemtype": "method",
             "name": "on",
@@ -361,7 +350,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 322,
+            "line": 331,
             "description": "Remove an event listener",
             "itemtype": "method",
             "name": "off",
@@ -386,7 +375,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 356,
+            "line": 365,
             "description": "Send an event to the connected instance",
             "itemtype": "method",
             "name": "send",
@@ -411,7 +400,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 391,
+            "line": 400,
             "description": "A convenience method for sending and the listening to create \na singular link to fetching data. This is the same calling send\nand then getting a response right away with the same event.",
             "itemtype": "method",
             "name": "fetch",
@@ -448,7 +437,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 416,
+            "line": 431,
             "description": "A convience method for listening to an event and then responding with some data\nright away. Automatically removes the listener",
             "itemtype": "method",
             "name": "respond",
@@ -479,7 +468,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 438,
+            "line": 453,
             "description": "Destroy and don't user after this",
             "itemtype": "method",
             "name": "destroy",
