@@ -50,7 +50,7 @@ Here's a very simple example to get started. We have two pages `index.html` and 
 	var bellhop = new Bellhop();
 	bellhop.connect();
 
-	if (bellhop.supported)
+	if (!bellhop.supported)
 	{
 		// Cannot connect to parent page probably
 		// because we aren't within an iframe
