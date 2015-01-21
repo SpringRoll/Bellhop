@@ -1,3 +1,5 @@
+.grunt
 docs
 components
 node_modules
+*.log
