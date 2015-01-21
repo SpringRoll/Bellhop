@@ -1,17 +1,9 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Bellhop",
-        "Function.prototype.bind"
+        "Bellhop"
     ],
-    "modules": [
-        "global"
-    ],
-    "allModules": [
-        {
-            "displayName": "global",
-            "name": "global"
-        }
-    ]
+    "modules": [],
+    "allModules": []
 } };
 });

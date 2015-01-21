@@ -2,7 +2,7 @@
     "project": {
         "name": "Bellhop",
         "description": "Javascript event-based communication layer between DOM and iframe.",
-        "version": "1.0.4",
+        "version": "1.1.0",
         "url": "https://github.com/CloudKidStudio/Bellhop"
     },
     "files": {
@@ -14,34 +14,9 @@
             },
             "fors": {},
             "namespaces": {}
-        },
-        "src/bind.js": {
-            "name": "src/bind.js",
-            "modules": {
-                "global": 1
-            },
-            "classes": {
-                "Function.prototype.bind": 1
-            },
-            "fors": {},
-            "namespaces": {}
         }
     },
-    "modules": {
-        "global": {
-            "name": "global",
-            "submodules": {},
-            "classes": {
-                "Bellhop": 1,
-                "Function.prototype.bind": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/bind.js",
-            "line": 11
-        }
-    },
+    "modules": {},
     "classes": {
         "Bellhop": {
             "name": "Bellhop",
@@ -51,70 +26,15 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "global",
             "file": "src/Bellhop.js",
-            "line": 5,
-            "description": "Abstract the communication layer between the iframe\nand the parent DOM",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "handshakeId",
-                    "description": "The Unique String dispatched to establish\n       if we actually can use the frame, the parent DOM should send a message\n       with the same exact string",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"Bellhop\""
-                }
-            ]
-        },
-        "Function.prototype.bind": {
-            "name": "Function.prototype.bind",
-            "shortname": "Function.prototype.bind",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "global",
-            "namespace": "",
-            "file": "src/bind.js",
-            "line": 11,
-            "description": "Designed to provide utility related to functions, the\nmost important of which is the Bind function, used to properly scope callbacks.\nAdd the bind functionality to the Function prototype\nthis allows passing a reference in the function callback\n\n\tcallback.bind(this)\n\tcallback.bind(this, arg1)",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "that",
-                    "description": "The reference to the function.",
-                    "type": "Object"
-                },
-                {
-                    "name": "args*",
-                    "description": "Additional arguments",
-                    "type": "Mixed",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "The new function binding.",
-                "type": "Function"
-            }
+            "line": 3,
+            "description": "Abstract the communication layer between the iframe\nand the parent DOM"
         }
     },
     "classitems": [
         {
             "file": "src/Bellhop.js",
-            "line": 16,
-            "description": "To establish an initial connection, the handshake id",
-            "itemtype": "property",
-            "name": "handshakeId",
-            "type": "String",
-            "access": "private",
-            "tagname": "",
-            "default": "\"Bellhop\"",
-            "class": "Bellhop"
-        },
-        {
-            "file": "src/Bellhop.js",
-            "line": 24,
+            "line": 10,
             "description": "Bound handler for the window message event",
             "itemtype": "property",
             "name": "onReceive",
@@ -125,7 +45,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 31,
+            "line": 17,
             "description": "The target where to send messages",
             "itemtype": "property",
             "name": "target",
@@ -136,7 +56,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 38,
+            "line": 24,
             "description": "If we are connected to another instance of the bellhop",
             "itemtype": "property",
             "name": "connected",
@@ -149,7 +69,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 47,
+            "line": 33,
             "description": "The name of this Bellhop instance, useful for debugging purposes",
             "params": [
                 {
@@ -162,7 +82,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 53,
+            "line": 39,
             "description": "If this instance represents an iframe instance",
             "itemtype": "property",
             "name": "isChild",
@@ -174,7 +94,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 61,
+            "line": 47,
             "description": "If we are current trying to connec",
             "itemtype": "property",
             "name": "connecting",
@@ -186,7 +106,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 69,
+            "line": 55,
             "description": "If using cross-domain, the domain to post to",
             "itemtype": "property",
             "name": "origin",
@@ -198,7 +118,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 77,
+            "line": 63,
             "description": "The collection of event listeners",
             "itemtype": "property",
             "name": "_listeners",
@@ -209,7 +129,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 84,
+            "line": 70,
             "description": "Save any sends to wait until after we're done",
             "itemtype": "property",
             "name": "_sendLater",
@@ -220,7 +140,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 91,
+            "line": 77,
             "description": "Do we have something to connect to, should be called after\nattempting to `connect()`",
             "itemtype": "property",
             "name": "supported",
@@ -230,29 +150,23 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 103,
-            "description": "Fired when the connection has been established \"connected\"",
-            "itemtype": "property",
-            "name": "CONNECTED",
-            "type": "String",
-            "final": 1,
-            "readonly": "",
+            "line": 89,
+            "description": "The connection has been established successfully",
+            "itemtype": "event",
+            "name": "connected",
             "class": "Bellhop"
         },
         {
             "file": "src/Bellhop.js",
-            "line": 111,
+            "line": 94,
             "description": "Connection could not be established",
-            "itemtype": "property",
-            "name": "FAILED",
-            "type": "String",
-            "final": 1,
-            "readonly": "",
+            "itemtype": "event",
+            "name": "failed",
             "class": "Bellhop"
         },
         {
             "file": "src/Bellhop.js",
-            "line": 119,
+            "line": 99,
             "description": "Handle messages in the window",
             "itemtype": "method",
             "name": "receive",
@@ -262,7 +176,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 178,
+            "line": 168,
             "description": "Trigger any event handlers for an event type",
             "itemtype": "method",
             "name": "trigger",
@@ -279,7 +193,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 200,
+            "line": 190,
             "description": "And override for the toString built-in method",
             "itemtype": "method",
             "name": "toString",
@@ -291,7 +205,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 210,
+            "line": 200,
             "description": "Setup the connection",
             "itemtype": "method",
             "name": "connect",
@@ -318,7 +232,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 268,
+            "line": 254,
             "description": "Disconnect if there are any open connections",
             "itemtype": "method",
             "name": "disconnect",
@@ -326,7 +240,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 296,
+            "line": 280,
             "description": "Add an event listener to the listen to an event from either the parent or iframe",
             "itemtype": "method",
             "name": "on",
@@ -350,7 +264,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 331,
+            "line": 315,
             "description": "Remove an event listener",
             "itemtype": "method",
             "name": "off",
@@ -375,7 +289,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 365,
+            "line": 349,
             "description": "Send an event to the connected instance",
             "itemtype": "method",
             "name": "send",
@@ -400,7 +314,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 400,
+            "line": 384,
             "description": "A convenience method for sending and the listening to create \na singular link to fetching data. This is the same calling send\nand then getting a response right away with the same event.",
             "itemtype": "method",
             "name": "fetch",
@@ -437,7 +351,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 431,
+            "line": 415,
             "description": "A convience method for listening to an event and then responding with some data\nright away. Automatically removes the listener",
             "itemtype": "method",
             "name": "respond",
@@ -468,7 +382,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 453,
+            "line": 437,
             "description": "Destroy and don't user after this",
             "itemtype": "method",
             "name": "destroy",
@@ -478,7 +392,7 @@
     "warnings": [
         {
             "message": "Missing item type\nThe name of this Bellhop instance, useful for debugging purposes",
-            "line": " src/Bellhop.js:47"
+            "line": " src/Bellhop.js:33"
         }
     ]
 }

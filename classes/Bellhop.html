@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Bellhop v1.0.4 API Documentation : Bellhop</title>  
+	<title>Bellhop v1.1.0 API Documentation : Bellhop</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -20,7 +20,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.4</em>
+            <em>API Documentation for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,13 +42,9 @@
             
                 <li><a href="../classes/Bellhop.html">Bellhop</a></li>
             
-                <li><a href="../classes/Function.prototype.bind.html">Function.prototype.bind</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/global.html">global</a></li>
             
             </ul>
         </div>
@@ -91,14 +87,10 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_Bellhop.js.html#l5"><code>Bellhop:5</code></a>
+            Defined in: <a href="../files/src_Bellhop.js.html#l3"><code>Bellhop:3</code></a>
         </div>
     
 
-    
-        
-            Module: <a href="../modules/global.html">global</a>
-        
     
 
     
@@ -113,100 +105,6 @@ and the parent DOM</p>
 </div>
 
 
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Bellhop" class="method item">
-    <h3 class="name"><code>Bellhop</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code class="optional">[handshakeId=&quot;Bellhop&quot;]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_Bellhop.js.html#l5"><code>Bellhop:5</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[handshakeId=&quot;Bellhop&quot;]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The Unique String dispatched to establish
-       if we actually can use the frame, the parent DOM should send a message
-       with the same exact string</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-    </div>
-
 
 <div id="classdocs" class="tabview">
     <ul class="api-class-tabs">
@@ -219,6 +117,8 @@ and the parent DOM</p>
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
+        
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
         
     </ul>
 
@@ -333,13 +233,6 @@ and the parent DOM</p>
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_CONNECTED">CONNECTED</a>
-
-                                
-                                
-                            </li>
-                        
                             <li class="index-item property private">
                                 <a href="#property_connected">connected</a>
 
@@ -349,20 +242,6 @@ and the parent DOM</p>
                         
                             <li class="index-item property private">
                                 <a href="#property_connecting">connecting</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_FAILED">FAILED</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property_handshakeId">handshakeId</a>
 
                                 
                                 
@@ -409,6 +288,28 @@ and the parent DOM</p>
 
             
 
+            
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_connected">connected</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_failed">failed</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
             
         </div>
 
@@ -469,7 +370,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l210"><code>connect:210</code></a>
+        <a href="../files/src_Bellhop.js.html#l200"><code>connect:200</code></a>
         
         </p>
 
@@ -581,7 +482,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l453"><code>destroy:453</code></a>
+        <a href="../files/src_Bellhop.js.html#l437"><code>destroy:437</code></a>
         
         </p>
 
@@ -636,7 +537,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l268"><code>disconnect:268</code></a>
+        <a href="../files/src_Bellhop.js.html#l254"><code>disconnect:254</code></a>
         
         </p>
 
@@ -723,7 +624,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l400"><code>fetch:400</code></a>
+        <a href="../files/src_Bellhop.js.html#l384"><code>fetch:384</code></a>
         
         </p>
 
@@ -888,7 +789,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l331"><code>off:331</code></a>
+        <a href="../files/src_Bellhop.js.html#l315"><code>off:315</code></a>
         
         </p>
 
@@ -1019,7 +920,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l296"><code>on:296</code></a>
+        <a href="../files/src_Bellhop.js.html#l280"><code>on:280</code></a>
         
         </p>
 
@@ -1131,7 +1032,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l119"><code>receive:119</code></a>
+        <a href="../files/src_Bellhop.js.html#l99"><code>receive:99</code></a>
         
         </p>
 
@@ -1212,7 +1113,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l431"><code>respond:431</code></a>
+        <a href="../files/src_Bellhop.js.html#l415"><code>respond:415</code></a>
         
         </p>
 
@@ -1359,7 +1260,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l365"><code>send:365</code></a>
+        <a href="../files/src_Bellhop.js.html#l349"><code>send:349</code></a>
         
         </p>
 
@@ -1473,7 +1374,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l200"><code>toString:200</code></a>
+        <a href="../files/src_Bellhop.js.html#l190"><code>toString:190</code></a>
         
         </p>
 
@@ -1554,7 +1455,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l178"><code>trigger:178</code></a>
+        <a href="../files/src_Bellhop.js.html#l168"><code>trigger:168</code></a>
         
         </p>
 
@@ -1634,7 +1535,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l77"><code>_listeners:77</code></a>
+        <a href="../files/src_Bellhop.js.html#l63"><code>_listeners:63</code></a>
         
         </p>
 
@@ -1681,7 +1582,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l84"><code>_sendLater:84</code></a>
+        <a href="../files/src_Bellhop.js.html#l70"><code>_sendLater:70</code></a>
         
         </p>
 
@@ -1692,53 +1593,6 @@ right away. Automatically removes the listener</p>
 
     <div class="description">
         <p>Save any sends to wait until after we&#39;re done</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_CONNECTED" class="property item">
-    <h3 class="name"><code>CONNECTED</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-        <span class="flag final">final</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_Bellhop.js.html#l103"><code>CONNECTED:103</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Fired when the connection has been established "connected"</p>
 
     </div>
 
@@ -1775,7 +1629,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l38"><code>connected:38</code></a>
+        <a href="../files/src_Bellhop.js.html#l24"><code>connected:24</code></a>
         
         </p>
 
@@ -1824,7 +1678,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l61"><code>connecting:61</code></a>
+        <a href="../files/src_Bellhop.js.html#l47"><code>connecting:47</code></a>
         
         </p>
 
@@ -1840,102 +1694,6 @@ right away. Automatically removes the listener</p>
 
     
         <p><strong>Default:</strong> false</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_FAILED" class="property item">
-    <h3 class="name"><code>FAILED</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-        <span class="flag final">final</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_Bellhop.js.html#l111"><code>FAILED:111</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Connection could not be established</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_handshakeId" class="property item private">
-    <h3 class="name"><code>handshakeId</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_Bellhop.js.html#l16"><code>handshakeId:16</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>To establish an initial connection, the handshake id</p>
-
-    </div>
-
-    
-        <p><strong>Default:</strong> &quot;Bellhop&quot;</p>
     
 
     
@@ -1969,7 +1727,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l53"><code>isChild:53</code></a>
+        <a href="../files/src_Bellhop.js.html#l39"><code>isChild:39</code></a>
         
         </p>
 
@@ -2018,7 +1776,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l24"><code>onReceive:24</code></a>
+        <a href="../files/src_Bellhop.js.html#l10"><code>onReceive:10</code></a>
         
         </p>
 
@@ -2065,7 +1823,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l69"><code>origin:69</code></a>
+        <a href="../files/src_Bellhop.js.html#l55"><code>origin:55</code></a>
         
         </p>
 
@@ -2112,7 +1870,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l91"><code>supported:91</code></a>
+        <a href="../files/src_Bellhop.js.html#l77"><code>supported:77</code></a>
         
         </p>
 
@@ -2160,7 +1918,7 @@ attempting to <code>connect()</code></p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l31"><code>target:31</code></a>
+        <a href="../files/src_Bellhop.js.html#l17"><code>target:17</code></a>
         
         </p>
 
@@ -2187,6 +1945,100 @@ attempting to <code>connect()</code></p>
 
         
 
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_connected" class="events item">
+    <h3 class="name"><code>connected</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Bellhop.js.html#l89"><code>connected:89</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The connection has been established successfully</p>
+
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_failed" class="events item">
+    <h3 class="name"><code>failed</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Bellhop.js.html#l94"><code>failed:94</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Connection could not be established</p>
+
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+            </div>
         
     </div>
 </div>

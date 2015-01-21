@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Bellhop v1.0.4 API Documentation : src/Bellhop.js</title>  
+	<title>Bellhop v1.1.0 API Documentation : src/Bellhop.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -20,7 +20,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.0.4</em>
+            <em>API Documentation for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,13 +42,9 @@
             
                 <li><a href="../classes/Bellhop.html">Bellhop</a></li>
             
-                <li><a href="../classes/Function.prototype.bind.html">Function.prototype.bind</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/global.html">global</a></li>
             
             </ul>
         </div>
@@ -90,35 +86,21 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-(function(global, undefined){
-	
-	&quot;use strict&quot;;
+(function(window, undefined){
 
 	/**
 	*  Abstract the communication layer between the iframe
 	*  and the parent DOM
 	*  @class Bellhop
-	*  @constructor
-	*  @param {String} [handshakeId=&quot;Bellhop&quot;] The Unique String dispatched to establish
-	*         if we actually can use the frame, the parent DOM should send a message
-	*         with the same exact string
 	*/
-	var Bellhop = function(handshakeId)
+	var Bellhop = function()
 	{
-		/**
-		*  To establish an initial connection, the handshake id
-		*  @property {String} handshakeId
-		*  @private
-		*  @default &quot;Bellhop&quot;
-		*/
-		this.handshakeId = handshakeId || &quot;Bellhop&quot;;
-
 		/**
 		*  Bound handler for the window message event
 		*  @property {Function} onReceive
 		*  @private
 		*/
-		this.onReceive = null;
+		this.onReceive = this.receive.bind(this);
 
 		/**
 		*  The target where to send messages
@@ -193,20 +175,14 @@
 	var p = Bellhop.prototype = {};
 
 	/**
-	*  Fired when the connection has been established &quot;connected&quot;
-	*  @property {String} CONNECTED
-	*  @final
-	*  @readOnly 
+	*  The connection has been established successfully
+	*  @event connected
 	*/
-	Bellhop.CONNECTED = &quot;connected&quot;;
 
 	/**
 	*  Connection could not be established
-	*  @property {String} FAILED
-	*  @final
-	*  @readOnly 
+	*  @event failed
 	*/
-	Bellhop.FAILED = &quot;failed&quot;;
 
 	/**
 	*  Handle messages in the window
@@ -215,16 +191,22 @@
 	*/
 	p.receive = function(event)
 	{
+		// Ignore events that don&#x27;t originate from the target
+		// we&#x27;re connected to
+		if (event.source !== this.target)
+		{
+			return;
+		}
+
 		var data = event.data;
-		var i, len;
 
 		// This is the initial connection event
-		if (data == this.handshakeId)
+		if (data === &#x27;connected&#x27;)
 		{
 			this.connecting = false;
 			this.connected = true;
 
-			this.trigger(Bellhop.CONNECTED);
+			this.trigger(&#x27;connected&#x27;);
 
 			// Be polite and respond to the child that we&#x27;re ready
 			if (!this.isChild)
@@ -232,7 +214,7 @@
 				this.target.postMessage(data, this.origin);
 			}
 
-			len = this._sendLater.length;
+			var i, len = this._sendLater.length;
 
 			// If we have any sends waiting to send
 			// we are now connected and it should be okay 
@@ -251,19 +233,23 @@
 			// Ignore all other event if we don&#x27;t have a context
 			if (!this.connected) return;
 
-			data = JSON.parse(data);
-			// Check for event object
-			if (typeof data !== &quot;object&quot;)
+			try 
 			{
-				throw &quot;The event received must be an object&quot;;
+				data = JSON.parse(data);
+			}
+			catch(err)
+			{
+				// If we can&#x27;t parse the JSON
+				// just ignore it, this should
+				// only be an object
+				return;
 			}
 
-			// Check for type
-			if (!data.type)
+			// Only valid objects with a type and matching channel id
+			if (typeof data === &quot;object&quot; &amp;&amp; data.type)
 			{
-				throw &quot;The event received must contain a type&quot;;
-			}
-			this.trigger(data);
+				this.trigger(data);
+			}			
 		}
 	};
 
@@ -312,26 +298,26 @@
 		// Ignore if we&#x27;re already trying to connect
 		if (this.connecting) return this;
 
+		// Disconnect from any existing connection
+		this.disconnect();
+
 		// We are trying to connect
 		this.connecting = true;
 
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
-		var target = this.target = isChild ? global.top : (iframe.contentWindow || iframe);
-		this.supported = isChild ? (!!target &amp;&amp; global != target) : !!target;
+		var target = this.target = isChild ? window.top : (iframe.contentWindow || iframe);
+		this.supported = isChild ? (!!target &amp;&amp; window != target) : !!target;
 		this.origin = origin === undefined ? &quot;*&quot; : origin;
 
-		// Bound receive function to destroy later
-		this.onReceive = this.receive.bind(this);
-
 		// Listen for incoming messages
-		if (global.attachEvent)
+		if (window.attachEvent)
 		{
-			global.attachEvent(&quot;onmessage&quot;, this.onReceive);
+			window.attachEvent(&quot;onmessage&quot;, this.onReceive);
 		}
 		else
 		{
-			global.addEventListener(&quot;message&quot;, this.onReceive);
+			window.addEventListener(&quot;message&quot;, this.onReceive);
 		}
 
 		if (isChild)
@@ -339,19 +325,15 @@
 			// No parent, can&#x27;t connect
 			if (window === target)
 			{
-				//this.trigger(Bellhop.FAILED);
-				this.connecting = false;
-				this.connected = false;	
+				this.trigger(&#x27;failed&#x27;);
 			}
 			else
 			{
 				// Wait until the window is finished loading
 				// then send the handshake to the parent
-				var self = this;
-				global.onload = function()
-				{
-					target.postMessage(self.handshakeId, self.origin);	
-				};
+				window.onload = function(){
+					target.postMessage(&#x27;connected&#x27;, this.origin);
+				}.bind(this);
 			}
 		}
 		return this;
@@ -371,16 +353,14 @@
 		this._sendLater.length = 0;
 		this.isChild = true;
 
-		if (global.detachEvent)
+		if (window.detachEvent)
 		{
-			global.detachEvent(&quot;onmessage&quot;, this.onReceive);
+			window.detachEvent(&quot;onmessage&quot;, this.onReceive);
 		}
 		else
 		{
-			global.removeEventListener(&quot;message&quot;, this.onReceive);
+			window.removeEventListener(&quot;message&quot;, this.onReceive);
 		}
-		
-		this.onReceive = null;
 
 		return this;
 	};
@@ -467,7 +447,7 @@
 		{
 			throw &quot;The event type must be a string&quot;;
 		}
-		event = {type:event};
+		event = { type: event };
 
 		// Add the additional data, if needed
 		if (data !== undefined)
@@ -554,7 +534,7 @@
 	};
 
 	// Assign to the global namespace
-	global.Bellhop = Bellhop;
+	window.Bellhop = Bellhop;
 
 }(window));
 
