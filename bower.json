@@ -2,14 +2,20 @@
 	"name": "Bellhop",
 	"version": "1.0.4",
 	"main": "dist/bellhop.min.js",
+	"dependencies": {
+		"bind-polyfill": "*"
+	},
 	"devDependencies": {
-		"jquery": "~1"
+		"jquery": "*"
 	},
 	"ignore": [
-		"example",
 		"src",
-		"build.xml",
-		"build",
+		"example",
+		"package.json",
+		"tasks",
+		"Gruntfile.js",
+		".travis.yml",
+		"library.json",
 		".gitignore",
 		".gitattributes"
 	]

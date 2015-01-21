@@ -1,68 +1,5 @@
 /*! Bellhop 1.0.4 */
-/**
-*  @module global 
-*/
-(function(){
-	
-	"use strict";
-	
-	// If there's already a bind, ignore
-	if (Function.prototype.bind) return;
-	
-	/**
-	*  Designed to provide utility related to functions, the
-	*  most important of which is the Bind function, used to properly scope callbacks.
-	*  Add the bind functionality to the Function prototype
-	*  this allows passing a reference in the function callback
-	*  
-	*	callback.bind(this)
-	*	callback.bind(this, arg1)
-	*  
-	*  @class Function.prototype.bind
-	*  @constructor
-	*  @param {Object} that The reference to the function.
-	*  @param {mixed} [args*] Additional arguments
-	*  @return {Function} The new function binding.
-	*/
-	Function.prototype.bind = function(that) 
-	{
-		var target = this, 
-			args,
-			bound;
-
-		if (typeof target != "function") 
-		{
-			throw new TypeError();
-		}
-
-		args = Array.prototype.slice.call(arguments, 1);
-		bound = function()
-		{
-			if (this instanceof bound) 
-			{
-				var F, self, result;
-				F = function(){};
-				F.prototype = target.prototype;
-				self = new F();
-
-				result = target.apply(self, args.concat(Array.prototype.slice.call(arguments)));
-				
-				if (Object(result) === result)
-				{
-					return result;
-				}
-				return self;
-			}
-			else 
-			{
-				return target.apply(that, args.concat(Array.prototype.slice.call(arguments)));
-			}
-		};
-		return bound;
-	};
-	
-}());
-(function(global, undefined){
+(function(window, undefined){
 	
 	"use strict";
 
@@ -90,7 +27,7 @@
 		*  @property {Function} onReceive
 		*  @private
 		*/
-		this.onReceive = null;
+		this.onReceive = this.receive.bind(this);
 
 		/**
 		*  The target where to send messages
@@ -165,20 +102,14 @@
 	var p = Bellhop.prototype = {};
 
 	/**
-	*  Fired when the connection has been established "connected"
-	*  @property {String} CONNECTED
-	*  @final
-	*  @readOnly 
+	*  The connection has been established successfully
+	*  @event connected
 	*/
-	Bellhop.CONNECTED = "connected";
 
 	/**
 	*  Connection could not be established
-	*  @property {String} FAILED
-	*  @final
-	*  @readOnly 
+	*  @event failed
 	*/
-	Bellhop.FAILED = "failed";
 
 	/**
 	*  Handle messages in the window
@@ -188,7 +119,6 @@
 	p.receive = function(event)
 	{
 		var data = event.data;
-		var i, len;
 
 		// This is the initial connection event
 		if (data == this.handshakeId)
@@ -196,7 +126,7 @@
 			this.connecting = false;
 			this.connected = true;
 
-			this.trigger(Bellhop.CONNECTED);
+			this.trigger('connected');
 
 			// Be polite and respond to the child that we're ready
 			if (!this.isChild)
@@ -204,7 +134,7 @@
 				this.target.postMessage(data, this.origin);
 			}
 
-			len = this._sendLater.length;
+			var i, len = this._sendLater.length;
 
 			// If we have any sends waiting to send
 			// we are now connected and it should be okay 
@@ -223,19 +153,24 @@
 			// Ignore all other event if we don't have a context
 			if (!this.connected) return;
 
-			data = JSON.parse(data);
-			// Check for event object
-			if (typeof data !== "object")
+			try 
 			{
-				throw "The event received must be an object";
+				data = JSON.parse(data);
+			}
+			catch(err)
+			{
+				// If we can't parse the JSON
+				// just ignore it, this should
+				// only be an object
+				return;
 			}
 
-			// Check for type
-			if (!data.type)
+			// Only valid objects with a type and matching channel id
+			if (typeof data === "object" && data.type && 
+				data.channel == this.handshakeId)
 			{
-				throw "The event received must contain a type";
-			}
-			this.trigger(data);
+				this.trigger(data);
+			}			
 		}
 	};
 
@@ -289,21 +224,18 @@
 
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
-		var target = this.target = isChild ? global.top : (iframe.contentWindow || iframe);
-		this.supported = isChild ? (!!target && global != target) : !!target;
+		var target = this.target = isChild ? window.top : (iframe.contentWindow || iframe);
+		this.supported = isChild ? (!!target && window != target) : !!target;
 		this.origin = origin === undefined ? "*" : origin;
 
-		// Bound receive function to destroy later
-		this.onReceive = this.receive.bind(this);
-
 		// Listen for incoming messages
-		if (global.attachEvent)
+		if (window.attachEvent)
 		{
-			global.attachEvent("onmessage", this.onReceive);
+			window.attachEvent("onmessage", this.onReceive);
 		}
 		else
 		{
-			global.addEventListener("message", this.onReceive);
+			window.addEventListener("message", this.onReceive);
 		}
 
 		if (isChild)
@@ -311,19 +243,20 @@
 			// No parent, can't connect
 			if (window === target)
 			{
-				//this.trigger(Bellhop.FAILED);
-				this.connecting = false;
-				this.connected = false;	
+				this.trigger('failed');
+				this.disconnect();
 			}
 			else
 			{
 				// Wait until the window is finished loading
 				// then send the handshake to the parent
-				var self = this;
-				global.onload = function()
+				window.onload = function()
 				{
-					target.postMessage(self.handshakeId, self.origin);	
-				};
+					target.postMessage(
+						this.handshakeId,
+						this.origin
+					);
+				}.bind(this);
 			}
 		}
 		return this;
@@ -343,16 +276,14 @@
 		this._sendLater.length = 0;
 		this.isChild = true;
 
-		if (global.detachEvent)
+		if (window.detachEvent)
 		{
-			global.detachEvent("onmessage", this.onReceive);
+			window.detachEvent("onmessage", this.onReceive);
 		}
 		else
 		{
-			global.removeEventListener("message", this.onReceive);
+			window.removeEventListener("message", this.onReceive);
 		}
-		
-		this.onReceive = null;
 
 		return this;
 	};
@@ -439,7 +370,10 @@
 		{
 			throw "The event type must be a string";
 		}
-		event = {type:event};
+		event = {
+			type: event,
+			channel: this.handshakeId
+		};
 
 		// Add the additional data, if needed
 		if (data !== undefined)
@@ -526,6 +460,6 @@
 	};
 
 	// Assign to the global namespace
-	global.Bellhop = Bellhop;
+	window.Bellhop = Bellhop;
 
 }(window));

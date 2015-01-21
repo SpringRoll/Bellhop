@@ -1,6 +1,6 @@
 # Bellhop [![Build Status](https://travis-ci.org/SpringRoll/Bellhop.svg?branch=master)](https://travis-ci.org/SpringRoll/Bellhop) [![Dependency Status](https://david-dm.org/SpringRoll/Bellhop.svg?style=flat)](https://david-dm.org/SpringRoll/Bellhop) [![Bower version](https://badge.fury.io/bo/bellhop.svg)](http://badge.fury.io/bo/bellhop)
 
-Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. The minified version of the library is less than 4K. Super easy to use and setup. 
+Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. The minified version of the library is less than 3K. Super easy to use and setup. 
 
 ## Installation
 
@@ -70,6 +70,10 @@ Here's a very simple example to get started. We have two pages `index.html` and 
 
 </script>
 ```
+
+##Dependencies
+
+Bellhop has one optional dependency which is a polyfill for `Function.prototype.bind`. The bind method is available in the following browsers: IE 9+, Safari 5.1.4+, Opera 11.60+, Firefox 4.0+, Chrome 7+.
 
 ##Documentation##
 
