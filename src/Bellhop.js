@@ -1,26 +1,12 @@
 (function(window, undefined){
-	
-	"use strict";
 
 	/**
 	*  Abstract the communication layer between the iframe
 	*  and the parent DOM
 	*  @class Bellhop
-	*  @constructor
-	*  @param {String} [handshakeId="Bellhop"] The Unique String dispatched to establish
-	*         if we actually can use the frame, the parent DOM should send a message
-	*         with the same exact string
 	*/
-	var Bellhop = function(handshakeId)
+	var Bellhop = function()
 	{
-		/**
-		*  To establish an initial connection, the handshake id
-		*  @property {String} handshakeId
-		*  @private
-		*  @default "Bellhop"
-		*/
-		this.handshakeId = handshakeId || "Bellhop";
-
 		/**
 		*  Bound handler for the window message event
 		*  @property {Function} onReceive
@@ -117,10 +103,17 @@
 	*/
 	p.receive = function(event)
 	{
+		// Ignore events that don't originate from the target
+		// we're connected to
+		if (event.source !== this.target)
+		{
+			return;
+		}
+
 		var data = event.data;
 
 		// This is the initial connection event
-		if (data == this.handshakeId)
+		if (data === 'connected')
 		{
 			this.connecting = false;
 			this.connected = true;
@@ -165,8 +158,7 @@
 			}
 
 			// Only valid objects with a type and matching channel id
-			if (typeof data === "object" && data.type && 
-				data.channel == this.handshakeId)
+			if (typeof data === "object" && data.type)
 			{
 				this.trigger(data);
 			}			
@@ -218,6 +210,9 @@
 		// Ignore if we're already trying to connect
 		if (this.connecting) return this;
 
+		// Disconnect from any existing connection
+		this.disconnect();
+
 		// We are trying to connect
 		this.connecting = true;
 
@@ -243,18 +238,13 @@
 			if (window === target)
 			{
 				this.trigger('failed');
-				this.disconnect();
 			}
 			else
 			{
 				// Wait until the window is finished loading
 				// then send the handshake to the parent
-				window.onload = function()
-				{
-					target.postMessage(
-						this.handshakeId,
-						this.origin
-					);
+				window.onload = function(){
+					target.postMessage('connected', this.origin);
 				}.bind(this);
 			}
 		}
@@ -369,10 +359,7 @@
 		{
 			throw "The event type must be a string";
 		}
-		event = {
-			type: event,
-			channel: this.handshakeId
-		};
+		event = { type: event };
 
 		// Add the additional data, if needed
 		if (data !== undefined)
