@@ -1,0 +1,398 @@
+{
+    "project": {
+        "name": "Bellhop",
+        "description": "Javascript event-based communication layer between DOM and iframe.",
+        "version": "1.1.0",
+        "url": "https://github.com/CloudKidStudio/Bellhop"
+    },
+    "files": {
+        "src/Bellhop.js": {
+            "name": "src/Bellhop.js",
+            "modules": {},
+            "classes": {
+                "Bellhop": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Bellhop": {
+            "name": "Bellhop",
+            "shortname": "Bellhop",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Bellhop.js",
+            "line": 3,
+            "description": "Abstract the communication layer between the iframe\nand the parent DOM"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/Bellhop.js",
+            "line": 10,
+            "description": "Bound handler for the window message event",
+            "itemtype": "property",
+            "name": "onReceive",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 17,
+            "description": "The target where to send messages",
+            "itemtype": "property",
+            "name": "target",
+            "type": "DOM",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 24,
+            "description": "If we are connected to another instance of the bellhop",
+            "itemtype": "property",
+            "name": "connected",
+            "type": "Boolean",
+            "readonly": "",
+            "default": "false",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 33,
+            "description": "The name of this Bellhop instance, useful for debugging purposes",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 39,
+            "description": "If this instance represents an iframe instance",
+            "itemtype": "property",
+            "name": "isChild",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "default": "true",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 47,
+            "description": "If we are current trying to connec",
+            "itemtype": "property",
+            "name": "connecting",
+            "type": "Boolean",
+            "default": "false",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 55,
+            "description": "If using cross-domain, the domain to post to",
+            "itemtype": "property",
+            "name": "origin",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "default": "\"*\"",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 63,
+            "description": "The collection of event listeners",
+            "itemtype": "property",
+            "name": "_listeners",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 70,
+            "description": "Save any sends to wait until after we're done",
+            "itemtype": "property",
+            "name": "_sendLater",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 77,
+            "description": "Do we have something to connect to, should be called after\nattempting to `connect()`",
+            "itemtype": "property",
+            "name": "supported",
+            "type": "Boolean",
+            "readonly": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 89,
+            "description": "The connection has been established successfully",
+            "itemtype": "event",
+            "name": "connected",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 94,
+            "description": "Connection could not be established",
+            "itemtype": "event",
+            "name": "failed",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 99,
+            "description": "Handle messages in the window",
+            "itemtype": "method",
+            "name": "receive",
+            "access": "private",
+            "tagname": "",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 168,
+            "description": "Trigger any event handlers for an event type",
+            "itemtype": "method",
+            "name": "trigger",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event to send",
+                    "type": "Object"
+                }
+            ],
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 190,
+            "description": "And override for the toString built-in method",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "Representation of this instance",
+                "type": "String"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 200,
+            "description": "Setup the connection",
+            "itemtype": "method",
+            "name": "connect",
+            "params": [
+                {
+                    "name": "iframe",
+                    "description": "The iframe to communicate with. If no value is set, the assumption\n       is that we're the child trying to communcate with our window.top parent",
+                    "type": "DOM",
+                    "optional": true
+                },
+                {
+                    "name": "origin",
+                    "description": "The domain to communicate with if different from the current.",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\"*\""
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 254,
+            "description": "Disconnect if there are any open connections",
+            "itemtype": "method",
+            "name": "disconnect",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 280,
+            "description": "Add an event listener to the listen to an event from either the parent or iframe",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The type of event to listen for or a map of events to callbacks.\n       Multiple events can be added by separating events with spaces.",
+                    "type": "String|Object"
+                },
+                {
+                    "name": "callback",
+                    "description": "The handler when an event is triggered",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 315,
+            "description": "Remove an event listener",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The type of event to listen for",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The optional handler when an event is triggered, if no callback\n       is set then all listeners by type are removed",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 349,
+            "description": "Send an event to the connected instance",
+            "itemtype": "method",
+            "name": "send",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event type to send to the parent",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "Additional data to send along with event",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 384,
+            "description": "A convenience method for sending and the listening to create \na singular link to fetching data. This is the same calling send\nand then getting a response right away with the same event.",
+            "itemtype": "method",
+            "name": "fetch",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The name of the event",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback to call after, takes event object as one argument",
+                    "type": "Function"
+                },
+                {
+                    "name": "data",
+                    "description": "Optional data to pass along",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "runOnce",
+                    "description": "If we only want to fetch once and then remove the listener",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 415,
+            "description": "A convience method for listening to an event and then responding with some data\nright away. Automatically removes the listener",
+            "itemtype": "method",
+            "name": "respond",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The name of the event",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "The object to pass back",
+                    "type": "Object"
+                },
+                {
+                    "name": "runOnce",
+                    "description": "If we only want to respond once and then remove the listener",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "Return instance of current object",
+                "type": "Bellhop"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 437,
+            "description": "Destroy and don't user after this",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "Bellhop"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nThe name of this Bellhop instance, useful for debugging purposes",
+            "line": " src/Bellhop.js:33"
+        }
+    ]
+}
