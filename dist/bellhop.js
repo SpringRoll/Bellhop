@@ -148,7 +148,7 @@
 
 			try 
 			{
-				data = JSON.parse(data);
+				data = JSON.parse(data, Bellhop.reviver);
 			}
 			catch(err)
 			{
@@ -444,6 +444,39 @@
 		this.disconnect();
 		this._listeners = null;
 		this._sendLater = null;
+	};
+
+	/**
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (`__classname`).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON.parse()</a>
+	 * @method  reviver
+	 * @static
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	Bellhop.reviver = function(key, value)
+	{
+		if(value && typeof value.__classname == "string")
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
 	};
 
 	// Assign to the global namespace
