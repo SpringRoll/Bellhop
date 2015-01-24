@@ -459,9 +459,9 @@
 	 */
 	Bellhop.reviver = function(key, value)
 	{
-		if(value && typeof value.__classname == "string")
+		if (value && typeof value.__classname == "string")
 		{
-			var _class = include(value.__classname, false);
+			var _class = include(value.__classname);
 			if(_class)
 			{
 				var rtn = new _class();
@@ -476,6 +476,26 @@
 		}
 		//return the object we were passed in
 		return value;
+	};
+
+	/**
+	 * Simple return function
+	 * @method include
+	 * @private
+	 * @param {string} classname Qualified class name as a string.
+	 *        for example "cloudkid.MyClass" would return a reference
+	 *        to the function window.cloudkid.MyClass.
+	 */
+	var include = function(classname)
+	{
+		var parts = classname.split('.');
+		var parent = window;
+		while(parts.length)
+		{
+			parent = parent[parts.shift()];
+			if (!parent) return;
+		}
+		return parent;
 	};
 
 	// Assign to the global namespace
