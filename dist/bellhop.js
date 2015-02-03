@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.0 */
+/*! Bellhop 1.1.2 */
 (function(window, undefined){
 
 	/**
@@ -418,7 +418,8 @@
 	*  right away. Automatically removes the listener
 	*  @method respond
 	*  @param {String} event The name of the event
-	*  @param {Object} data The object to pass back
+	*  @param {Object} data The object to pass back. 
+	*  	May also be a function; the return value will be sent as data in this case.
 	*  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
 	*  @return {Bellhop} Return instance of current object
 	*/
@@ -429,7 +430,7 @@
 		var internalCallback = function(e)
 		{
 			if (runOnce) self.off(e.type, internalCallback);
-			self.send(event, data);
+			self.send(event, typeof data == "function" ? data() : data);
 		};
 		this.on(event, internalCallback);
 		return this;
