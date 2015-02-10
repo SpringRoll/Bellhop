@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.2 */
+/*! Bellhop 1.1.3 */
 (function(window, undefined){
 
 	/**
