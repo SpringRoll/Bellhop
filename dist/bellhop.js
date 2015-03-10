@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.3 */
+/*! Bellhop 1.1.4 */
 (function(window, undefined){
 
 	/**
@@ -332,13 +332,19 @@
 	/**
 	*  Remove an event listener
 	*  @method off
-	*  @param {String} type The type of event to listen for
+	*  @param {String} type The type of event to listen for. If undefined, remove all listeners.
 	*  @param {Function} [callback] The optional handler when an event is triggered, if no callback
 	*         is set then all listeners by type are removed
 	*  @return {Bellhop} Return instance of current object
 	*/
 	p.off = function(type, callback)
 	{
+		if (type === undefined)
+		{
+			//remove all listeners
+			this._listeners = {};
+			return this;
+		}
 		if (this._listeners[type] === undefined)
 		{
 			return this;
