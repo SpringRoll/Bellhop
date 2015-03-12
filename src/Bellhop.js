@@ -241,11 +241,20 @@
 			}
 			else
 			{
-				// Wait until the window is finished loading
-				// then send the handshake to the parent
-				window.onload = function(){
+				// If connect is called after the window is ready
+				// we can go ahead and send the connect message
+				if (window.document.readyState === "complete")
+				{
 					target.postMessage('connected', this.origin);
-				}.bind(this);
+				}
+				else
+				{
+					// Or wait until the window is finished loading
+					// then send the handshake to the parent
+					window.onload = function(){
+						target.postMessage('connected', this.origin);
+					}.bind(this);
+				}
 			}
 		}
 		return this;
