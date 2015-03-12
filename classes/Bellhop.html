@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Bellhop v1.1.0 API Documentation : Bellhop</title>  
+	<title>Bellhop v1.1.5 API Documentation : Bellhop</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -20,7 +20,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.1.0</em>
+            <em>API Documentation for: 1.1.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -160,6 +160,13 @@ and the parent DOM</p>
                                 
                             </li>
                         
+                            <li class="index-item method private">
+                                <a href="#method_include">include</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
                                 <a href="#method_off">off</a>
 
@@ -184,6 +191,15 @@ and the parent DOM</p>
                             <li class="index-item method">
                                 <a href="#method_respond">respond</a>
 
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_reviver">reviver</a>
+
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -482,7 +498,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l437"><code>destroy:437</code></a>
+        <a href="../files/src_Bellhop.js.html#l469"><code>destroy:469</code></a>
         
         </p>
 
@@ -537,7 +553,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l254"><code>disconnect:254</code></a>
+        <a href="../files/src_Bellhop.js.html#l263"><code>disconnect:263</code></a>
         
         </p>
 
@@ -624,7 +640,7 @@ and the parent DOM</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l384"><code>fetch:384</code></a>
+        <a href="../files/src_Bellhop.js.html#l415"><code>fetch:415</code></a>
         
         </p>
 
@@ -737,6 +753,99 @@ and then getting a response right away with the same event.</p>
 </div>
 
                 
+                    <div id="method_include" class="method item private">
+    <h3 class="name"><code>include</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>classname</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Bellhop.js.html#l513"><code>include:513</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Simple return function</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">classname</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Qualified class name as a string.
+       for example "cloudkid.MyClass" would return a reference
+       to the function window.cloudkid.MyClass.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_off" class="method item">
     <h3 class="name"><code>off</code></h3>
 
@@ -789,7 +898,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l315"><code>off:315</code></a>
+        <a href="../files/src_Bellhop.js.html#l340"><code>off:340</code></a>
         
         </p>
 
@@ -819,7 +928,7 @@ and then getting a response right away with the same event.</p>
                     
 
                     <div class="param-description">
-                        <p>The type of event to listen for</p>
+                        <p>The type of event to listen for. If undefined, remove all listeners.</p>
 
                     </div>
 
@@ -887,6 +996,12 @@ and then getting a response right away with the same event.</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code class="optional">[priority=0]</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -920,7 +1035,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l280"><code>on:280</code></a>
+        <a href="../files/src_Bellhop.js.html#l289"><code>on:289</code></a>
         
         </p>
 
@@ -968,6 +1083,23 @@ and then getting a response right away with the same event.</p>
 
                     <div class="param-description">
                         <p>The handler when an event is triggered</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[priority=0]</code>
+                        <span class="type">Int</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The priority of the event listener. Higher numbers are handled first.</p>
 
                     </div>
 
@@ -1113,7 +1245,7 @@ and then getting a response right away with the same event.</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l415"><code>respond:415</code></a>
+        <a href="../files/src_Bellhop.js.html#l446"><code>respond:446</code></a>
         
         </p>
 
@@ -1160,7 +1292,8 @@ right away. Automatically removes the listener</p>
                     
 
                     <div class="param-description">
-                        <p>The object to pass back</p>
+                        <p>The object to pass back. 
+    May also be a function; the return value will be sent as data in this case.</p>
 
                     </div>
 
@@ -1198,6 +1331,141 @@ right away. Automatically removes the listener</p>
                         <span class="type"><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>:
                     
                     <p>Return instance of current object</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_reviver" class="method item">
+    <h3 class="name"><code>reviver</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>key</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Bellhop.js.html#l480"><code>reviver:480</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>When restoring from JSON via <code>JSON.parse</code>, we may pass a reviver function.
+In our case, this will check if the object has a specially-named property (<code>__classname</code>).
+If it does, we will attempt to construct a new instance of that class, rather than using a
+plain old Object. Note that this recurses through the object.
+See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON.parse()</a></p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">key</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>each key name</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Object that we wish to restore</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    
+                    <p>The object that was parsed - either cast to a class, or not</p>
 
                 
             </div>
@@ -1260,7 +1528,7 @@ right away. Automatically removes the listener</p>
             
         
         
-        <a href="../files/src_Bellhop.js.html#l349"><code>send:349</code></a>
+        <a href="../files/src_Bellhop.js.html#l380"><code>send:380</code></a>
         
         </p>
 

@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Bellhop v1.1.0 API Documentation : src/Bellhop.js</title>  
+	<title>Bellhop v1.1.5 API Documentation : src/Bellhop.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -20,7 +20,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 1.1.0</em>
+            <em>API Documentation for: 1.1.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -235,7 +235,7 @@
 
 			try 
 			{
-				data = JSON.parse(data);
+				data = JSON.parse(data, Bellhop.reviver);
 			}
 			catch(err)
 			{
@@ -268,7 +268,7 @@
 		var listeners = this._listeners[event.type];
 		if (listeners !== undefined)
 		{
-			for(var i = 0, len = listeners.length; i &lt; len; i++)
+			for(var i = listeners.length - 1; i &gt;= 0; i--)
 			{
 				listeners[i](event);
 			}
@@ -329,11 +329,20 @@
 			}
 			else
 			{
-				// Wait until the window is finished loading
-				// then send the handshake to the parent
-				window.onload = function(){
+				// If connect is called after the window is ready
+				// we can go ahead and send the connect message
+				if (window.document.readyState === &quot;complete&quot;)
+				{
 					target.postMessage(&#x27;connected&#x27;, this.origin);
-				}.bind(this);
+				}
+				else
+				{
+					// Or wait until the window is finished loading
+					// then send the handshake to the parent
+					window.onload = function(){
+						target.postMessage(&#x27;connected&#x27;, this.origin);
+					}.bind(this);
+				}
 			}
 		}
 		return this;
@@ -371,45 +380,67 @@
 	*  @param {String|Object} type The type of event to listen for or a map of events to callbacks.
 	*         Multiple events can be added by separating events with spaces.
 	*  @param {Function} callback The handler when an event is triggered
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
 	*  @return {Bellhop} Return instance of current object
 	*/
-	p.on = function(type, callback)
+	p.on = function(type, callback, priority)
 	{
 		if (typeof type !== &quot;string&quot;)
 		{
 			for(var t in type)
 			{
-				this.on(t, type[t]);
+				this.on(t, type[t], priority);
 			}
 		}
 		else
 		{
 			var types = type.split(&quot; &quot;);
-
+			var listener;
 			for(var i = 0, len = types.length; i &lt; len; i++)
 			{
 				type = types[i];
 
-				if (this._listeners[type] === undefined)
+				listener = this._listeners[types];
+				if(!listener)
+					listener = this._listeners[types] = [];
+
+				callback._priority = parseInt(priority) || 0;
+
+				if (listener.indexOf(callback) === -1)
 				{
-					this._listeners[type] = [];
+					listener.push(callback);
+					if(listener.length &gt; 1)
+						listener.sort(listenerSorter);
 				}
-				this._listeners[type].push(callback);
 			}
 		}
 		return this;
 	};
 
 	/**
+	*  Sorts listeners added by .on() by priority
+	*/
+	function listenerSorter(a, b)
+	{
+		return a._priority - b._priority;
+	}
+
+	/**
 	*  Remove an event listener
 	*  @method off
-	*  @param {String} type The type of event to listen for
+	*  @param {String} type The type of event to listen for. If undefined, remove all listeners.
 	*  @param {Function} [callback] The optional handler when an event is triggered, if no callback
 	*         is set then all listeners by type are removed
 	*  @return {Bellhop} Return instance of current object
 	*/
 	p.off = function(type, callback)
 	{
+		if (type === undefined)
+		{
+			//remove all listeners
+			this._listeners = {};
+			return this;
+		}
 		if (this._listeners[type] === undefined)
 		{
 			return this;
@@ -505,7 +536,8 @@
 	*  right away. Automatically removes the listener
 	*  @method respond
 	*  @param {String} event The name of the event
-	*  @param {Object} data The object to pass back
+	*  @param {Object} data The object to pass back. 
+	*  	May also be a function; the return value will be sent as data in this case.
 	*  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
 	*  @return {Bellhop} Return instance of current object
 	*/
@@ -516,7 +548,7 @@
 		var internalCallback = function(e)
 		{
 			if (runOnce) self.off(e.type, internalCallback);
-			self.send(event, data);
+			self.send(event, typeof data == &quot;function&quot; ? data() : data);
 		};
 		this.on(event, internalCallback);
 		return this;
@@ -531,6 +563,59 @@
 		this.disconnect();
 		this._listeners = null;
 		this._sendLater = null;
+	};
+
+	/**
+	 * When restoring from JSON via &#x60;JSON.parse&#x60;, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (&#x60;__classname&#x60;).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * See &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse&quot;&gt;JSON.parse()&lt;/a&gt;
+	 * @method  reviver
+	 * @static
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	Bellhop.reviver = function(key, value)
+	{
+		if (value &amp;&amp; typeof value.__classname == &quot;string&quot;)
+		{
+			var _class = include(value.__classname);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
+	};
+
+	/**
+	 * Simple return function
+	 * @method include
+	 * @private
+	 * @param {string} classname Qualified class name as a string.
+	 *        for example &quot;cloudkid.MyClass&quot; would return a reference
+	 *        to the function window.cloudkid.MyClass.
+	 */
+	var include = function(classname)
+	{
+		var parts = classname.split(&#x27;.&#x27;);
+		var parent = window;
+		while(parts.length)
+		{
+			parent = parent[parts.shift()];
+			if (!parent) return;
+		}
+		return parent;
 	};
 
 	// Assign to the global namespace

@@ -2,7 +2,7 @@
     "project": {
         "name": "Bellhop",
         "description": "Javascript event-based communication layer between DOM and iframe.",
-        "version": "1.1.0",
+        "version": "1.1.5",
         "url": "https://github.com/CloudKidStudio/Bellhop"
     },
     "files": {
@@ -232,7 +232,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 254,
+            "line": 263,
             "description": "Disconnect if there are any open connections",
             "itemtype": "method",
             "name": "disconnect",
@@ -240,7 +240,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 280,
+            "line": 289,
             "description": "Add an event listener to the listen to an event from either the parent or iframe",
             "itemtype": "method",
             "name": "on",
@@ -254,6 +254,13 @@
                     "name": "callback",
                     "description": "The handler when an event is triggered",
                     "type": "Function"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the event listener. Higher numbers are handled first.",
+                    "type": "Int",
+                    "optional": true,
+                    "optdefault": "0"
                 }
             ],
             "return": {
@@ -264,14 +271,20 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 315,
+            "line": 332,
+            "description": "Sorts listeners added by .on() by priority",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 340,
             "description": "Remove an event listener",
             "itemtype": "method",
             "name": "off",
             "params": [
                 {
                     "name": "type",
-                    "description": "The type of event to listen for",
+                    "description": "The type of event to listen for. If undefined, remove all listeners.",
                     "type": "String"
                 },
                 {
@@ -289,7 +302,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 349,
+            "line": 380,
             "description": "Send an event to the connected instance",
             "itemtype": "method",
             "name": "send",
@@ -314,7 +327,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 384,
+            "line": 415,
             "description": "A convenience method for sending and the listening to create \na singular link to fetching data. This is the same calling send\nand then getting a response right away with the same event.",
             "itemtype": "method",
             "name": "fetch",
@@ -351,7 +364,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 415,
+            "line": 446,
             "description": "A convience method for listening to an event and then responding with some data\nright away. Automatically removes the listener",
             "itemtype": "method",
             "name": "respond",
@@ -363,7 +376,7 @@
                 },
                 {
                     "name": "data",
-                    "description": "The object to pass back",
+                    "description": "The object to pass back. \n\tMay also be a function; the return value will be sent as data in this case.",
                     "type": "Object"
                 },
                 {
@@ -382,10 +395,52 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 437,
+            "line": 469,
             "description": "Destroy and don't user after this",
             "itemtype": "method",
             "name": "destroy",
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 480,
+            "description": "When restoring from JSON via `JSON.parse`, we may pass a reviver function.\nIn our case, this will check if the object has a specially-named property (`__classname`).\nIf it does, we will attempt to construct a new instance of that class, rather than using a\nplain old Object. Note that this recurses through the object.\nSee <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse\">JSON.parse()</a>",
+            "itemtype": "method",
+            "name": "reviver",
+            "static": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "each key name",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "Object that we wish to restore",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The object that was parsed - either cast to a class, or not",
+                "type": "Object"
+            },
+            "class": "Bellhop"
+        },
+        {
+            "file": "src/Bellhop.js",
+            "line": 513,
+            "description": "Simple return function",
+            "itemtype": "method",
+            "name": "include",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "classname",
+                    "description": "Qualified class name as a string.\n       for example \"cloudkid.MyClass\" would return a reference\n       to the function window.cloudkid.MyClass.",
+                    "type": "String"
+                }
+            ],
             "class": "Bellhop"
         }
     ],
@@ -393,6 +448,10 @@
         {
             "message": "Missing item type\nThe name of this Bellhop instance, useful for debugging purposes",
             "line": " src/Bellhop.js:33"
+        },
+        {
+            "message": "Missing item type\nSorts listeners added by .on() by priority",
+            "line": " src/Bellhop.js:332"
         }
     ]
 }
