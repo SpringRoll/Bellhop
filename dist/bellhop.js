@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.4 */
+/*! Bellhop 1.1.5 */
 (function(window, undefined){
 
 	/**
@@ -217,6 +217,10 @@
 		// We are trying to connect
 		this.connecting = true;
 
+		//re-init if we had previously been destroyed
+		if (!this._listeners) this._listeners = {};
+		if (!this._sendLater) this._sendLater = [];
+
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
 		var target = this.target = isChild ? window.top : (iframe.contentWindow || iframe);
@@ -272,7 +276,7 @@
 		this.origin = null;
 		this.target = null;
 		this._listeners = {};
-		this._sendLater.length = 0;
+		if (this._sendLater) this._sendLater.length = 0;
 		this.isChild = true;
 
 		if (window.detachEvent)
