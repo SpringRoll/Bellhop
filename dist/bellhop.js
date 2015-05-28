@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.6 */
+/*! Bellhop 1.1.7 */
 (function(window, undefined){
 
 	/**
@@ -352,7 +352,7 @@
 	*/
 	p.off = function(type, callback)
 	{
-		if (type === undefined)
+		if (type === undefined || !this._listeners)
 		{
 			//remove all listeners
 			this._listeners = {};

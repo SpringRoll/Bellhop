@@ -351,7 +351,7 @@
 	*/
 	p.off = function(type, callback)
 	{
-		if (type === undefined)
+		if (type === undefined || !this._listeners)
 		{
 			//remove all listeners
 			this._listeners = {};
