@@ -2,7 +2,7 @@
     "project": {
         "name": "Bellhop",
         "description": "Javascript event-based communication layer between DOM and iframe.",
-        "version": "1.1.5",
+        "version": "1.1.7",
         "url": "https://github.com/CloudKidStudio/Bellhop"
     },
     "files": {
@@ -232,7 +232,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 263,
+            "line": 267,
             "description": "Disconnect if there are any open connections",
             "itemtype": "method",
             "name": "disconnect",
@@ -240,7 +240,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 289,
+            "line": 293,
             "description": "Add an event listener to the listen to an event from either the parent or iframe",
             "itemtype": "method",
             "name": "on",
@@ -271,13 +271,13 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 332,
+            "line": 336,
             "description": "Sorts listeners added by .on() by priority",
             "class": "Bellhop"
         },
         {
             "file": "src/Bellhop.js",
-            "line": 340,
+            "line": 344,
             "description": "Remove an event listener",
             "itemtype": "method",
             "name": "off",
@@ -302,7 +302,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 380,
+            "line": 384,
             "description": "Send an event to the connected instance",
             "itemtype": "method",
             "name": "send",
@@ -327,7 +327,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 415,
+            "line": 419,
             "description": "A convenience method for sending and the listening to create \na singular link to fetching data. This is the same calling send\nand then getting a response right away with the same event.",
             "itemtype": "method",
             "name": "fetch",
@@ -364,7 +364,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 446,
+            "line": 450,
             "description": "A convience method for listening to an event and then responding with some data\nright away. Automatically removes the listener",
             "itemtype": "method",
             "name": "respond",
@@ -395,7 +395,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 469,
+            "line": 473,
             "description": "Destroy and don't user after this",
             "itemtype": "method",
             "name": "destroy",
@@ -403,7 +403,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 480,
+            "line": 484,
             "description": "When restoring from JSON via `JSON.parse`, we may pass a reviver function.\nIn our case, this will check if the object has a specially-named property (`__classname`).\nIf it does, we will attempt to construct a new instance of that class, rather than using a\nplain old Object. Note that this recurses through the object.\nSee <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse\">JSON.parse()</a>",
             "itemtype": "method",
             "name": "reviver",
@@ -428,7 +428,7 @@
         },
         {
             "file": "src/Bellhop.js",
-            "line": 513,
+            "line": 517,
             "description": "Simple return function",
             "itemtype": "method",
             "name": "include",
@@ -451,7 +451,7 @@
         },
         {
             "message": "Missing item type\nSorts listeners added by .on() by priority",
-            "line": " src/Bellhop.js:332"
+            "line": " src/Bellhop.js:336"
         }
     ]
 }
