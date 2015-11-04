@@ -1,5 +1,5 @@
 {
-	"name": "bellhop",
+	"name": "bellhop-iframe",
 	"version": "1.2.0",
 	"main": "dist/bellhop.min.js",
 	"devDependencies":
