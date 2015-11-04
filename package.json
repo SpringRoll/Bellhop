@@ -1,11 +1,33 @@
 {
-	"private": true,
-	"version": "1.1.8",
-	"dependencies": {
+	"name": "bellhop",
+	"version": "1.2.0",
+	"main": "dist/bellhop.min.js",
+	"devDependencies":
+	{
 		"grunt": "~0.4.5",
-		"library-grunt": "*"
+		"library-grunt": "*",
+		"grunt-jsbeautifier": "~0.2.10"
 	},
-	"scripts": {
+	"repository":
+	{
+		"type": "git",
+		"url": "https://github.com/SpringRoll/Bellhop"
+	},
+	"bugs":
+	{
+		"url": "https://github.com/SpringRoll/Bellhop/issues"
+	},
+	"scripts":
+	{
 		"test": "grunt test --verbose"
-	}
+	},
+	"keywords": [
+		"iframe",
+		"postmessage",
+		"dom",
+		"contentwindow",
+		"network",
+		"crossdomain"
+	],
+	"license": "MIT"
 }
