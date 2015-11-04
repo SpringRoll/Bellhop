@@ -10,6 +10,12 @@ Install can be done with Bower:
 bower install bellhop
 ```
 
+Alternatively, can be done with NPM:
+
+```bash
+npm install bellhop-iframe
+```
+
 ##Basic Usage##
 
 Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to start get them talking to each other.
