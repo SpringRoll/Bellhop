@@ -1,11 +1,14 @@
 {
 	"private": true,
-	"version": "1.1.8",
-	"dependencies": {
+	"version": "1.2.0",
+	"dependencies":
+	{
 		"grunt": "~0.4.5",
-		"library-grunt": "*"
+		"library-grunt": "*",
+		"grunt-jsbeautifier": "~0.2.10"
 	},
-	"scripts": {
+	"scripts":
+	{
 		"test": "grunt test --verbose"
 	}
 }
