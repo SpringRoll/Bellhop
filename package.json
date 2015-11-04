@@ -8,11 +8,13 @@
 		"library-grunt": "*",
 		"grunt-jsbeautifier": "~0.2.10"
 	},
-	"repository": {
+	"repository":
+	{
 		"type": "git",
 		"url": "https://github.com/SpringRoll/Bellhop"
 	},
-	"bugs": {
+	"bugs":
+	{
 		"url": "https://github.com/SpringRoll/Bellhop/issues"
 	},
 	"scripts":
