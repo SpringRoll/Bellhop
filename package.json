@@ -23,7 +23,7 @@
 		"iframe",
 		"postmessage",
 		"dom",
-		"contentwindow"
+		"contentwindow",
 		"network",
 		"crossdomain"
 	],
