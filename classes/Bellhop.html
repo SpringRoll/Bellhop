@@ -104,7 +104,7 @@
           <a href='../classes/Bellhop.html'>Bellhop</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.BellhopEventDispatcher.html'>springroll.BellhopEventDispatcher</a>
+          <a href='../classes/BellhopEventDispatcher.html'>BellhopEventDispatcher</a>
         </li>
     </ul>
   </div>
@@ -124,7 +124,7 @@
 
 <div class='extends'>
 Extends
-BellhopEventDispatcher
+<a href="../classes/BellhopEventDispatcher.html" class="crosslink">BellhopEventDispatcher</a>
 </div>
 
 <div class='foundat'>
@@ -170,7 +170,7 @@ and the parent DOM</p>
 <a href='#method_connect'>connect</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
 <a href='#method_destroy'>destroy</a>
 
 </li>
@@ -184,6 +184,14 @@ and the parent DOM</p>
 </li>
 <li class='col-xs-6 col-md-4 index-item method private'>
 <a href='#method_include'>include</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_off'>off</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_on'>on</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method private'>
@@ -207,6 +215,10 @@ and the parent DOM</p>
 <a href='#method_toString'>toString</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_trigger'>trigger</a>
+
+</li>
 </ul>
 </div>
 
@@ -214,6 +226,10 @@ and the parent DOM</p>
 <h3>Properties</h3>
 
 <ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private inherited'>
+<a href='#property__listeners'>_listeners</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property private'>
 <a href='#property__sendLater'>_sendLater</a>
 
@@ -371,8 +387,11 @@ is that we're the child trying to communcate with our window.parent</p>
 </div> 
 
 <div class='meta'>
-<p>
-Defined in
+<p>Inherited from
+<a href='../classes/BellhopEventDispatcher.html#method_destroy'>
+BellhopEventDispatcher
+</a>
+but overwritten in
 <a href='../files/src_Bellhop.js.html#l379'><code>destroy:379</code></a>
 </p>
 
@@ -588,6 +607,177 @@ to the function window.cloudkid.MyClass.</p>
 </ul>
 </div>
 
+
+</div><div class='method_off method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_off"><span class="glyphicon glyphicon-link"></span></a> <code>off</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>type</code>
+</li>
+<li class='arg'>
+<code class='optional'>[callback]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/BellhopEventDispatcher.html#method_off'>BellhopEventDispatcher</a>:
+<a href='../files/src_BellhopEventDispatcher.js.html#l71'><code>off:71</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+Remove an event listener
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>type</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+The type of event to listen for. If undefined, remove all listeners.
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[callback]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+The optional handler when an event is triggered, if no callback
+       is set then all listeners by type are removed
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>:
+Return instance of current object
+</div>
+</div>
+
+</div><div class='method_on method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_on"><span class="glyphicon glyphicon-link"></span></a> <code>on</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>type</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+<li class='arg'>
+<code class='optional'>[priority=0]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/BellhopEventDispatcher.html#method_on'>BellhopEventDispatcher</a>:
+<a href='../files/src_BellhopEventDispatcher.js.html#l20'><code>on:20</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+Add an event listener to the listen to an event from either the parent or iframe
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>type</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+The type of event to listen for or a map of events to callbacks.
+       Multiple events can be added by separating events with spaces.
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+The handler when an event is triggered
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[priority=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+The priority of the event listener. Higher numbers are handled first.
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>:
+Return instance of current object
+</div>
+</div>
 
 </div><div class='method_receive method item private'>
 <h3 class='name'><a class="deeplink" href="#method_receive"><span class="glyphicon glyphicon-link"></span></a> <code>receive</code></h3>
@@ -930,11 +1120,88 @@ Defined in
 </div>
 </div>
 
+</div><div class='method_trigger method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_trigger"><span class="glyphicon glyphicon-link"></span></a> <code>trigger</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>event</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/BellhopEventDispatcher.html#method_trigger'>BellhopEventDispatcher</a>:
+<a href='../files/src_BellhopEventDispatcher.js.html#l111'><code>trigger:111</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+Trigger any event handlers for an event type
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>event</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+The event to send
+</div>
+
+</li>
+</ul>
+</div>
+
+
 </div></div>
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div class="property__sendLater property item private">
+<div class="property__listeners property item private inherited">
+<h3 class="name"><a class="deeplink" href="#property__listeners"><span class="glyphicon glyphicon-link"></span></a> <code>_listeners</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/BellhopEventDispatcher.html#property__listeners">BellhopEventDispatcher</a>:
+<a href="../files/src_BellhopEventDispatcher.js.html#l9"><code>_listeners:9</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+The collection of event listeners
+</div>
+
+
+
+</div><div class="property__sendLater property item private">
 <h3 class="name"><a class="deeplink" href="#property__sendLater"><span class="glyphicon glyphicon-link"></span></a> <code>_sendLater</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 

@@ -19,12 +19,10 @@
             "name": "src/BellhopEventDispatcher.js",
             "modules": {},
             "classes": {
-                "springroll.BellhopEventDispatcher": 1
+                "BellhopEventDispatcher": 1
             },
             "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
+            "namespaces": {}
         }
     },
     "modules": {},
@@ -42,15 +40,14 @@
             "description": "Abstract the communication layer between the iframe\nand the parent DOM",
             "extends": "BellhopEventDispatcher"
         },
-        "springroll.BellhopEventDispatcher": {
-            "name": "springroll.BellhopEventDispatcher",
-            "shortname": "springroll.BellhopEventDispatcher",
+        "BellhopEventDispatcher": {
+            "name": "BellhopEventDispatcher",
+            "shortname": "BellhopEventDispatcher",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "springroll",
             "file": "src/BellhopEventDispatcher.js",
             "line": 3,
             "description": "Generic event dispatcher"
@@ -393,19 +390,18 @@
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 10,
+            "line": 9,
             "description": "The collection of event listeners",
             "itemtype": "property",
             "name": "_listeners",
             "type": "Object",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 21,
+            "line": 20,
             "description": "Add an event listener to the listen to an event from either the parent or iframe",
             "itemtype": "method",
             "name": "on",
@@ -432,19 +428,17 @@
                 "description": "Return instance of current object",
                 "type": "Bellhop"
             },
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 64,
+            "line": 63,
             "description": "Sorts listeners added by .on() by priority",
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 72,
+            "line": 71,
             "description": "Remove an event listener",
             "itemtype": "method",
             "name": "off",
@@ -465,17 +459,14 @@
                 "description": "Return instance of current object",
                 "type": "Bellhop"
             },
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 112,
+            "line": 111,
             "description": "Trigger any event handlers for an event type",
             "itemtype": "method",
             "name": "trigger",
-            "access": "private",
-            "tagname": "",
             "params": [
                 {
                     "name": "event",
@@ -483,17 +474,15 @@
                     "type": "Object"
                 }
             ],
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         },
         {
             "file": "src/BellhopEventDispatcher.js",
-            "line": 136,
+            "line": 134,
             "description": "Destroy this object",
             "itemtype": "method",
             "name": "destroy",
-            "class": "springroll.BellhopEventDispatcher",
-            "namespace": "springroll"
+            "class": "BellhopEventDispatcher"
         }
     ],
     "warnings": [
@@ -503,7 +492,7 @@
         },
         {
             "message": "Missing item type\nSorts listeners added by .on() by priority",
-            "line": " src/BellhopEventDispatcher.js:64"
+            "line": " src/BellhopEventDispatcher.js:63"
         }
     ]
 }

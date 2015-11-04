@@ -2,7 +2,7 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "Bellhop",
-        "springroll.BellhopEventDispatcher"
+        "BellhopEventDispatcher"
     ],
     "modules": [],
     "allModules": []
