@@ -15,13 +15,6 @@
 		this.onReceive = this.receive.bind(this);
 
 		/**
-		*  The target where to send messages
-		*  @property {DOM} target
-		*  @private
-		*/
-		this.target = null;
-
-		/**
 		*  If we are connected to another instance of the bellhop
 		*  @property {Boolean} connected
 		*  @readOnly
@@ -81,6 +74,14 @@
 		*  @readOnly
 		*/
 		this.supported = null;
+
+		/**
+		 * The iframe element
+		 * @property {DOMElement} iframe
+		 * @private
+		 * @readOnly
+		 */
+		this.iframe = null;
 	};
 
 	// Reference to the prototype
@@ -198,6 +199,20 @@
 	};
 
 	/**
+	*  The target where to send messages
+	*  @property {DOM} target
+	*  @private
+	*  @readOnly
+	*/
+	Object.defineProperty(this, "target",
+	{
+		get: function()
+		{
+			return this.isChild ? window.parent : this.iframe.contentWindow;
+		}
+	});
+
+	/**
 	*  Setup the connection
 	*  @method connect
 	*  @param {DOM} [iframe] The iframe to communicate with. If no value is set, the assumption
@@ -220,10 +235,13 @@
 		if (!this._listeners) this._listeners = {};
 		if (!this._sendLater) this._sendLater = [];
 
+		// The iframe if we're the parent
+		this.iframe = iframe || null;
+
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
-		var target = this.target = isChild ? window.parent : (iframe.contentWindow || iframe);
-		this.supported = isChild ? (!!target && window != target) : !!target;
+		var target = this.target;
+		this.supported = isChild ? !!target && window != target : !!target;		
 		this.origin = origin === undefined ? "*" : origin;
 
 		// Listen for incoming messages
@@ -273,7 +291,7 @@
 		this.connected = false;
 		this.connecting = false;
 		this.origin = null;
-		this.target = null;
+		this.iframe = null;
 		this._listeners = {};
 		if (this._sendLater) this._sendLater.length = 0;
 		this.isChild = true;
