@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>Bellhop v1.2.0 API Documentation : springroll.BellhopEventDispatcher</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=1.2.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=1.2.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=1.2.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/CloudKidStudio/Bellhop'>
+						<img src='../assets/images/logo.png?v=1.2.0' class="logo">
+					<span class='project-name'>Bellhop</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v1.2.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/Bellhop.html'>Bellhop</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BellhopEventDispatcher.html'>springroll.BellhopEventDispatcher</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.BellhopEventDispatcher Class</h1>
+<div class='box meta'>
+
+
+<div class='foundat'>
+Defined in: <a href='../files/src_BellhopEventDispatcher.js.html#l3'><code>springroll.BellhopEventDispatcher:3</code></a>
+</div>
+
+
+</div>
+
+
+<div class='box intro'>
+<p>Generic event dispatcher</p>
+
+</div>
+
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_off'>off</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_on'>on</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_trigger'>trigger</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__listeners'>_listeners</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method_destroy method item'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_BellhopEventDispatcher.js.html#l136'><code>destroy:136</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroy this object</p>
+
+</div>
+
+
+
+</div><div class='method_off method item'>
+<h3 class='name'><a class="deeplink" href="#method_off"><span class="glyphicon glyphicon-link"></span></a> <code>off</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>type</code>
+</li>
+<li class='arg'>
+<code class='optional'>[callback]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_BellhopEventDispatcher.js.html#l72'><code>off:72</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Remove an event listener</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>type</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The type of event to listen for. If undefined, remove all listeners.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[callback]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The optional handler when an event is triggered, if no callback
+is set then all listeners by type are removed</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>:
+<p>Return instance of current object</p>
+
+</div>
+</div>
+
+</div><div class='method_on method item'>
+<h3 class='name'><a class="deeplink" href="#method_on"><span class="glyphicon glyphicon-link"></span></a> <code>on</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>type</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+<li class='arg'>
+<code class='optional'>[priority=0]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_BellhopEventDispatcher.js.html#l21'><code>on:21</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Add an event listener to the listen to an event from either the parent or iframe</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>type</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The type of event to listen for or a map of events to callbacks.
+Multiple events can be added by separating events with spaces.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The handler when an event is triggered</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[priority=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The priority of the event listener. Higher numbers are handled first.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/Bellhop.html" class="crosslink">Bellhop</a></span>:
+<p>Return instance of current object</p>
+
+</div>
+</div>
+
+</div><div class='method_trigger method item private'>
+<h3 class='name'><a class="deeplink" href="#method_trigger"><span class="glyphicon glyphicon-link"></span></a> <code>trigger</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>event</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_BellhopEventDispatcher.js.html#l112'><code>trigger:112</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Trigger any event handlers for an event type</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>event</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The event to send</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__listeners property item private">
+<h3 class="name"><a class="deeplink" href="#property__listeners"><span class="glyphicon glyphicon-link"></span></a> <code>_listeners</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_BellhopEventDispatcher.js.html#l10"><code>_listeners:10</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of event listeners</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=1.2.0'></script>
+<script src='../assets/js/main.js?v=1.2.0'></script>
+</body>
+</html>
