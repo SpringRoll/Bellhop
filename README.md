@@ -87,6 +87,6 @@ See the [documentation](http://springroll.github.io/Bellhop) for more detailed i
 
 ##License##
 
-Copyright (c) 2014 [CloudKid](http://github.com/cloudkidstudio)
+Copyright (c) 2015 [CloudKid](http://github.com/cloudkidstudio)
 
 Released under the MIT License.
