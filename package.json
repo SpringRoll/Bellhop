@@ -19,7 +19,7 @@
 		"url": "https://github.com/SpringRoll/Bellhop/issues"
 	},
 	"scripts": {
-		"test": "grunt test --verbose"
+		"test": "grunt eslint qunit --verbose"
 	},
 	"keywords": [
 		"iframe",
