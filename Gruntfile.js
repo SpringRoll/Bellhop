@@ -22,8 +22,11 @@ module.exports = function(grunt)
           'dist/bellhop.min.js' : ['dist/bellhop.js']
         }
       }
+    },
+    qunit: {
+      bellhop: ['test/index.html']
     }
   });
 
-  grunt.registerTask('default', ['eslint', 'concat', 'uglify']);
+  grunt.registerTask('default', ['eslint', 'qunit', 'concat', 'uglify']);
 };
