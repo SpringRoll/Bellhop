@@ -2,23 +2,21 @@
 	"name": "bellhop-iframe",
 	"version": "1.2.0",
 	"main": "dist/bellhop.min.js",
-	"devDependencies":
-	{
-		"grunt": "~0.4.5",
-		"library-grunt": "*",
-		"grunt-jsbeautifier": "~0.2.10"
+	"devDependencies": {
+		"grunt": "^1.0.2",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-uglify": "^3.3.0",
+		"grunt-eslint": "^20.1.0",
+		"load-grunt-tasks": "^4.0.0"
 	},
-	"repository":
-	{
+	"repository": {
 		"type": "git",
 		"url": "https://github.com/SpringRoll/Bellhop"
 	},
-	"bugs":
-	{
+	"bugs": {
 		"url": "https://github.com/SpringRoll/Bellhop/issues"
 	},
-	"scripts":
-	{
+	"scripts": {
 		"test": "grunt test --verbose"
 	},
 	"keywords": [
@@ -29,5 +27,12 @@
 		"network",
 		"crossdomain"
 	],
-	"license": "MIT"
+	"eslintConfig": {
+		"extends": "eslint:recommended",
+		"env": {
+			"browser": true
+		}
+	},
+	"license": "MIT",
+	"dependencies": {}
 }
