@@ -4,13 +4,9 @@
 	"main": "dist/bellhop.min.js",
 	"dependencies":
 	{
-		"bind-polyfill": "*"
 	},
 	"devDependencies":
 	{
-		"jquery": "*",
-		"google-code-prettify": "*",
-		"bind-polyfill": "*"
 	},
 	"ignore": [
 		"src",

@@ -1,5 +1,5 @@
 var bellhop = new Bellhop();
-bellhop.connect($("#child").get(0));
+bellhop.connect(document.getElementById('child'));
 
 QUnit.test('Tests', function(assert)
 {
