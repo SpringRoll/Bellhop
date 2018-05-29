@@ -1,4 +1,4 @@
-(function(window)
+(function()
 {
 	/**
 	 * Generic event dispatcher
@@ -140,7 +140,12 @@
 		this._listeners = null;
 	};
 
-	// Assign to namespace
-	window.BellhopEventDispatcher = BellhopEventDispatcher;
+	// Export
+	if (typeof window !== 'undefined') {
+		window.BellhopEventDispatcher = BellhopEventDispatcher;
+	}
 
-}(window));
+	if (typeof module !== 'undefined') {
+		module.exports = BellhopEventDispatcher;
+	}
+})();
