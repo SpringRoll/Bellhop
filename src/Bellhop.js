@@ -1,7 +1,12 @@
-(function(window, undefined)
+(function()
 {
 	// Include event dispatcher
-	var BellhopEventDispatcher = window.BellhopEventDispatcher;
+	var BellhopEventDispatcher;
+	if (typeof window !== 'undefined') {
+		BellhopEventDispatcher = window.BellhopEventDispatcher;
+	} else if (typeof require === 'function') {
+		BellhopEventDispatcher = require('./BellhopEventDispatcher.js');
+	}
 
 	/**
 	 *  Abstract the communication layer between the iframe
@@ -440,7 +445,12 @@
 		return parent;
 	};
 
-	// Assign to the global namespace
-	window.Bellhop = Bellhop;
+	// Export
+	if (typeof window !== 'undefined') {
+		window.Bellhop = Bellhop;
+	}
 
-}(window));
+	if (typeof module !== 'undefined') {
+		module.exports = Bellhop;
+	}
+})();
