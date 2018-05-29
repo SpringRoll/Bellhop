@@ -1,5 +1,5 @@
 /* bellhop-iframe 1.3.0 */
-(function(window)
+(function()
 {
 	/**
 	 * Generic event dispatcher
@@ -141,14 +141,25 @@
 		this._listeners = null;
 	};
 
-	// Assign to namespace
-	window.BellhopEventDispatcher = BellhopEventDispatcher;
+	// Export
+	if (typeof window !== 'undefined') {
+		window.BellhopEventDispatcher = BellhopEventDispatcher;
+	}
 
-}(window));
-(function(window, undefined)
+	if (typeof module !== 'undefined') {
+		module.exports = BellhopEventDispatcher;
+	}
+})();
+
+(function()
 {
 	// Include event dispatcher
-	var BellhopEventDispatcher = window.BellhopEventDispatcher;
+	var BellhopEventDispatcher;
+	if (typeof window !== 'undefined') {
+		BellhopEventDispatcher = window.BellhopEventDispatcher;
+	} else if (typeof require === 'function') {
+		BellhopEventDispatcher = require('./BellhopEventDispatcher.js');
+	}
 
 	/**
 	 *  Abstract the communication layer between the iframe
@@ -587,7 +598,12 @@
 		return parent;
 	};
 
-	// Assign to the global namespace
-	window.Bellhop = Bellhop;
+	// Export
+	if (typeof window !== 'undefined') {
+		window.Bellhop = Bellhop;
+	}
 
-}(window));
+	if (typeof module !== 'undefined') {
+		module.exports = Bellhop;
+	}
+})();
