@@ -77,9 +77,24 @@ Here's a very simple example to get started. We have two pages `index.html` and 
 </script>
 ```
 
-##Dependencies
+## Including on the page
 
-Bellhop has one optional dependency which is a polyfill for `Function.prototype.bind`. The bind method is available in the following browsers: IE 9+, Safari 5.1.4+, Opera 11.60+, Firefox 4.0+, Chrome 7+.
+Bellhop is both CommonJS and Browser compatible. If you're using a CommonJS bundler such as WebPack or Browserify, you can include Bellhop via require:
+```javascript
+const Bellhop = require('bellhop-iframe');
+
+let bellhop = new Bellhop();
+bellhop.connect();
+```
+
+If you are including Bellhop directly on the page, you can include the bundled `dist` file directly on the page:
+```html
+<script src="node_modules/bellhop-iframe/dist/bellhop.min.js"></script>
+<script>
+let bellhop = new window.Bellhop();
+bellhop.connect();
+</script>
+```
 
 ##Documentation##
 
