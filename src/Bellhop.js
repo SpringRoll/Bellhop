@@ -132,7 +132,7 @@ export default class Bellhop extends BellhopEventDispatcher {
       }
 
       // Only valid objects with a type and matching channel id
-      if (typeof data === 'object' && data.type) {
+      if ('object' === typeof data && data.type) {
         this.trigger(data);
       }
     }
