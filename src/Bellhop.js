@@ -10,9 +10,10 @@ export default class Bellhop extends BellhopEventDispatcher {
    * Creates an instance of Bellhop.
    * @memberof Bellhop
    */
-  constructor() {
+  constructor(id) {
     super();
 
+    this.id = id;
     /**
      *  If we are connected to another instance of the bellhop
      *  @property {Boolean} connected
@@ -60,22 +61,12 @@ export default class Bellhop extends BellhopEventDispatcher {
     this._sendLater = [];
 
     /**
-     *  Do we have something to connect to, should be called after
-     *  attempting to `connect()`
-     *  @property {Boolean} supported
-     *  @readOnly
-     */
-    this.supported = null;
-
-    /**
      * The iframe element
      * @property {DOMElement} iframe
      * @private
      * @readOnly
      */
     this.iframe = null;
-
-    this.target = this.isChild ? window.parent : this.iframe.contentWindow;
   }
 
   /**
@@ -94,9 +85,11 @@ export default class Bellhop extends BellhopEventDispatcher {
    *  @private
    */
   receive(event) {
+    console.log(event);
     // Ignore events that don't originate from the target
     // we're connected to
-    if (event.source !== this.target) {
+
+    if (this.getTarget !== event.source) {
       return;
     }
 
@@ -111,7 +104,7 @@ export default class Bellhop extends BellhopEventDispatcher {
 
       // Be polite and respond to the child that we're ready
       if (!this.isChild) {
-        this.target.postMessage(data, this.origin);
+        this.getTarget.postMessage(data, this.origin);
       }
 
       const len = this._sendLater.length;
@@ -126,11 +119,12 @@ export default class Bellhop extends BellhopEventDispatcher {
         this._sendLater.length = 0;
       }
     } else {
+      console.log('hit');
       // Ignore all other event if we don't have a context
       if (!this.connected) {
         return;
       }
-
+      console.log(data);
       // Only valid objects with a type and matching channel id
       if ('object' === typeof data && data.type) {
         this.trigger(data);
@@ -158,31 +152,20 @@ export default class Bellhop extends BellhopEventDispatcher {
     // We are trying to connect
     this.connecting = true;
 
-    //re-init if we had previously been destroyed
-    if (!this._sendLater) {
-      this._sendLater = [];
-    }
-
     // The iframe if we're the parent
     this.iframe = iframe || null;
 
     // The instance of bellhop is inside the iframe
-    this.isChild = iframe !== undefined;
+    this.isChild = iframe === undefined;
 
-    this.supported = this.isChild
-      ? !!this.target && window != this.target
-      : !!this.target;
     this.origin = origin;
-
-    window.addEventListener('message', this.receive);
+    window.addEventListener('message', this.receive.bind(this));
     if (this.isChild) {
       // No parent, can't connect
-      if (window === this.target) {
+      if (window === this.getTarget) {
         this.trigger('failed');
       } else {
-        window.addEventListener('load', () => {
-          this.target.postMessage('connected', this.origin);
-        });
+        this.getTarget.postMessage('connected', this.origin);
       }
     }
   }
@@ -209,15 +192,24 @@ export default class Bellhop extends BellhopEventDispatcher {
    *  Send an event to the connected instance
    *  @method send
    *  @param {*} [data] Additional data to send along with event
-   *  @return {Bellhop} Return instance of current object
    */
-  send(data) {
+  send(event, data) {
+    if (typeof event !== 'string') {
+      throw 'The event type must be a string';
+    }
+    event = {
+      type: event
+    };
+
+    // Add the additional data, if needed
+    if (data !== undefined) {
+      event.data = data;
+    }
+
     if (this.connecting) {
-      this._sendLater.push(data);
-    } else if (!this.connected) {
-      return;
+      this._sendLater.push(event);
     } else {
-      this.target.postMessage(data, this.origin);
+      this.getTarget.postMessage(event, this.origin);
     }
   }
 
@@ -231,12 +223,11 @@ export default class Bellhop extends BellhopEventDispatcher {
    *  @param {Object} [data] Optional data to pass along
    *  @param {Boolean} [runOnce=false] If we only want to fetch once and then remove the listener
    */
-  fetch(event, callback, data, runOnce) {
+  fetch(event, callback, data = {}, runOnce = false) {
     if (!this.connecting && !this.connected) {
       throw 'No connection, please call connect() first';
     }
 
-    runOnce = runOnce === undefined ? false : runOnce;
     const internalCallback = e => {
       if (runOnce) {
         this.off(e.type, internalCallback);
@@ -246,8 +237,7 @@ export default class Bellhop extends BellhopEventDispatcher {
     };
 
     this.on(event, internalCallback);
-
-    this.send(data);
+    this.send(event, data);
   }
 
   /**
@@ -259,17 +249,13 @@ export default class Bellhop extends BellhopEventDispatcher {
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
    */
-  respond(event, data, runOnce) {
-    runOnce = runOnce === undefined ? false : runOnce;
-
+  respond(event, data = {}, runOnce = false) {
     const internalCallback = e => {
       if (runOnce) {
         this.off(e.type, internalCallback);
       }
-
       this.send(data);
     };
-
     this.on(event, internalCallback);
   }
 
@@ -281,5 +267,15 @@ export default class Bellhop extends BellhopEventDispatcher {
     super.destroy();
     this.disconnect();
     this._sendLater = null;
+  }
+
+  /**
+   *
+   *
+   * @returns {Window}
+   * @memberof Bellhop
+   */
+  get getTarget() {
+    return this.isChild ? window.parent : this.iframe.contentWindow;
   }
 }

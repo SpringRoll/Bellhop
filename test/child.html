@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Bellhop Child</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+  <script type="module">
+    import Bellhop from '/js/Bellhop.js';
+    const h1 = document.createElement('h1');
+    h1.innerText = 'Child Page';
+    document.body.appendChild(h1);
+    const bellhop = new Bellhop('CHILD');
+    bellhop.connect();
+    bellhop.respond("highscore", 10000);
+  </script>
+</body>
+
+</html>
