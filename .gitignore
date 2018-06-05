@@ -3,3 +3,4 @@ docs
 components
 node_modules
 *.log
+dist
