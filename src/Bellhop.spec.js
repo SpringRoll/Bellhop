@@ -4,9 +4,6 @@ import BellhopEventDispatcher from './BellhopEventDispatcher';
 let bellhop;
 
 before(() => {
-  const h1 = document.createElement('h1');
-  h1.innerText = 'Parent';
-  document.body.appendChild(h1);
   bellhop = new Bellhop();
 });
 

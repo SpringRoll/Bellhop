@@ -136,7 +136,7 @@ export default class Bellhop extends BellhopEventDispatcher {
   /**
    *  Setup the connection
    *  @method connect
-   *  @param {HTMLIFrameElement}  [iframe] The iframe to communicate with. If no value is set, the assumption
+   *  @param {HTMLIFrameElement} [iframe] The iframe to communicate with. If no value is set, the assumption
    *         is that we're the child trying to communcate with our window.parent
    *  @param {String} [origin="*"] The domain to communicate with if different from the current.
    *  @return {Bellhop} Return instance of current object
@@ -154,7 +154,9 @@ export default class Bellhop extends BellhopEventDispatcher {
     this.connecting = true;
 
     // The iframe if we're the parent
-    this.iframe = iframe || null;
+    if (iframe instanceof HTMLIFrameElement) {
+      this.iframe = iframe;
+    }
 
     // The instance of bellhop is inside the iframe
     this.isChild = iframe === undefined;
