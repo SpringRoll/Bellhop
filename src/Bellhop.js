@@ -85,10 +85,8 @@ export default class Bellhop extends BellhopEventDispatcher {
    *  @private
    */
   receive(event) {
-    console.log(event);
     // Ignore events that don't originate from the target
     // we're connected to
-
     if (this.getTarget !== event.source) {
       return;
     }
@@ -119,12 +117,11 @@ export default class Bellhop extends BellhopEventDispatcher {
         this._sendLater.length = 0;
       }
     } else {
-      console.log('hit');
       // Ignore all other event if we don't have a context
       if (!this.connected) {
         return;
       }
-      console.log(data);
+
       // Only valid objects with a type and matching channel id
       if ('object' === typeof data && data.type) {
         this.trigger(data);
@@ -165,6 +162,8 @@ export default class Bellhop extends BellhopEventDispatcher {
       if (window === this.getTarget) {
         this.trigger('failed');
       } else {
+        // If connect is called after the window is ready
+        // we can go ahead and send the connect message
         this.getTarget.postMessage('connected', this.origin);
       }
     }
@@ -254,7 +253,7 @@ export default class Bellhop extends BellhopEventDispatcher {
       if (runOnce) {
         this.off(e.type, internalCallback);
       }
-      this.send(data);
+      this.send(event, data);
     };
     this.on(event, internalCallback);
   }
