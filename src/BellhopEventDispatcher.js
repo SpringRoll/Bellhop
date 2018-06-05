@@ -15,33 +15,25 @@ export default class BellhopEventDispatcher {
   /**
    *  Add an event listener to the listen to an event from either the parent or iframe
    *  @method on
-   *  @param {String|Object} eventType The type of event to listen for or a map of events to callbacks.
-   *         Multiple events can be added by separating events with spaces.
+   *  @param {String} name The name of the event to listen
    *  @param {Function} callback The handler when an event is triggered
    *  @param {number} [priority=0] The priority of the event listener. Higher numbers are handled first.
    */
-  on(eventType, callback, priority) {
-    if ('string' !== typeof eventType) {
-      for (let type in eventType) {
-        this.on(type, eventType[type], priority);
-      }
-    } else {
-      const types = eventType.split(' ');
-      for (let i = 0, l = types.length; i < l; i++) {
-        const type = types[i];
+  on(name, callback, priority = 0) {
+    if (!this._listeners[name]) {
+      this._listeners[name] = [];
+    }
+    callback._priority = parseInt(priority) || 0;
 
-        if (!this._listeners[type]) {
-          this._listeners[type] = [];
-        }
-        callback._priority = parseInt(priority) || 0;
+    // If callback is already set to this event
+    if (-1 !== this._listeners[name].indexOf(callback)) {
+      return;
+    }
 
-        if (this._listeners[type].indexOf(callback) === -1) {
-          this._listeners[type].push(callback);
-          if (this._listeners[type].length > 1) {
-            this._listeners[type].sort(this.listenerSorter);
-          }
-        }
-      }
+    this._listeners[name].push(callback);
+
+    if (this._listeners[name].length > 1) {
+      this._listeners[name].sort(this.listenerSorter);
     }
   }
 
@@ -60,31 +52,24 @@ export default class BellhopEventDispatcher {
    *         is set then all listeners by type are removed
    */
   off(type, callback) {
-    if (type === undefined || !this._listeners) {
-      //remove all listeners
-      this._listeners = {};
-      return this;
-    }
     if (this._listeners[type] === undefined) {
-      return this;
+      return;
     }
+
     if (callback === undefined) {
       delete this._listeners[type];
-    } else {
-      for (let i = 0, l = this._listeners[type].length; i < l; i++) {
-        // Remove the listener
-        if (this._listeners[type][i] === callback) {
-          this._listeners[type].splice(i, 1);
-          break;
-        }
-      }
+      return;
     }
+
+    const index = this._listeners[type].indexOf(callback);
+
+    -1 < index ? this._listeners[type].splice(index, 1) : undefined;
   }
 
   /**
    *  Trigger any event handlers for an event type
    *  @method trigger
-   *  @param {Object} event The event to send
+   *  @param {Object | String} event The event to send
    */
   trigger(event) {
     if (typeof event == 'string') {
@@ -93,7 +78,7 @@ export default class BellhopEventDispatcher {
       };
     }
 
-    if (this._listeners[event.type] !== undefined) {
+    if ('undefined' !== typeof this._listeners[event.type]) {
       for (let i = this._listeners[event.type].length - 1; i >= 0; i--) {
         this._listeners[event.type][i](event);
       }
@@ -101,10 +86,10 @@ export default class BellhopEventDispatcher {
   }
 
   /**
-   * Destroy this object
+   * Reset the listeners object
    * @method  destroy
    */
   destroy() {
-    this._listeners = null;
+    this._listeners = {};
   }
 }

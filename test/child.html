@@ -13,7 +13,7 @@
     const h1 = document.createElement('h1');
     h1.innerText = 'Child Page';
     document.body.appendChild(h1);
-    const bellhop = new Bellhop('CHILD');
+    const bellhop = new Bellhop();
     bellhop.connect();
     bellhop.respond("highscore", 10000);
   </script>

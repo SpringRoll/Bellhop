@@ -1,4 +1,5 @@
 import BellhopEventDispatcher from './BellhopEventDispatcher.js';
+
 /**
  *  Abstract the communication layer between the iframe
  *  and the parent DOM
@@ -9,11 +10,16 @@ export default class Bellhop extends BellhopEventDispatcher {
   /**
    * Creates an instance of Bellhop.
    * @memberof Bellhop
+   * @param { string | number } id the id of the Bellhop instance
    */
-  constructor(id) {
+  constructor(id = (Math.random() * 100) | 0) {
     super();
 
-    this.id = id;
+    /**
+     *  The instance ID for bellhop
+     *  @property {string} id
+     */
+    this.id = `BELLHOP:${id}`;
     /**
      *  If we are connected to another instance of the bellhop
      *  @property {Boolean} connected
@@ -22,12 +28,6 @@ export default class Bellhop extends BellhopEventDispatcher {
      *  @private
      */
     this.connected = false;
-
-    /**
-     *  The name of this Bellhop instance, useful for debugging purposes
-     *  @param {String} name
-     */
-    this.name = '';
 
     /**
      *  If this instance represents an iframe instance
@@ -82,51 +82,55 @@ export default class Bellhop extends BellhopEventDispatcher {
   /**
    *  Handle messages in the window
    *  @method receive
+   *  @param { MessageEvent } message the post message received from another bellhop instance
    *  @private
    */
-  receive(event) {
-    // Ignore events that don't originate from the target
+  receive(message) {
+    // Ignore messages that don't originate from the target
     // we're connected to
-    if (this.getTarget !== event.source) {
+    if (this.target !== message.source) {
       return;
     }
 
-    const data = event.data;
-
-    // This is the initial connection event
-    if (data === 'connected') {
-      this.connecting = false;
-      this.connected = true;
-
-      this.trigger('connected');
-
-      // Be polite and respond to the child that we're ready
-      if (!this.isChild) {
-        this.getTarget.postMessage(data, this.origin);
+    // If this is not the initial connection message
+    if (message.data !== 'connected') {
+      // Ignore all other message if we don't have a context
+      if (
+        this.connected &&
+        'object' === typeof message.data &&
+        message.data.type
+      ) {
+        this.trigger(message.data);
       }
-
-      const len = this._sendLater.length;
-
-      // If we have any sends waiting to send
-      // we are now connected and it should be okay
-      if (len > 0) {
-        for (let i = 0; i < len; i++) {
-          const e = this._sendLater[i];
-          this.send(e.data);
-        }
-        this._sendLater.length = 0;
-      }
-    } else {
-      // Ignore all other event if we don't have a context
-      if (!this.connected) {
-        return;
-      }
-
-      // Only valid objects with a type and matching channel id
-      if ('object' === typeof data && data.type) {
-        this.trigger(data);
-      }
+      return;
     }
+    // Else setup the connection
+    this.onConnectionReceived(message.data);
+  }
+  /**
+   * @memberof Bellhop
+   * @param {object} message the message received from the other bellhop instance
+   * @private
+   */
+  onConnectionReceived(message) {
+    this.connecting = false;
+    this.connected = true;
+
+    // If there is a connection event assigned call it
+    this.trigger('connected');
+
+    // Be polite and respond to the child that we're ready
+    if (!this.isChild) {
+      this.target.postMessage(message, this.origin);
+    }
+
+    // If we have any sends waiting to send
+    // we are now connected and it should be okay
+    for (let i = 0, length = this._sendLater.length; i < length; i++) {
+      const e = this._sendLater[i];
+      this.send(e.data);
+    }
+    this._sendLater.length = 0;
   }
 
   /**
@@ -156,15 +160,17 @@ export default class Bellhop extends BellhopEventDispatcher {
     this.isChild = iframe === undefined;
 
     this.origin = origin;
+
     window.addEventListener('message', this.receive.bind(this));
+
     if (this.isChild) {
       // No parent, can't connect
-      if (window === this.getTarget) {
+      if (window === this.target) {
         this.trigger('failed');
       } else {
         // If connect is called after the window is ready
         // we can go ahead and send the connect message
-        this.getTarget.postMessage('connected', this.origin);
+        this.target.postMessage('connected', this.origin);
       }
     }
   }
@@ -179,10 +185,7 @@ export default class Bellhop extends BellhopEventDispatcher {
     this.origin = null;
     this.iframe = null;
     this.isChild = true;
-
-    if (this._sendLater) {
-      this._sendLater.length = 0;
-    }
+    this._sendLater.length = 0;
 
     window.removeEventListener('message', this.receive);
   }
@@ -190,25 +193,23 @@ export default class Bellhop extends BellhopEventDispatcher {
   /**
    *  Send an event to the connected instance
    *  @method send
-   *  @param {*} [data] Additional data to send along with event
+   *  @param {string} type name/type of the event
+   *  @param {*} [data = {}] Additional data to send along with event
    */
-  send(event, data) {
-    if (typeof event !== 'string') {
+  send(type, data = {}) {
+    if (typeof type !== 'string') {
       throw 'The event type must be a string';
     }
-    event = {
-      type: event
+
+    const message = {
+      type,
+      data
     };
 
-    // Add the additional data, if needed
-    if (data !== undefined) {
-      event.data = data;
-    }
-
     if (this.connecting) {
-      this._sendLater.push(event);
+      this._sendLater.push(message);
     } else {
-      this.getTarget.postMessage(event, this.origin);
+      this.target.postMessage(message, this.origin);
     }
   }
 
@@ -265,16 +266,16 @@ export default class Bellhop extends BellhopEventDispatcher {
   destroy() {
     super.destroy();
     this.disconnect();
-    this._sendLater = null;
+    this._sendLater.length = 0;
   }
 
   /**
    *
-   *
-   * @returns {Window}
+   * Returns the correct parent element for Bellhop's context
+   * @readonly
    * @memberof Bellhop
    */
-  get getTarget() {
+  get target() {
     return this.isChild ? window.parent : this.iframe.contentWindow;
   }
 }

@@ -7,7 +7,7 @@ before(() => {
   const h1 = document.createElement('h1');
   h1.innerText = 'Parent';
   document.body.appendChild(h1);
-  bellhop = new Bellhop('MAIN');
+  bellhop = new Bellhop();
 });
 
 describe('Bellhop Client', () => {
@@ -31,6 +31,15 @@ describe('Bellhop Client', () => {
       done();
     });
     bellhop.trigger('highscore');
+  });
+
+  it('Should be able to remove events', () => {
+    const funcToRemove = () => 0;
+    expect(bellhop._listeners.toRemove).to.be.undefined;
+    bellhop.on('toRemove', funcToRemove);
+    expect(bellhop._listeners.toRemove).to.not.be.undefined;
+    bellhop.off('toRemove', funcToRemove);
+    expect(bellhop._listeners.toRemove.length).to.equal(0);
   });
 
   it('Fetch should return a response from the child', done => {
