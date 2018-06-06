@@ -46,4 +46,14 @@ describe('Bellhop Client', () => {
       done();
     });
   });
+
+  it('Should completely disconnect with destroy()', () => {
+    bellhop.destroy();
+    expect(bellhop.connected).to.be.false;
+    expect(bellhop.connecting).to.be.false;
+    expect(bellhop.origin).to.be.null;
+    expect(bellhop.iframe).to.be.null;
+    expect(bellhop._sendLater.length).to.equal(0);
+    expect(Object.keys(bellhop._listeners).length).to.equal(0);
+  });
 });
