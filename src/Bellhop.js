@@ -1,4 +1,4 @@
-import BellhopEventDispatcher from './BellhopEventDispatcher.js';
+import { BellhopEventDispatcher } from './BellhopEventDispatcher.js';
 
 /**
  *  Abstract the communication layer between the iframe
@@ -6,7 +6,7 @@ import BellhopEventDispatcher from './BellhopEventDispatcher.js';
  *  @class Bellhop
  *  @extends BellhopEventDispatcher
  */
-export default class Bellhop extends BellhopEventDispatcher {
+export class Bellhop extends BellhopEventDispatcher {
   /**
    * Creates an instance of Bellhop.
    * @memberof Bellhop

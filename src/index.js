@@ -1,4 +1,2 @@
-import Bellhop from './Bellhop';
-import BellhopEventDispatcher from './BellhopEventDispatcher';
-
-export { Bellhop, BellhopEventDispatcher };
+export * from './Bellhop';
+export * from './BellhopEventDispatcher';

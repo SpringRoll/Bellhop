@@ -2,7 +2,7 @@
  * Generic event dispatcher
  * @class  BellhopEventDispatcher
  */
-export default class BellhopEventDispatcher {
+export class BellhopEventDispatcher {
   /**
    *  The collection of event listeners
    *  @property {Object} _listeners
