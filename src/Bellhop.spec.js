@@ -1,5 +1,5 @@
-import Bellhop from './Bellhop';
-import BellhopEventDispatcher from './BellhopEventDispatcher';
+import { Bellhop } from './Bellhop';
+import { BellhopEventDispatcher } from './BellhopEventDispatcher';
 
 let bellhop;
 
@@ -19,7 +19,6 @@ describe('Bellhop Client', () => {
 
     bellhop.connect(karmaHTML.child.iframe);
     karmaHTML.child.open();
-    // window.postMessage('connected', '*');
     expect(bellhop.iframe).to.equal(karmaHTML.child.iframe);
   });
 
