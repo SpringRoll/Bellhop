@@ -1,7 +1,7 @@
 {
   "name": "bellhop-iframe",
   "version": "2.0.0",
-  "main": "dist/bellhop.min.js",
+  "main": "src/Bellhop.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
