@@ -13,13 +13,16 @@ export default [
     output: [
       {
         file: pkg.main,
-        format: 'es',
-        sourceMap: true
+        format: 'umd',
+        sourceMap: true,
+        name: 'bellhop'
       }
     ],
     plugins: [
       eslint(),
-      prettier(),
+      prettier({
+        parser: 'babylon'
+      }),
       resolve({
         module: true,
         jsnext: true,
