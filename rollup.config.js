@@ -8,14 +8,15 @@ import babel from 'rollup-plugin-babel';
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'src/Bellhop.js',
     external: ['ms'],
     output: [
       {
         file: pkg.main,
         format: 'umd',
         sourceMap: true,
-        name: 'bellhop'
+        name: 'window',
+        extend: true
       }
     ],
     plugins: [
