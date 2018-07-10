@@ -1,6 +1,6 @@
 # Bellhop [![Build Status](https://travis-ci.org/SpringRoll/Bellhop.svg?branch=master)](https://travis-ci.org/SpringRoll/Bellhop) [![Dependency Status](https://david-dm.org/SpringRoll/Bellhop.svg?style=flat)](https://david-dm.org/SpringRoll/Bellhop)
 
-Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. The minified version of the library is less than 3K. Super easy to use and setup.
+Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. Super easy to use and setup.
 
 ## Installation
 
@@ -57,10 +57,6 @@ bellhop.on('user', function(event){
 }
 </script>
 ```
-
-## Documentation ##
-
-See the [documentation](http://springroll.github.io/Bellhop) for more detailed information about the API.
 
 ## License ##
 
