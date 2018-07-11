@@ -2,7 +2,7 @@
   "name": "bellhop-iframe",
   "version": "2.0.0",
   "main": "bellhop.js",
-  "browser": "bellhop.udm.js",
+  "browser": "bellhop-umd.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",

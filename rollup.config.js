@@ -16,16 +16,10 @@ export default [
         extend: true
       },
       {
-        file: 'ellhop.umd.js',
+        file: 'bellhop-umd.js',
         format: 'umd',
         sourceMap: true,
         name: 'window',
-        extend: true
-      },
-      {
-        file: 'bellhop.cjs.js',
-        format: 'cjs',
-        sourceMap: true,
         extend: true
       }
     ],
