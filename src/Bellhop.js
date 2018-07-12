@@ -127,8 +127,8 @@ export class Bellhop extends BellhopEventDispatcher {
     // If we have any sends waiting to send
     // we are now connected and it should be okay
     for (let i = 0, length = this._sendLater.length; i < length; i++) {
-      const e = this._sendLater[i];
-      this.send(e.data);
+      const { type, data } = this._sendLater[i];
+      this.send(type, data);
     }
     this._sendLater.length = 0;
   }
