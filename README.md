@@ -8,6 +8,25 @@ Bellhop is a simple event-based communication layer between the page DOM and an 
 npm install bellhop-iframe
 ```
 
+## Importing Bellhop
+The Bellhop module contains support for ES6 modules, CommonJS and browser global definitions. To import with ES6,
+
+```javascript
+import { Bellhop } from 'bellhop-iframe';
+```
+
+To import with CommonJS, refer instead to the UMD build
+
+```javascript
+const { Bellhop } = require('bellhop-iframe/bellhop-umd.js');
+```
+
+Lastly, the UMD module can also be directly included on an HTML page. This will declare Bellhop and attach it directly
+to `window`
+```html
+<script src="node_modules/bellhop-iframe/bellhop-umd.js"></script>
+```
+
 ## Basic Usage ##
 
 Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to start get them talking to each other.
