@@ -3,7 +3,11 @@ import { BellhopEventDispatcher } from './BellhopEventDispatcher';
 
 let bellhop;
 
-before(() => {
+const open = () => karmaHTML.child.open();
+const iframe = () => karmaHTML.child.iframe;
+
+beforeEach(() => {
+  karmaHTML.child.close();
   bellhop = new Bellhop();
 });
 
@@ -17,9 +21,9 @@ describe('Bellhop Client', () => {
       done();
     });
 
-    bellhop.connect(karmaHTML.child.iframe);
-    karmaHTML.child.open();
-    expect(bellhop.iframe).to.equal(karmaHTML.child.iframe);
+    bellhop.connect(iframe());
+    open();
+    expect(bellhop.iframe).to.equal(iframe());
   });
 
   it('Trigger should call event', done => {
@@ -39,6 +43,8 @@ describe('Bellhop Client', () => {
   });
 
   it('Fetch should return a response from the child', done => {
+    bellhop.connect(iframe());
+    open();
     bellhop.fetch('highscore', e => {
       expect(e.type).to.equal('highscore');
       expect(e.data).to.equal(10000);
@@ -54,5 +60,16 @@ describe('Bellhop Client', () => {
     expect(bellhop.iframe).to.be.null;
     expect(bellhop._sendLater.length).to.equal(0);
     expect(Object.keys(bellhop._listeners).length).to.equal(0);
+  });
+
+  it('It should send later if "connecting" status is true', done => {
+    bellhop.connect(iframe());
+    bellhop.on('sendLater', e => {
+      expect(e.data).to.equal(1);
+      done();
+    });
+    open();
+    bellhop.send('sendLater', 1);
+    expect(bellhop.connecting).to.be.true;
   });
 });
