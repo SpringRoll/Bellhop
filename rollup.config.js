@@ -5,6 +5,8 @@ import prettier from 'rollup-plugin-prettier';
 import uglify from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
 
+const prettierConfig = require('./.prettierrc');
+
 export default [
   {
     input: 'src/index.js',
@@ -14,12 +16,7 @@ export default [
         format: 'es'
       }
     ],
-    plugins: [
-      eslint(),
-      prettier({
-        parser: 'babylon'
-      })
-    ]
+    plugins: [eslint(), prettier(prettierConfig)]
   },
   {
     input: 'src/index.js',
@@ -34,9 +31,7 @@ export default [
     ],
     plugins: [
       eslint(),
-      prettier({
-        parser: 'babylon'
-      }),
+      prettier(prettierConfig),
       resolve({
         module: true,
         jsnext: true,
