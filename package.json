@@ -1,7 +1,8 @@
 {
   "name": "bellhop-iframe",
-  "version": "2.1.1",
-  "main": "bellhop.js",
+  "version": "2.1.2",
+  "main": "dist/bellhop.js",
+  "module": "dist/bellhop.js",
   "browser": "bellhop-umd.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -51,12 +52,5 @@
     "network",
     "crossdomain"
   ],
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es6": true,
-      "browser": true
-    }
-  },
   "license": "MIT"
 }
