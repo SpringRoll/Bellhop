@@ -5,40 +5,43 @@ import prettier from 'rollup-plugin-prettier';
 import uglify from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
 
+const prettierConfig = require('./.prettierrc');
+
 export default [
   {
-    input: 'src/Bellhop.js',
+    input: 'src/index.js',
     output: [
       {
-        file: 'bellhop.js',
-        format: 'es',
-        sourceMap: true,
-        extend: true
-      },
+        file: 'dist/bellhop.js',
+        format: 'es'
+      }
+    ],
+    plugins: [eslint(), prettier(prettierConfig)]
+  },
+  {
+    input: 'src/index.js',
+    output: [
       {
         file: 'bellhop-umd.js',
         format: 'umd',
-        sourceMap: true,
         name: 'window',
-        extend: true
+        extend: true,
+        sourceMap: true
       }
     ],
     plugins: [
       eslint(),
-      prettier({
-        parser: 'babylon'
-      }),
+      prettier(prettierConfig),
       resolve({
         module: true,
         jsnext: true,
         main: true,
-        browser: true
+        browser: true,
+        preferBuiltins: false
       }),
       commonjs(),
       babel(),
-      uglify({
-        sourceMap: true
-      })
+      uglify()
     ]
   }
 ];
