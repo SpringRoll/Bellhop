@@ -18,7 +18,11 @@ import { Bellhop } from 'bellhop-iframe';
 To import with CommonJS, refer instead to the UMD build
 
 ```javascript
-const { Bellhop } = require('bellhop-iframe/bellhop-umd.js');
+const Bellhop = require('bellhop-iframe/bellhop-umd.js');
+```
+You can also import the UMD version by using import
+```javascript
+import 'bellhop-iframe/bellhop-umd.js';
 ```
 
 Lastly, the UMD module can also be directly included on an HTML page. This will declare Bellhop and attach it directly
