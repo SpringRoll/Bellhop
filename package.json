@@ -3,7 +3,7 @@
   "version": "2.1.2",
   "main": "dist/bellhop.js",
   "module": "dist/bellhop.js",
-  "browser": "dist/bellhop.js",
+  "browser": "bellhop-umd.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
