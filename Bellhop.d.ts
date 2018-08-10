@@ -1,4 +1,4 @@
-export as namespace Bellhop;
+export as namespace BellhopIframe;
 
 interface PriorityFunction extends Function {
   private _priority: number;
