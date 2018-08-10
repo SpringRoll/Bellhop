@@ -47,7 +47,7 @@ export class Bellhop extends BellhopEventDispatcher {
 
     /**
      *  If using cross-domain, the domain to post to
-     *  @property {Boolean} origin
+     *  @property {string} origin
      *  @private
      *  @default "*"
      */
@@ -62,7 +62,7 @@ export class Bellhop extends BellhopEventDispatcher {
 
     /**
      * The iframe element
-     * @property {DOMElement} iframe
+     * @property {HTMLIFrameElement} iframe
      * @private
      * @readOnly
      */
@@ -222,7 +222,7 @@ export class Bellhop extends BellhopEventDispatcher {
    *  @method fetch
    *  @param {String} event The name of the event
    *  @param {Function} callback The callback to call after, takes event object as one argument
-   *  @param {Object} [data] Optional data to pass along
+   *  @param {Object} [data = {}] Optional data to pass along
    *  @param {Boolean} [runOnce=false] If we only want to fetch once and then remove the listener
    */
   fetch(event, callback, data = {}, runOnce = false) {
@@ -247,7 +247,7 @@ export class Bellhop extends BellhopEventDispatcher {
    *  right away. Automatically removes the listener
    *  @method respond
    *  @param {String} event The name of the event
-   *  @param {Object} data The object to pass back.
+   *  @param {Object} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
    */
