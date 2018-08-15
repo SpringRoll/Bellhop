@@ -1,4 +1,10 @@
 /**
+ * Function with a added priority type
+ * @typedef {Function} PriorityFunction
+ * @property {number} _priority
+ */
+
+/**
  * Generic event dispatcher
  * @class  BellhopEventDispatcher
  */
@@ -16,7 +22,7 @@ class BellhopEventDispatcher {
    *  Add an event listener to the listen to an event from either the parent or iframe
    *  @method on
    *  @param {String} name The name of the event to listen
-   *  @param {Function} callback The handler when an event is triggered
+   *  @param {PriorityFunction} callback The handler when an event is triggered
    *  @param {number} [priority=0] The priority of the event listener. Higher numbers are handled first.
    */
   on(name, callback, priority = 0) {
@@ -38,6 +44,10 @@ class BellhopEventDispatcher {
   }
 
   /**
+   * @private
+   * @param {PriorityFunction} a
+   * @param {PriorityFunction} b
+   * @returns {number};
    *  Sorts listeners added by .on() by priority
    */
   listenerSorter(a, b) {
@@ -47,23 +57,23 @@ class BellhopEventDispatcher {
   /**
    *  Remove an event listener
    *  @method off
-   *  @param {String} type The type of event to listen for. If undefined, remove all listeners.
-   *  @param {Function} [callback] The optional handler when an event is triggered, if no callback
+   *  @param {String} name The name of event to listen for. If undefined, remove all listeners.
+   *  @param {Function} callback The optional handler when an event is triggered, if no callback
    *         is set then all listeners by type are removed
    */
-  off(type, callback) {
-    if (this._listeners[type] === undefined) {
+  off(name, callback) {
+    if (this._listeners[name] === undefined) {
       return;
     }
 
     if (callback === undefined) {
-      delete this._listeners[type];
+      delete this._listeners[name];
       return;
     }
 
-    const index = this._listeners[type].indexOf(callback);
+    const index = this._listeners[name].indexOf(callback);
 
-    -1 < index ? this._listeners[type].splice(index, 1) : undefined;
+    -1 < index ? this._listeners[name].splice(index, 1) : undefined;
   }
 
   /**
@@ -141,7 +151,7 @@ class Bellhop extends BellhopEventDispatcher {
 
     /**
      *  If using cross-domain, the domain to post to
-     *  @property {Boolean} origin
+     *  @property {string} origin
      *  @private
      *  @default "*"
      */
@@ -156,7 +166,7 @@ class Bellhop extends BellhopEventDispatcher {
 
     /**
      * The iframe element
-     * @property {DOMElement} iframe
+     * @property {HTMLIFrameElement} iframe
      * @private
      * @readOnly
      */
@@ -316,7 +326,7 @@ class Bellhop extends BellhopEventDispatcher {
    *  @method fetch
    *  @param {String} event The name of the event
    *  @param {Function} callback The callback to call after, takes event object as one argument
-   *  @param {Object} [data] Optional data to pass along
+   *  @param {Object} [data = {}] Optional data to pass along
    *  @param {Boolean} [runOnce=false] If we only want to fetch once and then remove the listener
    */
   fetch(event, callback, data = {}, runOnce = false) {
@@ -341,7 +351,7 @@ class Bellhop extends BellhopEventDispatcher {
    *  right away. Automatically removes the listener
    *  @method respond
    *  @param {String} event The name of the event
-   *  @param {Object} data The object to pass back.
+   *  @param {Object} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
    */
