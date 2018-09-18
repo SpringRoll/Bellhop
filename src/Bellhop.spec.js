@@ -26,6 +26,12 @@ describe('Bellhop Client', () => {
     expect(bellhop.iframe).to.equal(iframe());
   });
 
+  it('should denote supported if it can connect properly', () => {
+    bellhop.connect(iframe());
+
+    expect(bellhop.supported).to.equal(true);
+  });
+
   it('Trigger should call event', done => {
     bellhop.on('highscore', () => {
       done();
