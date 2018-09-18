@@ -160,6 +160,12 @@ export class Bellhop extends BellhopEventDispatcher {
 
     // The instance of bellhop is inside the iframe
     this.isChild = iframe === undefined;
+  
+    this.supported = true;
+    if(this.isChild) {
+      // for child pages, the window passed must be a different window
+      this.supported = window != iframe;
+    }
 
     this.origin = origin;
 
