@@ -8,7 +8,7 @@ export class BellhopEventDispatcher {
   constructor();
   destroy(): void;
   listenerSorter(a: PriorityFunction, b: PriorityFunction): number;
-  off(name: string, callback: Function): void;
+  off(name: string, callback?: Function): void;
   on(name: string, callback: Function, priority?: number): void;
   trigger(event: object | string): void;
 

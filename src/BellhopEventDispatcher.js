@@ -58,7 +58,7 @@ export class BellhopEventDispatcher {
    *  Remove an event listener
    *  @method off
    *  @param {String} name The name of event to listen for. If undefined, remove all listeners.
-   *  @param {Function} callback The optional handler when an event is triggered, if no callback
+   *  @param {Function} [callback] The optional handler when an event is triggered, if no callback
    *         is set then all listeners by type are removed
    */
   off(name, callback) {
