@@ -79,8 +79,8 @@ export class BellhopEventDispatcher {
   /**
    *  Trigger any event handlers for an event type
    *  @method trigger
-   *  @param {Object | String} event The event to send
-   *  @param {*} [data = undefined] optional data to send to other locations in the app that are listening for this event
+   *  @param {object | String} event The event to send
+   *  @param {object} [data = {}] optional data to send to other areas in the app that are listening for this event
    */
   trigger(event, data = {}) {
     if (typeof event == 'string') {
