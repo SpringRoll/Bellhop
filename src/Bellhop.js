@@ -94,16 +94,21 @@ export class Bellhop extends BellhopEventDispatcher {
 
     // If this is not the initial connection message
     if (message.data !== 'connected') {
-      // Ignore all other message if we don't have a context
-      if (
-        this.connected &&
-        'object' === typeof message.data &&
-        message.data.type
-      ) {
-        this.trigger(message.data);
+      let data = message.data;
+      // Check to see if the data was sent as a stringified json
+      if ('string' === typeof data) {
+        try {
+          data = JSON.parse(data);
+        } catch (err) {
+          console.error('Bellhop error: ', err);
+        }
+      }
+      if (this.connected && 'object' === typeof data && data.type) {
+        this.trigger(data);
       }
       return;
     }
+
     // Else setup the connection
     this.onConnectionReceived(message.data);
   }
@@ -160,9 +165,9 @@ export class Bellhop extends BellhopEventDispatcher {
 
     // The instance of bellhop is inside the iframe
     this.isChild = iframe === undefined;
-  
+
     this.supported = true;
-    if(this.isChild) {
+    if (this.isChild) {
       // for child pages, the window passed must be a different window
       this.supported = window != iframe;
     }
