@@ -99,8 +99,9 @@ export class Bellhop extends BellhopEventDispatcher {
       if ('string' === typeof data) {
         try {
           data = JSON.parse(data);
-          // eslint-disable-next-line
-        } catch (err) {}
+        } catch (err) {
+          console.error('Bellhop error: ', err);
+        }
       }
       if (this.connected && 'object' === typeof data && data.type) {
         this.trigger(data);
