@@ -58,7 +58,7 @@ class BellhopEventDispatcher {
    *  Remove an event listener
    *  @method off
    *  @param {String} name The name of event to listen for. If undefined, remove all listeners.
-   *  @param {Function} callback The optional handler when an event is triggered, if no callback
+   *  @param {Function} [callback] The optional handler when an event is triggered, if no callback
    *         is set then all listeners by type are removed
    */
   off(name, callback) {
@@ -198,16 +198,20 @@ class Bellhop extends BellhopEventDispatcher {
 
     // If this is not the initial connection message
     if (message.data !== 'connected') {
-      // Ignore all other message if we don't have a context
-      if (
-        this.connected &&
-        'object' === typeof message.data &&
-        message.data.type
-      ) {
-        this.trigger(message.data);
+      let data = message.data;
+      // Check to see if the data was sent as a stringified json
+      if ('string' === typeof data) {
+        try {
+          data = JSON.parse(data);
+          // eslint-disable-next-line
+        } catch (err) {}
+      }
+      if (this.connected && 'object' === typeof data && data.type) {
+        this.trigger(data);
       }
       return;
     }
+
     // Else setup the connection
     this.onConnectionReceived(message.data);
   }
