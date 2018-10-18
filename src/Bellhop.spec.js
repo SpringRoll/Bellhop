@@ -33,10 +33,16 @@ describe('Bellhop Client', () => {
   });
 
   it('Trigger should call event', done => {
-    bellhop.on('highscore', () => {
-      done();
+    bellhop.on('highscore', $event => {
+      expect($event.data).to.be.a('object');
     });
     bellhop.trigger('highscore');
+
+    bellhop.on('data', $event => {
+      expect($event.data.foo).to.equal('bar');
+      done();
+    });
+    bellhop.trigger('data', { foo: 'bar' });
   });
 
   it('Should be able to remove events', () => {

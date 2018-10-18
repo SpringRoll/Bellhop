@@ -79,12 +79,14 @@ class BellhopEventDispatcher {
   /**
    *  Trigger any event handlers for an event type
    *  @method trigger
-   *  @param {Object | String} event The event to send
+   *  @param {object | String} event The event to send
+   *  @param {object} [data = {}] optional data to send to other areas in the app that are listening for this event
    */
-  trigger(event) {
+  trigger(event, data = {}) {
     if (typeof event == 'string') {
       event = {
-        type: event
+        type: event,
+        data: 'object' === typeof data && null !== data ? data : {}
       };
     }
 
@@ -203,15 +205,15 @@ class Bellhop extends BellhopEventDispatcher {
       if ('string' === typeof data) {
         try {
           data = JSON.parse(data);
-          // eslint-disable-next-line
-        } catch (err) {}
+        } catch (err) {
+          console.error('Bellhop error: ', err);
+        }
       }
       if (this.connected && 'object' === typeof data && data.type) {
         this.trigger(data);
       }
       return;
     }
-
     // Else setup the connection
     this.onConnectionReceived(message.data);
   }
@@ -325,7 +327,7 @@ class Bellhop extends BellhopEventDispatcher {
     if (this.connecting) {
       this._sendLater.push(message);
     } else {
-      this.target.postMessage(message, this.origin);
+      this.target.postMessage(JSON.stringify(message), this.origin);
     }
   }
 
