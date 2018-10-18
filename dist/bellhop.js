@@ -214,7 +214,6 @@ class Bellhop extends BellhopEventDispatcher {
       }
       return;
     }
-
     // Else setup the connection
     this.onConnectionReceived(message.data);
   }
@@ -328,7 +327,7 @@ class Bellhop extends BellhopEventDispatcher {
     if (this.connecting) {
       this._sendLater.push(message);
     } else {
-      this.target.postMessage(message, this.origin);
+      this.target.postMessage(JSON.stringify(message), this.origin);
     }
   }
 
