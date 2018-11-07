@@ -7,6 +7,21 @@ import babel from 'rollup-plugin-babel';
 
 const prettierConfig = require('./.prettierrc');
 
+const plugins = [
+  eslint(),
+  prettier(prettierConfig),
+  resolve({
+    module: true,
+    jsnext: true,
+    main: true,
+    browser: true,
+    preferBuiltins: false
+  }),
+  commonjs(),
+  babel(),
+  uglify()
+];
+
 export default [
   {
     input: 'src/index.js',
@@ -16,7 +31,7 @@ export default [
         format: 'es'
       }
     ],
-    plugins: [eslint(), prettier(prettierConfig)]
+    plugins: plugins
   },
   {
     input: 'src/index.js',
@@ -29,19 +44,6 @@ export default [
         sourceMap: true
       }
     ],
-    plugins: [
-      eslint(),
-      prettier(prettierConfig),
-      resolve({
-        module: true,
-        jsnext: true,
-        main: true,
-        browser: true,
-        preferBuiltins: false
-      }),
-      commonjs(),
-      babel(),
-      uglify()
-    ]
+    plugins: plugins
   }
 ];
