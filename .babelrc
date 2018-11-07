@@ -4,7 +4,8 @@
       "env",
       {
         "targets": {
-          "browsers": ["Explorer 11"]
+          "ie": "11",
+          "ios": "8.2"
         },
         "modules": false
       }
