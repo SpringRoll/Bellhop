@@ -64,6 +64,16 @@ describe('Bellhop Client', () => {
     });
   });
 
+  it('Should be able to pass a function to respond', done => {
+    bellhop.connect(iframe());
+    open();
+    bellhop.fetch('function', $event => {
+      expect($event.type).to.equal('function');
+      expect($event.data).to.equal(3.14);
+      done();
+    });
+  });
+
   it('Should completely disconnect with destroy()', () => {
     bellhop.destroy();
     expect(bellhop.connected).to.be.false;

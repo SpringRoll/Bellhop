@@ -257,7 +257,7 @@ export class Bellhop extends BellhopEventDispatcher {
    *  right away. Automatically removes the listener
    *  @method respond
    *  @param {String} event The name of the event
-   *  @param {Object} [data = {}] The object to pass back.
+   *  @param {Object | function} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
    */
@@ -266,7 +266,7 @@ export class Bellhop extends BellhopEventDispatcher {
       if (runOnce) {
         this.off(e.type, internalCallback);
       }
-      this.send(event, data);
+      this.send(event, 'function' === typeof data ? data() : data);
     };
     this.on(event, internalCallback);
   }
