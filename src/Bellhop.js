@@ -120,9 +120,6 @@ export class Bellhop extends BellhopEventDispatcher {
     this.connecting = false;
     this.connected = true;
 
-    // If there is a connection event assigned call it
-    this.trigger('connected');
-
     // Be polite and respond to the child that we're ready
     if (!this.isChild) {
       this.target.postMessage(message, this.origin);
@@ -130,11 +127,14 @@ export class Bellhop extends BellhopEventDispatcher {
 
     // If we have any sends waiting to send
     // we are now connected and it should be okay
-    for (let i = 0, length = this._sendLater.length; i < length; i++) {
+    for (let i = 0; i < this._sendLater.length; i++) {
       const { type, data } = this._sendLater[i];
       this.send(type, data);
     }
     this._sendLater.length = 0;
+
+    // If there is a connection event assigned call it
+    this.trigger('connected');
   }
 
   /**
