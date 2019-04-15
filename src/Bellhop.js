@@ -67,6 +67,13 @@ export class Bellhop extends BellhopEventDispatcher {
      * @readOnly
      */
     this.iframe = null;
+
+    /**
+     * The bound receive function
+     * @property {Function} _receiveFun
+     * @private
+     */
+    this._receiveFun = null;
   }
 
   /**
@@ -173,7 +180,8 @@ export class Bellhop extends BellhopEventDispatcher {
 
     this.origin = origin;
 
-    window.addEventListener('message', this.receive.bind(this));
+    this._receiveFun = this.receive.bind(this);
+    window.addEventListener('message', this._receiveFun);
 
     if (this.isChild) {
       // No parent, can't connect
@@ -199,7 +207,8 @@ export class Bellhop extends BellhopEventDispatcher {
     this.isChild = true;
     this._sendLater.length = 0;
 
-    window.removeEventListener('message', this.receive);
+    window.removeEventListener('message', this._receiveFun);
+    this._receiveFun = null;
   }
 
   /**
