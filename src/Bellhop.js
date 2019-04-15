@@ -67,6 +67,13 @@ export class Bellhop extends BellhopEventDispatcher {
      * @readOnly
      */
     this.iframe = null;
+
+    /**
+     * The bound receive function
+     * @property {Function} receive
+     * @private
+     */
+    this.receive = this.receive.bind(this);
   }
 
   /**
@@ -173,7 +180,7 @@ export class Bellhop extends BellhopEventDispatcher {
 
     this.origin = origin;
 
-    window.addEventListener('message', this.receive.bind(this));
+    window.addEventListener('message', this.receive);
 
     if (this.isChild) {
       // No parent, can't connect
