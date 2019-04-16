@@ -37,7 +37,7 @@ export default [
     input: 'src/index.js',
     output: [
       {
-        file: 'bellhop-umd.js',
+        file: 'dist/bellhop-umd.js',
         format: 'umd',
         name: 'window',
         extend: true,
