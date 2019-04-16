@@ -1,5 +1,6 @@
 import { Bellhop } from './Bellhop';
 import { BellhopEventDispatcher } from './BellhopEventDispatcher';
+import { spy } from 'sinon';
 
 let bellhop;
 
@@ -93,5 +94,15 @@ describe('Bellhop Client', () => {
     open();
     bellhop.send('sendLater', 1);
     expect(bellhop.connecting).to.be.true;
+  });
+
+  it('It should remove message event listener on disconnect', () => {
+    const removeEventListener = spy(window, 'removeEventListener');
+
+    bellhop.disconnect();
+
+    const [eventName, functionArg] = removeEventListener.getCall(0).args;
+    expect(eventName).to.equals('message');
+    expect(functionArg).to.equal(bellhop.receive);
   });
 });
