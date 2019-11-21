@@ -19,13 +19,13 @@ bellhop.send('user', {
   "age" : 16,
   "city" : "Boston"
 });
-var functionExample = function(){ 
-  return "result of functionExample";
-};
 
 bellhop.respond('config', { difficulty: 'hard', theme: 'dark' });
 
-bellhop.respond('config', functionExample);
+var functionExample = function(){ 
+  return "result of functionExample";
+};
+bellhop.respond('function', functionExample);
 
 </script>
 
