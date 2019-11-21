@@ -77,7 +77,7 @@ bellhop.send('init');
 bellhop.on('user', function(event){
   // Capture the data from the event
   const user = event.data;
-}
+});
 </script>
 ```
 
@@ -116,7 +116,7 @@ bellhop.send('newHighscore', { value: 100 });
 Convenience methods for automating response of values between the interior and exterior of frames. For instance:
 
 ```javascript
-// parent.html
+// index.html
 var iframe = document.querySelector('iframe');
 var bellhop = new Bellhop(iframe);
 bellhop.connect();
@@ -128,6 +128,20 @@ var bellhop = new Bellhop();
 bellhop.connect();
 bellhop.fetch('config', function(result) {
   console.log(result); // { difficulty: 'hard', theme: 'dark' }
+});
+```
+
+Additionally, object passed to respond() can be a function, whose result will be returned in the callback of the fetch function. 
+```javascript
+// index.html
+var functionExample = function(){ 
+  return "result of functionExample";
+};
+bellhop.respond('function', functionExample);
+
+// child.html
+bellhop.fetch('function', function(result) {
+  console.log(result.data); //result of functionExample
 });
 ```
 

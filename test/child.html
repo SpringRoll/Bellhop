@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
+<script type="module">
+import {Bellhop} from '../dist/bellhop.js';
+  // Create the bellhop object
+  const bellhop = new Bellhop();
+  bellhop.connect();
+  
+  // An example event to sent to the parent
+  bellhop.send('init');
+  
+  // Handle events from the parent
+  bellhop.on('user', function(event){
+    // Capture the data from the event
+    const user = event.data;
+  });
 
-<head>
-  <meta charset="utf-8">
-  <title>Bellhop Child</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-</head>
-
-<body>
-  <script type="module">
-    import { Bellhop } from '/js/Bellhop.js';
-    const bellhop = new Bellhop();
-    bellhop.respond('sendLater', 1);
-    bellhop.respond("highscore", 10000);
-    bellhop.respond('function', () => 3.14)
-    bellhop.connect();
-
+  bellhop.fetch('config', function(result) {
+    console.log(result.data); // { difficulty: 'hard', theme: 'dark' }
+  });
+  
+  bellhop.fetch('function', function(result) {
+    console.log(result.data); //result of functionExample
+  });
   </script>
-</body>
-
-</html>

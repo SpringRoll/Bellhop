@@ -1,0 +1,32 @@
+
+<iframe src="child.html" id="page" width="200" height="200"></iframe>
+<script type="module">
+import {Bellhop} from '../dist/bellhop.js';
+// Create the bellhop object
+const bellhop = new Bellhop();
+
+// Pass in the iframe DOM object
+bellhop.connect(document.getElementById("page"));
+
+// Listen for the 'init' event from the iframe
+bellhop.on('init', function(event){
+  // Handle the event here!
+});
+
+// Send data to the iframe
+bellhop.send('user', {
+  "name" : "Dave Smith",
+  "age" : 16,
+  "city" : "Boston"
+});
+
+bellhop.respond('config', { difficulty: 'hard', theme: 'dark' });
+
+var functionExample = function(){ 
+  return "result of functionExample";
+};
+bellhop.respond('function', functionExample);
+
+</script>
+
+</html>
