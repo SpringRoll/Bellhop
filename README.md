@@ -145,6 +145,41 @@ bellhop.fetch('function', function(result) {
 });
 ```
 
+Futhermore, the structure allows data to be passed to respond() as:
+* data 
+* Promise<data>
+* Function<data>
+* Function<Promise<data>>
+all of which will be resolved upon return fetch(); 
+
+For example, the following all return `"data"` to `bellhop.fetch()`
+```javascript
+
+//(example)
+bellhop.respond('example', "data");
+
+//OR  (promise example)
+let promiseData = new Promise(function(resolve, reject) {
+  resolve("data")
+});
+bellhop respond('example', promiseData)
+
+//OR  (function example)
+var functionExample = function(){ 
+  return "data";
+};
+bellhop.respond('example', functionExample);
+
+//OR (function that returns a promise)
+var functionPromiseExample = function(){ 
+  return new Promise(function(resolve, reject) {
+    resolve("data")
+  });
+};
+bellhop.respond('example', functionPromiseExample);
+```
+
+
 ### `target`
 Property for retrieving the iframe element through which this `Bellhop` instance is communicating:
 
