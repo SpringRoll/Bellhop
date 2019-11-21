@@ -145,12 +145,7 @@ bellhop.fetch('function', function(result) {
 });
 ```
 
-Futhermore, the structure allows data to be passed to respond() as:
-* data 
-* Promise<data>
-* Function<data>
-* Function<Promise<data>>
-all of which will be resolved upon return fetch(); 
+Furthermore, respond() accepts a plain object, string, or number. If a function is passed, it will be called and the function's return-value sent. If a promise is passed in or returned from a function that was passed in, that promise will be await-ed before it's value returned.
 
 For example, the following all return `"data"` to `bellhop.fetch()`
 ```javascript
