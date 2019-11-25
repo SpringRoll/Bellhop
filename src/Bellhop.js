@@ -273,13 +273,13 @@ export class Bellhop extends BellhopEventDispatcher {
       if (runOnce) {
         this.off(e.type, internalCallback);
       }
-      console.log(data)
+      /*console.log(data);
      
       if(typeof data === 'function'){
         data = data(); 
       }
     
-      data = await data; 
+      data = await data; */
       
       this.send(event, data);
     };
