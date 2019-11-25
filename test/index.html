@@ -27,6 +27,23 @@ var functionExample = function(){
 };
 bellhop.respond('function', functionExample);
 
+bellhop.respond('string', "data");
+
+//OR  (promise example)
+let promiseData = new Promise(function(resolve, reject) {
+  resolve("data")
+});
+console.log("index promise data", promiseData)
+bellhop.respond('promise', Promise.resolve(promiseData))
+
+//OR (function that returns a promise)
+var functionPromiseExample = function(){
+   return new Promise(function(resolve) { 
+       setTimeout(resolve("data"), 1000)
+   });
+}
+bellhop.respond('functionPromise', functionPromiseExample);
+
 </script>
 
 </html>

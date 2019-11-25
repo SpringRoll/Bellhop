@@ -268,17 +268,19 @@ export class Bellhop extends BellhopEventDispatcher {
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
    */
-  respond(event, data = {}, runOnce = false) {
+  async respond(event, data = {}, runOnce = false) {
     const internalCallback = async function(e){
       if (runOnce) {
         this.off(e.type, internalCallback);
       }
+      console.log(data)
+     
       if(typeof data === 'function'){
         data = data(); 
       }
-      if(typeof data === 'Promise'){
-        data = await data; 
-      }
+    
+      data = await data; 
+      
       this.send(event, data);
     };
     this.on(event, internalCallback);

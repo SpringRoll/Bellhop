@@ -157,7 +157,7 @@ bellhop.respond('example', "data");
 let promiseData = new Promise(function(resolve, reject) {
   resolve("data")
 });
-bellhop respond('example', promiseData)
+bellhop.respond('example', promiseData)
 
 //OR  (function example)
 var functionExample = function(){ 
