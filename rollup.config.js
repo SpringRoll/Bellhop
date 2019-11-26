@@ -38,7 +38,7 @@ export default [
         format: 'umd',
         name: 'window',
         extend: true,
-        sourceMap: false
+        sourceMap: true
       }
     ],
     plugins: plugins
