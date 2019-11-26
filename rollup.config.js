@@ -1,8 +1,8 @@
-import resolve from 'rollup-plugin-node-resolve';
+import  resolve  from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import eslint from 'rollup-plugin-eslint';
+import { eslint }from 'rollup-plugin-eslint';
 import prettier from 'rollup-plugin-prettier';
-import uglify from 'rollup-plugin-uglify';
+import {uglify} from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
 
 const prettierConfig = require('./.prettierrc');
@@ -11,14 +11,11 @@ const plugins = [
   eslint(),
   prettier(prettierConfig),
   resolve({
-    module: true,
-    jsnext: true,
-    main: true,
-    browser: true,
+    mainFields: ["module", "jsnext:main", "main", "browser"],
     preferBuiltins: false
   }),
   commonjs(),
-  babel(),
+  babel({ runtimeHelpers: true }),
   uglify()
 ];
 
@@ -41,7 +38,7 @@ export default [
         format: 'umd',
         name: 'window',
         extend: true,
-        sourceMap: true
+        sourceMap: false
       }
     ],
     plugins: plugins

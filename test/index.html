@@ -33,7 +33,7 @@ bellhop.respond('string', "data");
 let promiseData = new Promise(function(resolve, reject) {
   resolve("data")
 });
-console.log("index promise data", promiseData)
+
 bellhop.respond('promise', Promise.resolve(promiseData))
 
 //OR (function that returns a promise)

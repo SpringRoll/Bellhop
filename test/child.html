@@ -14,7 +14,7 @@ import {Bellhop} from '../dist/bellhop.js';
   });
 
   bellhop.fetch('config', function(result) {
-    console.log(result.data); // { difficulty: 'hard', theme: 'dark' }
+    console.log("object", result.data); // { difficulty: 'hard', theme: 'dark' }
   });
 
   bellhop.fetch('string', function(result) {
