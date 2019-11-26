@@ -271,6 +271,9 @@ export class Bellhop extends BellhopEventDispatcher {
    */
   respond(event, data = {}, runOnce = false) {
     let bellhop = this; //'this' for use inside async function
+    /** 
+     * @ignore 
+     */ 
     const internalCallback = async function(event){
       if (runOnce) {
         bellhop.off(event, internalCallback);
