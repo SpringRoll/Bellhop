@@ -262,26 +262,24 @@ export class Bellhop extends BellhopEventDispatcher {
   /**
    *  A convience method for listening to an event and then responding with some data
    *  right away. Automatically removes the listener
-   *  @method respond
+   *  @method respond 
    *  @param {String} event The name of the event
    *  @param {Object | function | Promise | string} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
+   *  
    */
   respond(event, data = {}, runOnce = false) {
-    const internalCallback = async function(e){
+    let bellhop = this; //'this' for use inside async function
+    const internalCallback = async function(event){
       if (runOnce) {
-        this.off(e.type, internalCallback);
+        bellhop.off(event, internalCallback);
       }
-      console.log(data);
-     
       if(typeof data === 'function'){
         data = data(); 
       }
-    
       let newData = await data; 
-      
-      this.send(event, newData);
+      bellhop.send(event.type, newData);
     };
     this.on(event, internalCallback);
   }
