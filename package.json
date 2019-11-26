@@ -31,7 +31,7 @@
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-prettier": "^0.6.0",
-    "rollup-plugin-uglify": "^6.0.3",
+    "rollup-plugin-terser": "^5.1.2",
     "sinon": "^7.5.0",
     "uglify": "^0.1.5",
     "webpack": "^4.41.2"
@@ -44,7 +44,7 @@
     "url": "https://github.com/SpringRoll/Bellhop/issues"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c -m",
     "dev": "rollup -c -w",
     "test": "karma start karma.conf.js",
     "travis-test": "./node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
@@ -59,7 +59,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.7.4",
-    "rollup-plugin-terser": "^5.1.2"
+    "@babel/runtime": "^7.7.4"
   }
 }
