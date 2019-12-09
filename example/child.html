@@ -1,0 +1,23 @@
+<script type="module">
+import {Bellhop} from '../dist/bellhop.js';
+  // Create the bellhop object
+  const bellhop = new Bellhop();
+  bellhop.connect();
+  
+  // An example event to sent to the parent
+  bellhop.send('init');
+  
+  // Handle events from the parent
+  bellhop.on('user', function(event){
+    // Capture the data from the event
+    const user = event.data;
+  });
+
+  bellhop.fetch('config', function(result) {
+    console.log(result.data); // { difficulty: 'hard', theme: 'dark' }
+  });
+  
+  bellhop.fetch('function', function(result) {
+    console.log(result.data); //result of functionExample
+  });
+  </script>
