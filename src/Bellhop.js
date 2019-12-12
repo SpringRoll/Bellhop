@@ -270,7 +270,7 @@ export class Bellhop extends BellhopEventDispatcher {
    *  
    */
   respond(event, data = {}, runOnce = false) {
-    let bellhop = this; //'this' for use inside async function
+    const bellhop = this; //'this' for use inside async function
     /** 
      * @ignore 
      */ 
@@ -281,7 +281,7 @@ export class Bellhop extends BellhopEventDispatcher {
       if(typeof data === 'function'){
         data = data(); 
       }
-      let newData = await data; 
+      const newData = await data; 
       bellhop.send(event.type, newData);
     };
     this.on(event, internalCallback);
