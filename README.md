@@ -145,6 +145,36 @@ bellhop.fetch('function', function(result) {
 });
 ```
 
+Furthermore, respond() accepts a plain object, string, or number. If a function is passed, it will be called and the function's return-value sent. If a promise is passed in or returned from a function that was passed in, that promise will be await-ed before it's value returned.
+
+For example, the following all return `"data"` to `bellhop.fetch()`
+```javascript
+
+//(example)
+bellhop.respond('example', "data");
+
+//OR  (promise example)
+let promiseData = new Promise(function(resolve, reject) {
+  resolve("data")
+});
+bellhop.respond('example', promiseData)
+
+//OR  (function example)
+var functionExample = function(){ 
+  return "data";
+};
+bellhop.respond('example', functionExample);
+
+//OR (function that returns a promise)
+var functionPromiseExample = function(){ 
+  return new Promise(function(resolve, reject) {
+    resolve("data")
+  });
+};
+bellhop.respond('example', functionPromiseExample);
+```
+
+
 ### `target`
 Property for retrieving the iframe element through which this `Bellhop` instance is communicating:
 
