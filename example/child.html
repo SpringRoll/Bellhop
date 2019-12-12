@@ -1,4 +1,4 @@
-<script type="module">
+<script type='module'>
 import {Bellhop} from '../dist/bellhop.js';
   // Create the bellhop object
   const bellhop = new Bellhop();
@@ -14,10 +14,21 @@ import {Bellhop} from '../dist/bellhop.js';
   });
 
   bellhop.fetch('config', function(result) {
-    console.log(result.data); // { difficulty: 'hard', theme: 'dark' }
+    console.log("object", result.data); // { difficulty: 'hard', theme: 'dark' }
+  });
+
+  bellhop.fetch('string', function(result) {
+    console.log("string", result.data); //result of string
   });
   
   bellhop.fetch('function', function(result) {
-    console.log(result.data); //result of functionExample
+    console.log("function", result.data); //result of functionExample
+  });
+
+  bellhop.fetch('promise', function(result) {
+    console.log("promise", result.data); 
+  });
+  bellhop.fetch('functionPromise', function(result) {
+    console.log('functionPromise', result.data); //result of functionPromise
   });
   </script>
