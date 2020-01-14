@@ -19,7 +19,7 @@ export class BellhopEventDispatcher {
   }
 
   /**
-   *  Add an event listener to the listen to an event from either the parent or iframe
+   *  Add an event listener to listen to an event from either the parent or iframe
    *  @method on
    *  @param {String} name The name of the event to listen
    *  @param {PriorityFunction} callback The handler when an event is triggered

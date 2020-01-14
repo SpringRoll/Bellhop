@@ -1,7 +1,7 @@
 import { BellhopEventDispatcher } from './BellhopEventDispatcher.js';
 
 /**
- *  Abstract the communication layer between the iframe
+ *  Abstract communication layer between the iframe
  *  and the parent DOM
  *  @class Bellhop
  *  @extends BellhopEventDispatcher
@@ -11,8 +11,9 @@ export class Bellhop extends BellhopEventDispatcher {
    * Creates an instance of Bellhop.
    * @memberof Bellhop
    * @param { string | number } id the id of the Bellhop instance
+   * @param { boolean } debug whether debug mode should be turned on for the bellhop instance
    */
-  constructor(id = (Math.random() * 100) | 0) {
+  constructor(id = (Math.random() * 100) | 0, debug = false) {
     super();
 
     /**
@@ -21,7 +22,7 @@ export class Bellhop extends BellhopEventDispatcher {
      */
     this.id = `BELLHOP:${id}`;
     /**
-     *  If we are connected to another instance of the bellhop
+     *  If we are connected to another instance of bellhop
      *  @property {Boolean} connected
      *  @readOnly
      *  @default false
@@ -38,12 +39,20 @@ export class Bellhop extends BellhopEventDispatcher {
     this.isChild = true;
 
     /**
-     *  If we are current trying to connec
+     *  If we are currently trying to connect
      *  @property {Boolean} connecting
      *  @default false
      *  @private
      */
     this.connecting = false;
+
+    /**
+     * If debug mode is turned on
+     *  @property {Boolean} debug
+     *  @default false
+     *  @private
+     */
+    this.debug = debug;
 
     /**
      *  If using cross-domain, the domain to post to
@@ -74,6 +83,7 @@ export class Bellhop extends BellhopEventDispatcher {
      * @private
      */
     this.receive = this.receive.bind(this);
+
   }
 
   /**
@@ -99,6 +109,10 @@ export class Bellhop extends BellhopEventDispatcher {
       return;
     }
 
+    if (this.debug) {
+      console.log(`Bellhop Instance ${this.id} Received:  ${message}`);
+    }
+
     // If this is not the initial connection message
     if (message.data !== 'connected') {
       let data = message.data;
@@ -111,6 +125,7 @@ export class Bellhop extends BellhopEventDispatcher {
         }
       }
       if (this.connected && 'object' === typeof data && data.type) {
+
         this.trigger(data);
       }
       return;
@@ -225,6 +240,10 @@ export class Bellhop extends BellhopEventDispatcher {
       data
     };
 
+    if (this.debug) {
+      console.log(`Bellhop Instance ${this.id} Sent:  ${message}`);
+    }
+
     if (this.connecting) {
       this._sendLater.push(message);
     } else {
@@ -233,8 +252,8 @@ export class Bellhop extends BellhopEventDispatcher {
   }
 
   /**
-   *  A convenience method for sending and the listening to create
-   *  a singular link to fetching data. This is the same calling send
+   *  A convenience method for sending and listening to create
+   *  a singular link for fetching data. This is the same as calling send
    *  and then getting a response right away with the same event.
    *  @method fetch
    *  @param {String} event The name of the event
@@ -262,26 +281,26 @@ export class Bellhop extends BellhopEventDispatcher {
   /**
    *  A convience method for listening to an event and then responding with some data
    *  right away. Automatically removes the listener
-   *  @method respond 
+   *  @method respond
    *  @param {String} event The name of the event
    *  @param {Object | function | Promise | string} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
-   *  
+   *
    */
   respond(event, data = {}, runOnce = false) {
     const bellhop = this; //'this' for use inside async function
-    /** 
-     * @ignore 
-     */ 
-    const internalCallback = async function(event){
+    /**
+     * @ignore
+     */
+    const internalCallback = async function (event) {
       if (runOnce) {
         bellhop.off(event, internalCallback);
       }
-      if(typeof data === 'function'){
-        data = data(); 
+      if (typeof data === 'function') {
+        data = data();
       }
-      const newData = await data; 
+      const newData = await data;
       bellhop.send(event.type, newData);
     };
     this.on(event, internalCallback);
