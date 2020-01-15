@@ -112,7 +112,7 @@ export class Bellhop extends BellhopEventDispatcher {
     if (this.debug && typeof this.debug === 'function') {
       this.debug({ isChild: this.isChild, received: true, message: message });
     } else if (this.debug) {
-      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Received:  ${message}`);
+      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Received`, message);
     }
 
     // If this is not the initial connection message
@@ -245,7 +245,7 @@ export class Bellhop extends BellhopEventDispatcher {
     if (this.debug && typeof this.debug === 'function') {
       this.debug({ isChild: this.isChild, received: false, message: message });
     } else if (this.debug) {
-      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Sent:  ${message}`);
+      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Sent`, message);
     }
 
     if (this.connecting) {
