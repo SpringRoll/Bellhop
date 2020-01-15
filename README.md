@@ -188,7 +188,7 @@ child or parent, whether the message was sent or received, and the contents of t
 const log = () => {console.log('Hello World!');}
 bellhop.debug = log; // Hello World!
 ```
-If you pass a function as the flag three parameters are passed to help fill out the log statements if required:
+If you pass a function to debug three parameters* are passed to help fill out the log statements if required:
 ```javascript
 const log = ({isChild, received, message}){
   console.log(isChild); // (boolean) whether the instance is a child or parent.
@@ -196,6 +196,7 @@ const log = ({isChild, received, message}){
   console.log(message); // (object) the content of the message.
 }
 ```
+*Note: the names must be identical, but you are able to omit any or all if they're not required.
 
 ### `target`
 Property for retrieving the iframe element through which this `Bellhop` instance is communicating:
