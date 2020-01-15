@@ -11,9 +11,9 @@ export class Bellhop extends BellhopEventDispatcher {
    * Creates an instance of Bellhop.
    * @memberof Bellhop
    * @param { string | number } id the id of the Bellhop instance
-   * @param { boolean } debug whether debug mode should be turned on for the bellhop instance
+   * @param { boolean | function } debug whether debug mode should be turned on for the bellhop instance
    */
-  constructor(id = (Math.random() * 100) | 0, debug = false) {
+  constructor(id = (Math.random() * 100) | 0) {
     super();
 
     /**
@@ -52,7 +52,7 @@ export class Bellhop extends BellhopEventDispatcher {
      *  @default false
      *  @private
      */
-    this.debug = debug;
+    this.debug = false;
 
     /**
      *  If using cross-domain, the domain to post to
@@ -109,7 +109,9 @@ export class Bellhop extends BellhopEventDispatcher {
       return;
     }
 
-    if (this.debug) {
+    if (this.debug && typeof this.debug === 'function') {
+      this.debug({ isChild: this.isChild, received: true, message: message });
+    } else if (this.debug) {
       console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Received:  ${message}`);
     }
 
@@ -240,7 +242,9 @@ export class Bellhop extends BellhopEventDispatcher {
       data
     };
 
-    if (this.debug) {
+    if (this.debug && typeof this.debug === 'function') {
+      this.debug({ isChild: this.isChild, received: false, message: message });
+    } else if (this.debug) {
       console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Sent:  ${message}`);
     }
 
