@@ -190,7 +190,7 @@ bellhop.debug = log; // Hello World!
 ```
 If you pass a function to debug three parameters* are passed to help fill out the log statements if required:
 ```javascript
-const log = ({isChild, received, message}){
+const log = ({isChild, received, message}) => {
   console.log(isChild); // (boolean) whether the instance is a child or parent.
   console.log(received); // (boolean) whether the instance has received a message or sent one.
   console.log(message); // (object) the content of the message.

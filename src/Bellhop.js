@@ -109,11 +109,7 @@ export class Bellhop extends BellhopEventDispatcher {
       return;
     }
 
-    if (this.debug && typeof this.debug === 'function') {
-      this.debug({ isChild: this.isChild, received: true, message: message });
-    } else if (this.debug) {
-      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Received`, message);
-    }
+    this.logDebugMessage(true, message);
 
     // If this is not the initial connection message
     if (message.data !== 'connected') {
@@ -242,11 +238,7 @@ export class Bellhop extends BellhopEventDispatcher {
       data
     };
 
-    if (this.debug && typeof this.debug === 'function') {
-      this.debug({ isChild: this.isChild, received: false, message: message });
-    } else if (this.debug) {
-      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) Sent`, message);
-    }
+    this.logDebugMessage(false, message);
 
     if (this.connecting) {
       this._sendLater.push(message);
@@ -308,6 +300,19 @@ export class Bellhop extends BellhopEventDispatcher {
       bellhop.send(event.type, newData);
     };
     this.on(event, internalCallback);
+  }
+
+  /**
+   * Send either the default log message or the callback provided if debug
+   * is enabled
+   * @method logDebugMessage
+   */
+  logDebugMessage(received = false, message) {
+    if (this.debug && typeof this.debug === 'function') {
+      this.debug({ isChild: this.isChild, received: false, message: message });
+    } else if (this.debug) {
+      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${received ? 'Receieved' : 'Sent'}`, message);
+    }
   }
 
   /**
