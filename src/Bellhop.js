@@ -11,7 +11,6 @@ export class Bellhop extends BellhopEventDispatcher {
    * Creates an instance of Bellhop.
    * @memberof Bellhop
    * @param { string | number } id the id of the Bellhop instance
-   * @param { boolean | function } debug whether debug mode should be turned on for the bellhop instance
    */
   constructor(id = (Math.random() * 100) | 0) {
     super();
