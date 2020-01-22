@@ -133,10 +133,10 @@ bellhop.fetch('config', function(result) {
 });
 ```
 
-Additionally, object passed to respond() can be a function, whose result will be returned in the callback of the fetch function. 
+Additionally, object passed to respond() can be a function, whose result will be returned in the callback of the fetch function.
 ```javascript
 // index.html
-var functionExample = function(){ 
+var functionExample = function(){
   return "result of functionExample";
 };
 bellhop.respond('function', functionExample);
@@ -162,13 +162,13 @@ let promiseData = new Promise(function(resolve, reject) {
 bellhop.respond('example', promiseData)
 
 //OR  (function example)
-var functionExample = function(){ 
+var functionExample = function(){
   return "data";
 };
 bellhop.respond('example', functionExample);
 
 //OR (function that returns a promise)
-var functionPromiseExample = function(){ 
+var functionPromiseExample = function(){
   return new Promise(function(resolve, reject) {
     resolve("data")
   });
@@ -176,6 +176,27 @@ var functionPromiseExample = function(){
 bellhop.respond('example', functionPromiseExample);
 ```
 
+### `Debug Mode`
+Bellhop has a debug mode which enables additional logging when an instance sends or receives
+a message. It can be enabled by simply setting the `debug` flag to `true`:
+```javascript
+bellhop.debug = true;
+```
+By default (above method) it will print a message outlining whether the bellhop instance was a
+child or parent, whether the message was sent or received, and the contents of the message. If you require additional or custom logging you can also pass a function as the flag.
+```javascript
+const log = () => {console.log('Hello World!');}
+bellhop.debug = log; // Hello World!
+```
+If you pass a function to debug three parameters* are passed to help fill out the log statements if required:
+```javascript
+const log = ({isChild, received, message}) => {
+  console.log(isChild); // (boolean) whether the instance is a child or parent.
+  console.log(received); // (boolean) whether the instance has received a message or sent one.
+  console.log(message); // (object) the content of the message.
+}
+```
+*Note: the names must be identical, but you are able to omit any or all if they're not required.
 
 ### `target`
 Property for retrieving the iframe element through which this `Bellhop` instance is communicating:
