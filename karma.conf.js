@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     frameworks: ['mocha', 'chai'],
     reporters: ['karmaHTML', 'progress'],
@@ -21,6 +21,7 @@ module.exports = function(config) {
     preprocessors: {
       'src/**/*.spec.js': ['webpack']
     },
+    webpack: {},
     webpackMiddleware: { stats: 'errors-only' },
     babelPreprocessor: {
       options: {

@@ -1,7 +1,7 @@
 import { BellhopEventDispatcher } from './BellhopEventDispatcher.js';
 
 /**
- *  Abstract the communication layer between the iframe
+ *  Abstract communication layer between the iframe
  *  and the parent DOM
  *  @class Bellhop
  *  @extends BellhopEventDispatcher
@@ -21,7 +21,7 @@ export class Bellhop extends BellhopEventDispatcher {
      */
     this.id = `BELLHOP:${id}`;
     /**
-     *  If we are connected to another instance of the bellhop
+     *  If we are connected to another instance of bellhop
      *  @property {Boolean} connected
      *  @readOnly
      *  @default false
@@ -38,12 +38,20 @@ export class Bellhop extends BellhopEventDispatcher {
     this.isChild = true;
 
     /**
-     *  If we are current trying to connec
+     *  If we are currently trying to connect
      *  @property {Boolean} connecting
      *  @default false
      *  @private
      */
     this.connecting = false;
+
+    /**
+     * If debug mode is turned on
+     *  @property {Boolean} debug
+     *  @default false
+     *  @private
+     */
+    this.debug = false;
 
     /**
      *  If using cross-domain, the domain to post to
@@ -74,6 +82,7 @@ export class Bellhop extends BellhopEventDispatcher {
      * @private
      */
     this.receive = this.receive.bind(this);
+
   }
 
   /**
@@ -99,6 +108,8 @@ export class Bellhop extends BellhopEventDispatcher {
       return;
     }
 
+    this.logDebugMessage(true, message);
+
     // If this is not the initial connection message
     if (message.data !== 'connected') {
       let data = message.data;
@@ -111,6 +122,7 @@ export class Bellhop extends BellhopEventDispatcher {
         }
       }
       if (this.connected && 'object' === typeof data && data.type) {
+
         this.trigger(data);
       }
       return;
@@ -225,6 +237,8 @@ export class Bellhop extends BellhopEventDispatcher {
       data
     };
 
+    this.logDebugMessage(false, message);
+
     if (this.connecting) {
       this._sendLater.push(message);
     } else {
@@ -233,8 +247,8 @@ export class Bellhop extends BellhopEventDispatcher {
   }
 
   /**
-   *  A convenience method for sending and the listening to create
-   *  a singular link to fetching data. This is the same calling send
+   *  A convenience method for sending and listening to create
+   *  a singular link for fetching data. This is the same as calling send
    *  and then getting a response right away with the same event.
    *  @method fetch
    *  @param {String} event The name of the event
@@ -264,18 +278,40 @@ export class Bellhop extends BellhopEventDispatcher {
    *  right away. Automatically removes the listener
    *  @method respond
    *  @param {String} event The name of the event
-   *  @param {Object | function} [data = {}] The object to pass back.
+   *  @param {Object | function | Promise | string} [data = {}] The object to pass back.
    *  	May also be a function; the return value will be sent as data in this case.
    *  @param {Boolean} [runOnce=false] If we only want to respond once and then remove the listener
+   *
    */
   respond(event, data = {}, runOnce = false) {
-    const internalCallback = e => {
+    const bellhop = this; //'this' for use inside async function
+    /**
+     * @ignore
+     */
+    const internalCallback = async function (event) {
       if (runOnce) {
-        this.off(e.type, internalCallback);
+        bellhop.off(event, internalCallback);
       }
-      this.send(event, 'function' === typeof data ? data() : data);
+      if (typeof data === 'function') {
+        data = data();
+      }
+      const newData = await data;
+      bellhop.send(event.type, newData);
     };
     this.on(event, internalCallback);
+  }
+
+  /**
+   * Send either the default log message or the callback provided if debug
+   * is enabled
+   * @method logDebugMessage
+   */
+  logDebugMessage(received = false, message) {
+    if (this.debug && typeof this.debug === 'function') {
+      this.debug({ isChild: this.isChild, received: false, message: message });
+    } else if (this.debug) {
+      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${received ? 'Receieved' : 'Sent'}`, message);
+    }
   }
 
   /**
