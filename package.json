@@ -1,6 +1,6 @@
 {
   "name": "bellhop-iframe",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "main": "dist/bellhop.js",
   "module": "dist/bellhop.js",
   "browser": "dist/bellhop.js",
@@ -25,13 +25,13 @@
     "karma-requirejs": "^1.1.0",
     "karma-webpack": "^4.0.2",
     "mocha": "^6.2.2",
+    "prettier": "^1.19.1",
     "requirejs": "^2.3.6",
     "rollup": "^1.27.5",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-prettier": "^0.6.0",
     "rollup-plugin-terser": "^5.1.2",
     "sinon": "^7.5.0",
     "uglify": "^0.1.5",
@@ -47,6 +47,7 @@
   "scripts": {
     "build": "rollup -c -m",
     "dev": "rollup -c -w",
+    "format": "prettier --write src/*.js",
     "test": "karma start karma.conf.js",
     "github-test": "karma start --single-run --browsers ChromeHeadless"
   },
