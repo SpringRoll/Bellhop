@@ -82,7 +82,6 @@ export class Bellhop extends BellhopEventDispatcher {
      * @private
      */
     this.receive = this.receive.bind(this);
-
   }
 
   /**
@@ -122,7 +121,6 @@ export class Bellhop extends BellhopEventDispatcher {
         }
       }
       if (this.connected && 'object' === typeof data && data.type) {
-
         this.trigger(data);
       }
       return;
@@ -288,7 +286,7 @@ export class Bellhop extends BellhopEventDispatcher {
     /**
      * @ignore
      */
-    const internalCallback = async function (event) {
+    const internalCallback = async function(event) {
       if (runOnce) {
         bellhop.off(event, internalCallback);
       }
@@ -310,7 +308,12 @@ export class Bellhop extends BellhopEventDispatcher {
     if (this.debug && typeof this.debug === 'function') {
       this.debug({ isChild: this.isChild, received: false, message: message });
     } else if (this.debug) {
-      console.log(`Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${received ? 'Receieved' : 'Sent'}`, message);
+      console.log(
+        `Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${
+          received ? 'Receieved' : 'Sent'
+        }`,
+        message
+      );
     }
   }
 
