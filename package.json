@@ -6,7 +6,7 @@
   "browser": "dist/bellhop.js",
   "typings": "Bellhop.d.ts",
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.7.4",
     "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.7.4",
@@ -34,7 +34,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2",
     "sinon": "^7.5.0",
-    "uglify": "^0.1.5",
     "webpack": "^4.41.2"
   },
   "repository": {
