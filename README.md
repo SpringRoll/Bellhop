@@ -35,7 +35,7 @@ to `window`
 
 ## Basic Usage ##
 
-Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to start get them talking to each other.
+Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to get them talking to each other.
 
 ### Contents of `index.html` ###
 
@@ -210,6 +210,6 @@ console.log(bellhop.target === iframe.contentWindow); // true
 
 ## License ##
 
-Copyright (c) 2018 [Springroll](https://github.com/SpringRoll)
+Copyright (c) 2021 [Springroll](https://github.com/SpringRoll)
 
 Released under the MIT License.
