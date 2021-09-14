@@ -35,7 +35,7 @@ to `window`
 
 ## Basic Usage ##
 
-Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to start get them talking to each other.
+Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to get them talking to each other.
 
 ### Contents of `index.html` ###
 
@@ -107,6 +107,14 @@ allows a containing page to connect with an interior iframe and emit message _in
 ### `destroy`
 `disconnect` removes any listener for events from another frame, and stops listening for messages altogether
 
+
+### `off`
+Removes an event listener previously added by the .on() method, or remove a given callback method from a listener. When deleting a callback, the function passed in is required to be the original function passed into the .on() method
+```javascript
+bellhop.off(‘init’); // removes the listener ‘init’ and all callbacks assigned to it
+
+bellhop.off(‘init’, callback) // removes the specific callback provided without removing the listener
+```
 ### `send`
 Sends a named message to another iframe:
 
@@ -175,7 +183,11 @@ var functionPromiseExample = function(){
 };
 bellhop.respond('example', functionPromiseExample);
 ```
-
+### `trigger`
+Triggers any event handlers for a given event type optionally passing data to other areas in the app that are listening for this event
+``` javascript
+bellhop.trigger('eventType', {data: 'example'}); // triggers the event 'eventType' passing data to it's handlers
+```
 ### `Debug Mode`
 Bellhop has a debug mode which enables additional logging when an instance sends or receives
 a message. It can be enabled by simply setting the `debug` flag to `true`:
@@ -210,6 +222,6 @@ console.log(bellhop.target === iframe.contentWindow); // true
 
 ## License ##
 
-Copyright (c) 2018 [Springroll](https://github.com/SpringRoll)
+Copyright (c) 2021 [Springroll](https://github.com/SpringRoll)
 
 Released under the MIT License.
