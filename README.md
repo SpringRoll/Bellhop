@@ -1,7 +1,5 @@
 # Bellhop [![Actions Status](https://github.com/SpringRoll/Bellhop/workflows/Node%20CI/badge.svg)](https://github.com/SpringRoll/Bellhop/actions) [![Dependency Status](https://david-dm.org/SpringRoll/Bellhop.svg?style=flat)](https://david-dm.org/SpringRoll/Bellhop)
 
-
-
 Bellhop is a simple event-based communication layer between the page DOM and an iframe. It doesn't require any additional dependencies. Super easy to use and setup.
 
 ## Installation
@@ -11,6 +9,7 @@ npm install bellhop-iframe
 ```
 
 ## Importing Bellhop
+
 The Bellhop module contains support for ES6 modules, CommonJS and browser global definitions. To import with ES6,
 
 ```javascript
@@ -22,22 +21,25 @@ To import with CommonJS, refer instead to the UMD build
 ```javascript
 const Bellhop = require('bellhop-iframe/dist/bellhop-umd.js');
 ```
+
 You can also import the UMD version by using import
+
 ```javascript
 import 'bellhop-iframe/dist/bellhop-umd.js';
 ```
 
 Lastly, the UMD module can also be directly included on an HTML page. This will declare Bellhop and attach it directly
 to `window`
+
 ```html
 <script src="node_modules/bellhop-iframe/dist/bellhop-umd.js"></script>
 ```
 
-## Basic Usage ##
+## Basic Usage
 
 Here's a very simple example to get started. We have two pages `index.html` and `child.html`.This is the minimum you need to get them talking to each other.
 
-### Contents of `index.html` ###
+### Contents of `index.html`
 
 ```html
 <iframe src="child.html" id="page" width="200" height="200"></iframe>
@@ -63,7 +65,7 @@ bellhop.send('user', {
 </script>
 ```
 
-### Contents of `child.html` ###
+### Contents of `child.html`
 
 ```html
 <script>
@@ -86,9 +88,11 @@ bellhop.on('user', function(event){
 ## Available Methods
 
 ### `new Bellhop`
+
 The constructor creates a new `Bellhop` instance, taking an optional unique identifier for this instance. If no id is provided, a random one is selected
 
 ### `connect`
+
 Connects a `Bellhop` instance to an iframe, or it's containing window. For instance, given a `Bellhop` instance `bellhop`:
 
 ```javascript
@@ -105,17 +109,21 @@ bellhop.connect(iframe);
 allows a containing page to connect with an interior iframe and emit message _into_ the iframe.
 
 ### `destroy`
+
 `disconnect` removes any listener for events from another frame, and stops listening for messages altogether
 
-
 ### `off`
+
 Removes an event listener previously added by the .on() method, or remove a given callback method from a listener. When deleting a callback, the function passed in is required to be the original function passed into the .on() method
+
 ```javascript
 bellhop.off(‘init’); // removes the listener ‘init’ and all callbacks assigned to it
 
 bellhop.off(‘init’, callback) // removes the specific callback provided without removing the listener
 ```
+
 ### `send`
+
 Sends a named message to another iframe:
 
 ```javascript
@@ -123,6 +131,7 @@ bellhop.send('newHighscore', { value: 100 });
 ```
 
 ### `fetch` and `respond`
+
 Convenience methods for automating response of values between the interior and exterior of frames. For instance:
 
 ```javascript
@@ -142,6 +151,7 @@ bellhop.fetch('config', function(result) {
 ```
 
 Additionally, object passed to respond() can be a function, whose result will be returned in the callback of the fetch function.
+
 ```javascript
 // index.html
 var functionExample = function(){
@@ -158,6 +168,7 @@ bellhop.fetch('function', function(result) {
 Furthermore, respond() accepts a plain object, string, or number. If a function is passed, it will be called and the function's return-value sent. If a promise is passed in or returned from a function that was passed in, that promise will be await-ed before it's value returned.
 
 For example, the following all return `"data"` to `bellhop.fetch()`
+
 ```javascript
 
 //(example)
@@ -183,24 +194,34 @@ var functionPromiseExample = function(){
 };
 bellhop.respond('example', functionPromiseExample);
 ```
+
 ### `trigger`
+
 Triggers any event handlers for a given event type optionally passing data to other areas in the app that are listening for this event
+
 ``` javascript
 bellhop.trigger('eventType', {data: 'example'}); // triggers the event 'eventType' passing data to it's handlers
 ```
+
 ### `Debug Mode`
+
 Bellhop has a debug mode which enables additional logging when an instance sends or receives
 a message. It can be enabled by simply setting the `debug` flag to `true`:
+
 ```javascript
 bellhop.debug = true;
 ```
+
 By default (above method) it will print a message outlining whether the bellhop instance was a
 child or parent, whether the message was sent or received, and the contents of the message. If you require additional or custom logging you can also pass a function as the flag.
+
 ```javascript
 const log = () => {console.log('Hello World!');}
 bellhop.debug = log; // Hello World!
 ```
+
 If you pass a function to debug three parameters* are passed to help fill out the log statements if required:
+
 ```javascript
 const log = ({isChild, received, message}) => {
   console.log(isChild); // (boolean) whether the instance is a child or parent.
@@ -208,9 +229,11 @@ const log = ({isChild, received, message}) => {
   console.log(message); // (object) the content of the message.
 }
 ```
+
 *Note: the names must be identical, but you are able to omit any or all if they're not required.
 
 ### `target`
+
 Property for retrieving the iframe element through which this `Bellhop` instance is communicating:
 
 ```javascript
@@ -220,7 +243,7 @@ var bellhop = new Bellhop(iframe);
 console.log(bellhop.target === iframe.contentWindow); // true
 ```
 
-## License ##
+## License
 
 Copyright (c) 2021 [Springroll](https://github.com/SpringRoll)
 
