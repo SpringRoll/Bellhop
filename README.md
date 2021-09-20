@@ -109,7 +109,7 @@ allows a containing page to connect with an interior iframe and emit message _in
 
 
 ### `off`
-Removes an event listener previously added by the .on() method, or remove a given callback method from a listener. When deleting a callback, the function passed in is required to be the original function passed into the .on() method
+Removes an event listener previously added by the `.on()` method, or removes a given callback method from a listener. When deleting a callback, the function passed in is required to be the original function passed into the `.on()` method.
 ```javascript
 bellhop.off(‘init’); // removes the listener ‘init’ and all callbacks assigned to it
 
