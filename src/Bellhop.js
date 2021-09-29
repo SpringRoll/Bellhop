@@ -129,6 +129,7 @@ export class Bellhop extends BellhopEventDispatcher {
     this.onConnectionReceived(message.data);
   }
   /**
+   * Handle the initial connected message
    * @memberof Bellhop
    * @param {object} message the message received from the other bellhop instance
    * @private
@@ -318,7 +319,7 @@ export class Bellhop extends BellhopEventDispatcher {
   }
 
   /**
-   *  Destroy and don't user after this
+   *  Destroy and don't use after this
    *  @method destroy
    */
   destroy() {
