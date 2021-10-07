@@ -21,7 +21,7 @@ export class BellhopEventDispatcher {
   /**
    *  Add an event listener to listen to an event from either the parent or iframe
    *  @method on
-   *  @param {String} name The name of the event to listen
+   *  @param {String} name The name of the event to listen for
    *  @param {PriorityFunction} callback The handler when an event is triggered
    *  @param {number} [priority=0] The priority of the event listener. Higher numbers are handled first.
    */
@@ -44,11 +44,11 @@ export class BellhopEventDispatcher {
   }
 
   /**
+   *  Sorts listeners added by .on() by priority
    * @private
    * @param {PriorityFunction} a
    * @param {PriorityFunction} b
    * @returns {number};
-   *  Sorts listeners added by .on() by priority
    */
   listenerSorter(a, b) {
     return a._priority - b._priority;
