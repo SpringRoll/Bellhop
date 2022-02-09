@@ -115,7 +115,9 @@ export class Bellhop extends BellhopEventDispatcher {
       // Check to see if the data was sent as a stringified json
       if ('string' === typeof data) {
         try {
+          if (data && !data.startsWith('webpack')) {
           data = JSON.parse(data);
+          }
         } catch (err) {
           console.error('Bellhop error: ', err);
         }
