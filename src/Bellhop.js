@@ -140,6 +140,10 @@ export class Bellhop extends BellhopEventDispatcher {
 
     // Be polite and respond to the child that we're ready
     if (!this.isChild) {
+      // Timing issue: this.iframe.contentWindow is null when parent closes child iframe before done with rendering
+      if (!this.target) {
+        return;
+      }
       this.target.postMessage(message, this.origin);
     }
 
