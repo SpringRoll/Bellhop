@@ -309,7 +309,7 @@ export class Bellhop extends BellhopEventDispatcher {
    */
   logDebugMessage(received = false, message) {
     if (this.debug && typeof this.debug === 'function') {
-      this.debug({ isChild: this.isChild, received: false, message: message });
+      this.debug({ isChild: this.isChild, received, message: message });
     } else if (this.debug) {
       console.log(
         `Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${
