@@ -117,7 +117,7 @@ export class Bellhop extends BellhopEventDispatcher {
         try {
           data = JSON.parse(data);
         } catch (err) {
-          console.error('Bellhop error: ', err);
+          console.warn('Bellhop error: ', err);
         }
       }
       if (this.connected && 'object' === typeof data && data.type) {
@@ -307,7 +307,7 @@ export class Bellhop extends BellhopEventDispatcher {
    */
   logDebugMessage(received = false, message) {
     if (this.debug && typeof this.debug === 'function') {
-      this.debug({ isChild: this.isChild, received: false, message: message });
+      this.debug({ isChild: this.isChild, received, message: message });
     } else if (this.debug) {
       console.log(
         `Bellhop Instance (${this.isChild ? 'Child' : 'Parent'}) ${
