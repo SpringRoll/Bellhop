@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.2] - 2021-03-09
+## Fixed
+- Add check to ensure target is not null before sending message in connectionRecieved method
+- fixed error in debug logging always setting `recieved` to `false`
+
+## Changed
+- Changed console.error to console.warn when trying to parse JSON in postMessages to better reflect the behaviour
+
 ## [3.2.1] - 2021-10-07
 ### Added
 - This CHANGELOG
