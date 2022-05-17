@@ -14,6 +14,19 @@
     bellhop.respond('sendLater', 1);
     bellhop.respond("highscore", 10000);
     bellhop.respond('function', () => 3.14)
+
+    let etherealVar = 'oneThing';
+
+    bellhop.respond('changeVar', () => {
+      let newVar = etherealVar;
+
+      // change the variable after the first response
+      const timeout = setTimeout(() => {
+        etherealVar = 'otherThing';
+      }, 100);
+      return newVar;
+    })
+
     bellhop.connect();
 
   </script>
