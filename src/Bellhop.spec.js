@@ -95,17 +95,6 @@ describe('Bellhop Client', () => {
     });
   });
 
-  it('should test this for me', () => {
-    bellhop.connect(iframe());
-    open();
-
-    bellhop.respond('test', 'data');
-
-    bellhop.fetch('test', $event => {
-      expect($event.type).to.equal('test');
-    });
-  });
-
   it('Should completely disconnect with destroy()', () => {
     bellhop.destroy();
     expect(bellhop.connected).to.be.false;
