@@ -7,6 +7,10 @@ let bellhop;
 const open = () => karmaHTML.child.open();
 const iframe = () => karmaHTML.child.iframe;
 
+const sleep = (millis) => {
+  return new Promise((resolve) => setTimeout(resolve, millis));
+};
+
 beforeEach(() => {
   karmaHTML.child.close();
   bellhop = new Bellhop();
@@ -72,6 +76,22 @@ describe('Bellhop Client', () => {
       expect($event.type).to.equal('function');
       expect($event.data).to.equal(3.14);
       done();
+    });
+  });
+
+  it('Should able to change the value returned by a function with respond()', async () => {
+    bellhop.connect(iframe());
+    open();
+    bellhop.fetch('changeVar', $event => {
+      expect($event.type).to.equal('changeVar');
+      expect($event.data).to.equal('oneThing');
+    }, null, true); // set to runOnce to avoid doubling up on fetch calls
+
+    await sleep(150);
+
+    bellhop.fetch('changeVar', $event => {
+      expect($event.type).to.equal('changeVar');
+      expect($event.data).to.equal('otherThing');
     });
   });
 
