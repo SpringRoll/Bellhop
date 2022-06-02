@@ -295,11 +295,13 @@ export class Bellhop extends BellhopEventDispatcher {
       if (runOnce) {
         bellhop.off(event, internalCallback);
       }
+
       if (typeof data === 'function') {
-        data = data();
+        bellhop.send(event.type, await data());
+      } else {
+        bellhop.send(event.type, data);
       }
-      const newData = await data;
-      bellhop.send(event.type, newData);
+
     };
     this.on(event, internalCallback);
   }
