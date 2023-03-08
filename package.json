@@ -1,6 +1,6 @@
 {
   "name": "bellhop-iframe",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "main": "dist/bellhop.js",
   "module": "dist/bellhop.js",
   "browser": "dist/bellhop.js",
@@ -23,7 +23,7 @@
     "karma-html": "^1.0.5",
     "karma-mocha": "^2.0.1",
     "karma-requirejs": "^1.1.0",
-    "karma-webpack": "^4.0.2",
+    "karma-webpack": "^5.0.0",
     "mocha": "^8.2.1",
     "prettier": "^1.19.1",
     "requirejs": "^2.3.6",
@@ -34,7 +34,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "sinon": "^7.5.0",
-    "webpack": "^4.41.2"
+    "webpack": "^5.75.0"
   },
   "repository": {
     "type": "git",
