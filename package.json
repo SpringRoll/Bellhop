@@ -34,7 +34,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "sinon": "^7.5.0",
-    "webpack": "^5.75.0"
+    "webpack": "^5.76.0"
   },
   "repository": {
     "type": "git",
