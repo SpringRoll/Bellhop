@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2023-04-19
+
+### Changed
+
+- Added .nvmrc file and set target node version to 18.15.0
+- Updated Rollup to 3.20.2
+- Updated the following Rollup dependencies:
+  - @babel/cli to 7.21.0
+  - @babel/plugin-transform-runtime to 7.21.4
+  - @rollup/plugin-babel to 6.0.3
+  - @rollup/plugin-commonjs to 24.0.1
+  - @rollup/plugin-node-resolve to 15.0.2
+  - @rollup/plugin-terser to 0.4.0
+  - @rollup/plugin-eslint to 9.0.3
+- Dependabot updates:
+  - minimatch from 3.0.4 to 3.1.2
+  - mocha from 8.4.0 to 10.2.0
+  - nanoid from 3.1.20 to 3.3.3
+  - webpack from 5.75.0 to 5.76.0
+
 ## [3.3.1] - 2023-03-07
 
 ### Changed
