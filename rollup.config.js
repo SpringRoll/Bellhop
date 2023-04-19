@@ -1,17 +1,17 @@
-import  resolve  from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { eslint }from 'rollup-plugin-eslint';
-import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
+import  { nodeResolve }  from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import  eslint from '@rollup/plugin-eslint';
+import  terser  from '@rollup/plugin-terser';
+import babel from '@rollup/plugin-babel';
 
 const plugins = [
   eslint(),
-  resolve({
+  nodeResolve({
     mainFields: ['module', 'jsnext:main', 'main', 'browser'],
     preferBuiltins: false
   }),
   commonjs(),
-  babel({ runtimeHelpers: true }),
+  babel({ babelHelpers: 'runtime', skipPreflightCheck: true }),
   terser()
 ];
 
@@ -34,9 +34,10 @@ export default [
         format: 'umd',
         name: 'window',
         extend: true,
-        sourceMap: true
+        sourcemap: true
       }
     ],
-    plugins: plugins
+    plugins: plugins,
+    external: ['@babel/runtime']
   }
 ];
