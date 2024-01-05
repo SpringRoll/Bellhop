@@ -25,7 +25,8 @@ const Bellhop = require('bellhop-iframe/dist/bellhop-umd.js');
 You can also import the UMD version by using import
 
 ```javascript
-import 'bellhop-iframe/dist/bellhop-umd.js';
+import { Bellhop } from 'bellhop-iframe/dist/bellhop-umd.js'
+//import 'bellhop-iframe/dist/bellhop-umd.js';
 ```
 
 Lastly, the UMD module can also be directly included on an HTML page. This will declare Bellhop and attach it directly
