@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated node version to 20.18.0 [ticket](https://pbskids.atlassian.net/browse/SR-6)
+- Dependabot updates:
+  - body-parser from 1.20.2 to 1.20.3
+  - braces from 3.0.2 to 3.0.3
+  - cookie from 0.4.2 to 0.7.2
+  - engine.io from 6.5.4 to 6.5.5
+  - follow-redirects from 1.15.4 to 1.15.6
+  - requirejs from 2.3.6 to 2.3.7
+  - rollup from 3.29.4 to 3.29.5
+  - socket.io from 4.7.3 to 4.8.0
+  - socket.io-adapter from 2.5.2 to 2.5.5
+  - webpack from 5.89.0 to 5.94.0
+  - ws from 8.11.0 to 8.17.1
 
 ## [3.5.0] - 2024-01-16
 
