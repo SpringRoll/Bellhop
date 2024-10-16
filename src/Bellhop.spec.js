@@ -7,8 +7,8 @@ let bellhop;
 const open = () => karmaHTML.child.open();
 const iframe = () => karmaHTML.child.iframe;
 
-const sleep = (millis) => {
-  return new Promise((resolve) => setTimeout(resolve, millis));
+const sleep = millis => {
+  return new Promise(resolve => setTimeout(resolve, millis));
 };
 
 beforeEach(() => {
@@ -82,10 +82,15 @@ describe('Bellhop Client', () => {
   it('Should able to change the value returned by a function with respond()', async () => {
     bellhop.connect(iframe());
     open();
-    bellhop.fetch('changeVar', $event => {
-      expect($event.type).to.equal('changeVar');
-      expect($event.data).to.equal('oneThing');
-    }, null, true); // set to runOnce to avoid doubling up on fetch calls
+    bellhop.fetch(
+      'changeVar',
+      $event => {
+        expect($event.type).to.equal('changeVar');
+        expect($event.data).to.equal('oneThing');
+      },
+      null,
+      true
+    ); // set to runOnce to avoid doubling up on fetch calls
 
     await sleep(150);
 
