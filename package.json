@@ -30,7 +30,7 @@
     "karma-webpack": "^5.0.0",
     "mocha": "^10.2.0",
     "prettier": "^1.19.1",
-    "requirejs": "^2.3.6",
+    "requirejs": "^2.3.7",
     "rollup": "^3.20.2",
     "@rollup/plugin-eslint": "^9.0.3",
     "sinon": "^7.5.0",
