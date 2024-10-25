@@ -5,7 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.5.0] - Unreleased
+## [3.6.0] - 2024-10-25
+
+### Changed
+
+- Updated node version to 20.18.0 [ticket](https://pbskids.atlassian.net/browse/SR-6)
+- Dependabot updates ([ticket](https://pbskids.atlassian.net/browse/SR-7)):
+  - body-parser from 1.20.2 to 1.20.3
+  - braces from 3.0.2 to 3.0.3
+  - cookie from 0.4.2 to 0.7.2
+  - engine.io from 6.5.4 to 6.5.5
+  - follow-redirects from 1.15.4 to 1.15.6
+  - requirejs from 2.3.6 to 2.3.7
+  - rollup from 3.29.4 to 3.29.5
+  - socket.io from 4.7.3 to 4.8.0
+  - socket.io-adapter from 2.5.2 to 2.5.5
+  - webpack from 5.89.0 to 5.94.0
+  - ws from 8.11.0 to 8.17.1
+- Updated LICENSE file copyright information [ticket](https://pbskids.atlassian.net/browse/SR-19)
+
+## [3.5.0] - 2024-01-16
+
+### Changed
 
 - Updated package-lock to include more recent versions of dependencies flagged by dependabot [ticket](https://www.pivotaltracker.com/story/show/186244911)
 - Update to Readme based on Github Issue [link](https://github.com/SpringRoll/Bellhop/issues/91)
