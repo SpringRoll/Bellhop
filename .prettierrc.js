@@ -5,7 +5,7 @@ module.exports = {
   tabWidth: 2,
   useTabs: false,
   proseWrap: 'preserve',
-  parser: 'babel',
+  parser: 'typescript',
   printWidth: 80,
   arrowParens: 'avoid'
 };
