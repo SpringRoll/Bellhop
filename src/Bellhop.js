@@ -301,7 +301,6 @@ export class Bellhop extends BellhopEventDispatcher {
       } else {
         bellhop.send(event.type, data);
       }
-
     };
     this.on(event, internalCallback);
   }
