@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated Bellhop project to Typescript [ticket](https://pbskids.atlassian.net/browse/SR-38)
+- Converted Bellhop project to Typescript [ticket](https://pbskids.atlassian.net/browse/SR-38)
 
 ## [3.6.0] - 2024-10-25
 
