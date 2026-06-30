@@ -48,7 +48,9 @@ export class BellhopEventDispatcher {
     }
 
     const index = this._listeners[name].indexOf(callback as PriorityFunction);
-    -1 < index ? this._listeners[name].splice(index, 1) : undefined;
+    if (-1 < index) {
+      this._listeners[name].splice(index, 1);
+    }
   }
 
   trigger(event: BellhopEvent | string, data: unknown = {}): void {

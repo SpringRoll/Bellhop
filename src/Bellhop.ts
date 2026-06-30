@@ -155,17 +155,15 @@ export class Bellhop extends BellhopEventDispatcher {
   }
 
   respond(event: string, data: RespondData = {}, runOnce = false): void {
-    const bellhop = this;
-
     const internalCallback = async (e: BellhopEvent): Promise<void> => {
       if (runOnce) {
-        bellhop.off(e.type, internalCallback);
+        this.off(e.type, internalCallback);
       }
 
       if (typeof data === 'function') {
-        bellhop.send(e.type, await data());
+        this.send(e.type, await data());
       } else {
-        bellhop.send(e.type, data);
+        this.send(e.type, data);
       }
     };
     this.on(event, internalCallback);
