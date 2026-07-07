@@ -9,27 +9,33 @@ module.exports = function (config) {
       }
     },
     files: [
-      { pattern: 'src/**/*.spec.js', watched: false },
+      { pattern: 'src/**/*.spec.ts', watched: false },
       { pattern: 'test/*.html', served: true },
       {
-        pattern: 'src/**/!(*.spec).js',
+        pattern: 'dist/bellhop.js',
         watched: true,
         served: true,
         included: false
       }
     ],
     preprocessors: {
-      'src/**/*.spec.js': ['webpack']
+      'src/**/*.spec.ts': ['webpack']
     },
-    webpack: {},
-    webpackMiddleware: { stats: 'errors-only' },
-    babelPreprocessor: {
-      options: {
-        presets: ['env'],
-        sourceMap: 'inline'
+    webpack: {
+      mode: 'development',
+      resolve: { extensions: ['.ts', '.js'] },
+      module: {
+        rules: [
+          {
+            test: /\.ts$/,
+            use: { loader: 'ts-loader', options: { configFile: 'tsconfig.test.json' } },
+            exclude: /node_modules/
+          }
+        ]
       }
     },
-    port: 9876, // karma web server port
+    webpackMiddleware: { stats: 'errors-only' },
+    port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     browsers: ['ChromeHeadless'],
@@ -37,7 +43,7 @@ module.exports = function (config) {
     concurrency: Infinity,
     proxies: {
       '/html/': '/base/test/',
-      '/js/': '/base/src/'
+      '/js/': '/base/dist/'
     }
   });
 };
