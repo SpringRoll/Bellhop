@@ -1,6 +1,6 @@
 {
   "name": "bellhop-iframe",
-  "version": "3.6.0",
+  "version": "4.0.0",
   "main": "dist/bellhop.js",
   "module": "dist/bellhop.js",
   "browser": "dist/bellhop.js",
