@@ -2,12 +2,17 @@ import { Bellhop } from './Bellhop';
 import { BellhopEventDispatcher } from './BellhopEventDispatcher';
 import { spy } from 'sinon';
 
-let bellhop;
+declare const expect: Chai.ExpectStatic;
+declare const karmaHTML: {
+  child: { open(): void; close(): void; iframe: HTMLIFrameElement };
+};
+
+let bellhop: Bellhop;
 
 const open = () => karmaHTML.child.open();
 const iframe = () => karmaHTML.child.iframe;
 
-const sleep = millis => {
+const sleep = (millis: number) => {
   return new Promise(resolve => setTimeout(resolve, millis));
 };
 
@@ -44,7 +49,7 @@ describe('Bellhop Client', () => {
     bellhop.trigger('highscore');
 
     bellhop.on('data', $event => {
-      expect($event.data.foo).to.equal('bar');
+      expect(($event.data as { foo: string }).foo).to.equal('bar');
       done();
     });
     bellhop.trigger('data', { foo: 'bar' });
@@ -52,11 +57,11 @@ describe('Bellhop Client', () => {
 
   it('Should be able to remove events', () => {
     const funcToRemove = () => 0;
-    expect(bellhop._listeners.toRemove).to.be.undefined;
+    expect((bellhop as unknown as { _listeners: Record<string, unknown> })._listeners.toRemove).to.be.undefined;
     bellhop.on('toRemove', funcToRemove);
-    expect(bellhop._listeners.toRemove).to.not.be.undefined;
+    expect((bellhop as unknown as { _listeners: Record<string, unknown> })._listeners.toRemove).to.not.be.undefined;
     bellhop.off('toRemove', funcToRemove);
-    expect(bellhop._listeners.toRemove.length).to.equal(0);
+    expect((bellhop as unknown as { _listeners: Record<string, unknown[]> })._listeners.toRemove.length).to.equal(0);
   });
 
   it('Fetch should return a response from the child', done => {
@@ -90,7 +95,7 @@ describe('Bellhop Client', () => {
       },
       null,
       true
-    ); // set to runOnce to avoid doubling up on fetch calls
+    );
 
     await sleep(150);
 
@@ -107,7 +112,7 @@ describe('Bellhop Client', () => {
     expect(bellhop.origin).to.be.null;
     expect(bellhop.iframe).to.be.null;
     expect(bellhop._sendLater.length).to.equal(0);
-    expect(Object.keys(bellhop._listeners).length).to.equal(0);
+    expect(Object.keys((bellhop as unknown as { _listeners: Record<string, unknown> })._listeners).length).to.equal(0);
   });
 
   it('It should send later if "connecting" status is true', done => {
