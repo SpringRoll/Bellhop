@@ -6,7 +6,7 @@
   "browser": "dist/bellhop.js",
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-eslint": "^9.0.3",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.0",
