@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Dependabot updates ([ticket](https://pbskids.atlassian.net/browse/SR-245)):
+  - brace-expansion from 1.1.16 to 1.1.21
+  - @typescript-eslint/eslint-plugin from 8.63.0 to 8.71.2
+  - @typescript-eslint/parser from 8.63.0 to 8.71.2
+  - webpack from 5.108.4 to 5.111.1
+  - @rollup/plugin-commonjs from 24.1.0 to 29.0.3
+  - sinon from 7.5.0 to 22.1.0
+  - @types/sinon from 21.0.1 to 22.0.0
+
 ## [4.0.0] - 2026-07-10
 
 ### Changed
