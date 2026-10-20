@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - @rollup/plugin-commonjs from 24.1.0 to 29.0.3
   - sinon from 7.5.0 to 22.1.0
   - @types/sinon from 21.0.1 to 22.0.0
+  - baseline-browser-mapping from 2.10.42 to 2.11.29
+  - js-yaml from 4.3.0 to 4.3.2
+  - browserslist from 4.28.5 to 4.29.3
 
 ## [4.0.0] - 2026-07-10
 
