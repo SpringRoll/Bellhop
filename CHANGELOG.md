@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Dependabot config grouping minor/patch devDependency updates, with security updates left ungrouped [ticket](https://pbskids.atlassian.net/browse/SR-245)
 
+### Changed
+
+- Updated node version to the latest 26 [ticket](https://pbskids.atlassian.net/browse/SR-244)
+
 ## [4.0.0] - 2026-07-10
 
 ### Changed
