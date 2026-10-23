@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated node version to 26.11.1 [ticket](https://pbskids.atlassian.net/browse/SR-242)
+- Updated node version to the latest 26 [ticket](https://pbskids.atlassian.net/browse/SR-244)
 
 ## [4.0.0] - 2026-07-10
 
