@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - baseline-browser-mapping from 2.10.42 to 2.11.29
   - js-yaml from 4.3.0 to 4.3.2
   - browserslist from 4.28.5 to 4.29.3
+- Updated node version to the latest 26 [ticket](https://pbskids.atlassian.net/browse/SR-244)
 
 ## [4.0.0] - 2026-07-10
 
