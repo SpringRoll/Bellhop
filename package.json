@@ -29,7 +29,7 @@
     "mocha": "^12.0.3",
     "prettier": "^1.19.1",
     "requirejs": "^2.3.6",
-    "rollup": "^3.29.5",
+    "rollup": "^4.66.0",
     "sinon": "^22.1.0",
     "ts-loader": "^9.6.2",
     "tslib": "^2.8.1",
